@@ -19,9 +19,9 @@ return [
     // 应用地址
     'app_host'               => '',
     // 应用调试模式
-    'app_debug'              => false,
+    'app_debug'              => Env::get('app.app_debug', false),
     // 应用Trace
-    'app_trace'              => false,
+    'app_trace'              => Env::get('app.app_trace', false),
     // 是否支持多模块
     'app_multi_module'       => true,
     // 入口自动绑定模块
@@ -89,7 +89,7 @@ return [
     // IP代理获取标识
     'http_agent_ip'          => 'X-REAL-IP',
     // URL伪静态后缀
-    'url_html_suffix'        => 'html',
+    'url_html_suffix'        => '',
     // URL普通方式参数 用于自动生成
     'url_common_param'       => false,
     // URL参数方式 0 按名称成对解析 1 按顺序解析
@@ -97,7 +97,7 @@ return [
     // 是否开启路由延迟解析
     'url_lazy_route'         => false,
     // 是否强制使用路由
-    'url_route_must'         => false,
+    'url_route_must'         => true,
     // 合并路由规则
     'route_rule_merge'       => false,
     // 路由是否完全匹配
