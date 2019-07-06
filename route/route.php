@@ -9,12 +9,14 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+// 静态页面相关路由
 Route::get('', 'index/home')->name('home');
 Route::get('home', 'index/home')->name('home');
 Route::get('help', 'index/help')->name('help');
 Route::get('about', 'index/about')->name('about');
 
-Route::get('hello/:name', 'index/hello');
+// 用户资源相关路由
+Route::get('signup', 'user/create')->name('signup');
 
 return [
 

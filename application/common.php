@@ -34,10 +34,13 @@ if (!function_exists('mix')) {
         $publicPath = Env::get('root_path') . 'public';
         $manifestPath = $publicPath . $manifestDirectory . '/mix-manifest.json';
         if (!isset($manifests[$manifestPath])) {
-            $manifests[$manifestPath] = json_decode(file_get_contents($manifestPath), true);
+            $manifests[$manifestPath] = json_decode(@file_get_contents($manifestPath), true);
         }
 
         $manifest = $manifests[$manifestPath];
+        if (!$manifest[$path]) {
+            $manifest[$path] = $path;
+        }
         return Url::build($manifestDirectory . $manifest[$path], '', false);
     }
 }

@@ -11109,6 +11109,10 @@ nav.navbar.navbar-expand-lg {
   margin-bottom: 20px;
 }
 
+.jumbotron {
+  text-align: center;
+}
+
 /* footer */
 
 footer {
