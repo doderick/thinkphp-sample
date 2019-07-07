@@ -2,10 +2,11 @@
 
 namespace app\index\controller;
 
-use think\Controller;
 use think\Request;
+use think\Controller;
+use app\index\model\User;
 
-class User extends Controller
+class UsersController extends Controller
 {
     /**
      * 显示资源列表
@@ -46,7 +47,8 @@ class User extends Controller
      */
     public function read($id)
     {
-        //
+        $user = User::get($id);
+        return view('users/show', compact('user'));
     }
 
     /**
