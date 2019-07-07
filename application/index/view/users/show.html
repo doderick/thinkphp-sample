@@ -1,7 +1,18 @@
-{extend name="../resources/layouts/layout.html" /}
+{extend name="../resources/views/layouts/layout.html" /}
 {block name="title"}
-    欢迎新用户
+    {$user->name}
 {/block}
 {block name="content"}
-    {php}print_r($user);{/php}
+    <div class="row">
+        <div class="offset-md-2 col-md-8">
+            <div class="col-md-12">
+                <div class="offset-md-2 col-md-8">
+                    <section class="user_info">
+                        {include file="../resources/views/shared/_user_info.html"}
+                    </section>
+
+                </div>
+            </div>
+        </div>
+    </div>
 {/block}

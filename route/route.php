@@ -16,8 +16,8 @@ Route::get('help', 'StaticPagesController/help')->name('help');
 Route::get('about', 'StaticPagesController/about')->name('about');
 
 // 用户资源相关路由
-Route::get('signup', 'user/create')->name('signup');
-Route::resource('user', 'index/UsersController');
+Route::get('signup', 'UsersController/create')->name('signup');
+Route::get('user/:id', 'UsersController/read')->name('users.read');
 
 return [
 

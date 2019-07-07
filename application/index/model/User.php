@@ -11,4 +11,10 @@ class User extends Model
 
     // 设置主键
     protected $pk = 'id';
+
+    public function gravatar($size = '100')
+    {
+        $hash = md5(strtolower(trim($this->getAttr('email'))));
+        return "https://s.gravatar.com/avatar/{$hash}?s={$size}";
+    }
 }

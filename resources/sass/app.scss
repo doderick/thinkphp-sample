@@ -1,9 +1,39 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+/* universal */
+
 body {
     font-size: 14px;
     font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    line-height: 1;
+}
+
+h1 {
+    font-size: 3em;
+    letter-spacing: -2px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.2em;
+    letter-spacing: -1px;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #777;
+}
+
+p {
+    font-size: 1.1em;
+    line-height: 1.7em;
+}
+
+section {
+    overflow: auto;
 }
 
 nav.navbar.navbar-expand-lg {
@@ -39,4 +69,39 @@ footer {
       width: 17px;
       height: 17px;
     }
+}
+
+/* User gravatar */
+
+section.user_info {
+    padding-bottom: 10px;
+    margin-top: 20px;
+    text-align: center;
+    .gravatar {
+      float: none;
+      max-width: 70px;
+    }
+    h1 {
+      font-size: 1.4em;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 15px;
+    }
+    h2 {
+        margin-top: 10px;
+        margin-bottom: 3px;
+        a {
+            color: #444;
+            font-size: 0.9em;
+            &:hover {
+                color: #222;
+            }
+        }
+    }
+}
+
+.gravatar {
+    float: left;
+    max-width: 50px;
+    border-radius: 50%;
 }
