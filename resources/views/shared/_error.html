@@ -1,0 +1,9 @@
+{if condition="isset($error)"}
+  <div class="alert alert-danger">
+      <ul>
+          {foreach($error as $error_v}
+          <li>{$error_v}</li>
+          {/foreach}
+      </ul>
+  </div>
+{/if}
