@@ -5,6 +5,7 @@ namespace app\index\controller;
 use think\Request;
 use think\Validate;
 use think\Controller;
+use think\Session;
 use app\index\model\User;
 
 class UsersController extends Controller
@@ -45,7 +46,6 @@ class UsersController extends Controller
         ])->message([
             'name.require'     => '名称 不能为空',
             'name.max'         => '名称 不能超过50字符',
-            'name.token'       => '名称 令牌不能为空',
             'email.require'    => '邮箱 不能为空',
             'email.email'      => '邮箱 格式不正确',
             'email.unique'     => '邮箱 已被注册',
@@ -54,11 +54,15 @@ class UsersController extends Controller
             'password.confirm' => '两次密码不一致',
             'password.min'     => '密码 长度不能低于6位',
         ]);
-        $result = $validate->check($request->param());
+        // echo '<pre>';
+        // print_r(Session::get());
+        $result = $validate->batch()->check($request->param());
         if (!$result) {
-            echo $validate->getError();
+            $errors = $validate->getError();
+            // print_r($errors);
+            return view('users/create', ['errors'=>$errors]);
+            //return redirect('users/create', ['errors'=>$validate->getError()]);
         }
-        return;
     }
 
     /**
