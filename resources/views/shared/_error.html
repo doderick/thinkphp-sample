@@ -1,6 +1,7 @@
-{if condition="isset($errors)"}
+{if condition="Session::get('errors') != null"}
   <div class="alert alert-danger">
       <ul>
+          {php}$errors = Session::get('errors');{/php}
           {foreach($errors as $error}
           <li>{$error}</li>
           {/foreach}

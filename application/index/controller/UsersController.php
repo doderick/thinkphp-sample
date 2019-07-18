@@ -54,14 +54,11 @@ class UsersController extends Controller
             'password.confirm' => '两次密码不一致',
             'password.min'     => '密码 长度不能低于6位',
         ]);
-        // echo '<pre>';
-        // print_r(Session::get());
         $result = $validate->batch()->check($request->param());
         if (!$result) {
             $errors = $validate->getError();
-            // print_r($errors);
-            return view('users/create', ['errors'=>$errors]);
-            //return redirect('users/create', ['errors'=>$validate->getError()]);
+            $forms = $request->param();
+            $this->redirect($_SERVER["HTTP_REFERER"], [], 200, ['errors'=>$errors, 'forms'=>$forms]);
         }
     }
 
