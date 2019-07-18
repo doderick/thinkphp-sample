@@ -5,7 +5,6 @@ namespace app\index\controller;
 use think\Request;
 use think\Validate;
 use think\Controller;
-use think\Session;
 use app\index\model\User;
 
 class UsersController extends Controller
@@ -60,6 +59,17 @@ class UsersController extends Controller
             $forms = $request->param();
             $this->redirect($_SERVER["HTTP_REFERER"], [], 200, ['errors'=>$errors, 'forms'=>$forms]);
         }
+
+        // 验证通过
+        $user = new User;
+        $user->save([
+            'name'     => $request->param('name'),
+            'email'    => $request->param('email'),
+            'password' => password_hash($request->param('password'), PASSWORD_BCRYPT),
+        ]);
+
+        // 跳转至用户主页
+        $this->redirect('/', ['user'=>$user->id], 200, ['success'=>'欢迎，您将在这里开启一段新的旅程~']);
     }
 
     /**

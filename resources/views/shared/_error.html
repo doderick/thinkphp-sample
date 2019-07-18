@@ -1,4 +1,4 @@
-{if condition="Session::get('errors') != null"}
+{if condition="Session::has('errors')"}
   <div class="alert alert-danger">
       <ul>
           {php}$errors = Session::get('errors');{/php}

@@ -1,0 +1,9 @@
+{foreach (['danger', 'warning', 'success', 'info'] as $msg)}
+  {if condition="Session::has($msg)"}
+    <div class="flash-message">
+      <p class="alert alert-{$msg}">
+        {:Session($msg)}
+      </p>
+    </div>
+  {/if}
+{/foreach}
