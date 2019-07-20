@@ -2,12 +2,35 @@
     <div class="container">
         <a class="navbar-brand" href="{:url('home')}">Sample</a>
         <ul class="navbar-nav justify-content-end">
-            <li class="nav-item">
-                <a class="nav-link" href="{:url('help')}">帮助</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">登录</a>
-            </li>
+            {if Session::has('user_name')}
+                <li class="nav-item">
+                    <a class="nav-link" href="#">用户列表</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {:Session('user_name')}
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a href="{:url('users.read', ['id'=>Session::get('user_id')])}" class="dropdown-item">个人中心</a>
+                        <a href="#" class="dropdown-item">编辑资料</a>
+                        <div class="dropdown-divider"></div>
+                        <a href="#" class="dropdown-item" id="logout">
+                            <form action="{:url('logout')}" method="post">
+                                {:token()}
+                                <input type="hidden" name="_method" value="DELETE" >
+                                <button class="btn btn-block btn-danger" type="submit" name="button">退出</button>
+                            </form>
+                        </a>
+                    </div>
+                </li>
+            {else /}
+                <li class="nav-item">
+                    <a class="nav-link" href="{:url('help')}">帮助</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{:url('login')}">登录</a>
+                </li>
+            {/if}
         </ul>
     </div>
 </nav>

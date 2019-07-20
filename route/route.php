@@ -20,6 +20,11 @@ Route::get('signup', 'UsersController/create')->name('signup');
 Route::get('user/:id', 'UsersController/read')->name('users.read');
 Route::post('user', 'UsersController/save')->name('users.save');
 
+// 会话相关路由
+Route::get('login', 'SessionsController/create')->name('login');
+Route::post('login', 'SessionsController/save')->name('login');
+Route::delete('logout', 'SessionsController/delete')->name('logout');
+
 return [
 
 ];

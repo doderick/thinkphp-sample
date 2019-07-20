@@ -2,12 +2,13 @@
 
 namespace app\index\controller;
 
+use think\Controller;
 use think\Request;
 use think\Validate;
-use think\Controller;
 use app\index\model\User;
+use think\facade\Session;
 
-class UsersController extends Controller
+class SessionsController extends Controller
 {
     /**
      * 显示资源列表
@@ -26,7 +27,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users/create');
+        return view('sessions/create');
     }
 
     /**
@@ -38,38 +39,42 @@ class UsersController extends Controller
     public function save(Request $request)
     {
         // 验证表单数据
-        $validate = Validate::make([
-            'name'     => 'require|max:50|token',
-            'email'    => 'require|email|unique:user|max:255',
-            'password' => 'require|confirm|min:6'
-        ])->message([
-            'name.require'     => '名称 不能为空',
-            'name.max'         => '名称 不能超过50字符',
+        $rule = [
+            'email'    => 'require|email|max:255|token',
+            'password' => 'require'
+        ];
+        $msg  = [
             'email.require'    => '邮箱 不能为空',
             'email.email'      => '邮箱 格式不正确',
-            'email.unique'     => '邮箱 已被注册',
             'email.max'        => '邮箱 长度过长',
             'password.require' => '密码 不能为空',
-            'password.confirm' => '两次密码不一致',
-            'password.min'     => '密码 长度不能低于6位',
-        ]);
-        $result = $validate->batch()->check($request->param());
+        ];
+        $data = [
+            'email'    => $request->param('email'),
+            'password' => $request->param('password'),
+            '__token__' => $request->param('__token__')
+        ];
+        $valiadte = Validate::make($rule, $msg);
+        $result = $valiadte->batch()->check($data);
         if (!$result) {
-            $errors = $validate->getError();
-            $forms  = $request->param();
-            $this->redirect($_SERVER["HTTP_REFERER"], [], 200, ['errors'=>$errors, 'forms'=>$forms]);
+            $errors = $valiadte->getError();
+            $this->redirect($_SERVER["HTTP_REFERER"], [], 200, ['errors'=>$errors, 'forms'=>$data]);
         }
 
-        // 验证通过
-        $user = new User;
-        $user->save([
-            'name'     => $request->param('name'),
-            'email'    => $request->param('email'),
-            'password' => password_hash($request->param('password'), PASSWORD_BCRYPT),
-        ]);
-
-        // 跳转至用户主页
-        $this->redirect('users.read', ['id'=>$user->id], 200, ['success'=>'欢迎，您将在这里开启一段新的旅程~']);
+        // 验证通过，登录逻辑
+        $user = User::where('email', $data['email'])->find();
+        if (!$user) {
+            $errors = ['该邮箱尚未在本站注册～'];
+            return redirect($_SERVER["HTTP_REFERER"])->with(['errors'=>$errors, 'forms'=>$data]);
+        } elseif (!password_verify($data['password'], $user->password)) {
+            $message = '很抱歉，您的邮箱和密码不匹配';
+            return redirect($_SERVER["HTTP_REFERER"])->with(['danger'=>$message, 'forms'=>$data]);
+        } else {
+            $message = $user->name.'，欢迎回来！';
+            Session::set('user_name', $user->name);
+            Session::set('user_id', $user->id);
+            return redirect('users.read')->params(['id'=>$user->id])->with(['success'=>$message]);
+        }
     }
 
     /**
@@ -80,8 +85,7 @@ class UsersController extends Controller
      */
     public function read($id)
     {
-        $user = User::get($id);
-        return view('users/show', compact('user'));
+        //
     }
 
     /**

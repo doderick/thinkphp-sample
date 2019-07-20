@@ -12,9 +12,12 @@
 <body>
     {include file="../resources/views/layouts/_header.html"}
     <div class="container">
-        {include file="../resources/views/shared/_messages.html"}
-        {block name="content"}{/block}
-        {include file="../resources/views/layouts/_footer.html"}
+        <div class="offset-md-1 col-md-10">
+            {include file="../resources/views/shared/_messages.html"}
+            {block name="content"}{/block}
+            {include file="../resources/views/layouts/_footer.html"}
+        </div>
+        <script src="{:mix('js/app.js')}"></script>
     </div>
 </body>
 </html>
