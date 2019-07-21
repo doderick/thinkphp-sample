@@ -6,6 +6,7 @@ use think\Request;
 use think\Validate;
 use think\Controller;
 use app\index\model\User;
+use think\facade\Session;
 
 class UsersController extends Controller
 {
@@ -67,6 +68,11 @@ class UsersController extends Controller
             'email'    => $request->param('email'),
             'password' => password_hash($request->param('password'), PASSWORD_BCRYPT),
         ]);
+
+        // 注册后直接登录
+        Session::clear();
+        Session::set('user_name', $user->name);
+        Session::set('user_id', $user->id);
 
         // 跳转至用户主页
         $this->redirect('users.read', ['id'=>$user->id], 200, ['success'=>'欢迎，您将在这里开启一段新的旅程~']);

@@ -114,11 +114,12 @@ class SessionsController extends Controller
     /**
      * 删除指定资源
      *
-     * @param  int  $id
      * @return \think\Response
      */
-    public function delete($id)
+    public function delete()
     {
-        //
+        Session::clear();
+        $message = '您已成功退出！';
+        return redirect('login')->with(['success'=>$message]);
     }
 }
