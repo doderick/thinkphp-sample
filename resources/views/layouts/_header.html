@@ -2,13 +2,13 @@
     <div class="container">
         <a class="navbar-brand" href="{:url('home')}">Sample</a>
         <ul class="navbar-nav justify-content-end">
-            {if Session::has('user_name')}
+            {if Session::has('user.name')}
                 <li class="nav-item">
                     <a class="nav-link" href="#">用户列表</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        {:Session('user_name')}
+                        {:Session('user.name')}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a href="{:url('users.read', ['id'=>Session::get('user_id')])}" class="dropdown-item">个人中心</a>

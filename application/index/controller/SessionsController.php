@@ -2,10 +2,10 @@
 
 namespace app\index\controller;
 
-use think\Controller;
 use think\Request;
 use think\Validate;
-use app\index\model\User;
+use think\Controller;
+use app\doderick\facade\Auth;
 use think\facade\Session;
 
 class SessionsController extends Controller
@@ -50,8 +50,9 @@ class SessionsController extends Controller
             'password.require' => '密码 不能为空',
         ];
         $data = [
-            'email'    => $request->param('email'),
-            'password' => $request->param('password'),
+            'email'     => $request->param('email'),
+            'password'  => $request->param('password'),
+            'remember'  => $request->param('remember'),
             '__token__' => $request->param('__token__')
         ];
         $valiadte = Validate::make($rule, $msg);
@@ -62,19 +63,14 @@ class SessionsController extends Controller
         }
 
         // 验证通过，登录逻辑
-        $user = User::where('email', $data['email'])->find();
-        if (!$user) {
-            $errors = ['该邮箱尚未在本站注册～'];
-            return redirect($_SERVER["HTTP_REFERER"])->with(['errors'=>$errors, 'forms'=>$data]);
-        } elseif (!password_verify($data['password'], $user->password)) {
+        if (Auth::attempt($data)) {
+            $message = Auth::user()->name.'，欢迎回来！';
+            return redirect('users.read')->params(['id'=>Auth::user()->id])->with(['success'=>$message]);
+        } else {
             $message = '很抱歉，您的邮箱和密码不匹配';
             return redirect($_SERVER["HTTP_REFERER"])->with(['danger'=>$message, 'forms'=>$data]);
-        } else {
-            $message = $user->name.'，欢迎回来！';
-            Session::set('user_name', $user->name);
-            Session::set('user_id', $user->id);
-            return redirect('users.read')->params(['id'=>$user->id])->with(['success'=>$message]);
         }
+        exit;
     }
 
     /**
