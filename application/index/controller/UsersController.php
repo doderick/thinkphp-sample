@@ -6,7 +6,7 @@ use think\Request;
 use think\Validate;
 use think\Controller;
 use app\index\model\User;
-use think\facade\Session;
+use app\doderick\facade\Auth;
 
 class UsersController extends Controller
 {
@@ -70,9 +70,7 @@ class UsersController extends Controller
         ]);
 
         // 注册后直接登录
-        Session::clear();
-        Session::set('user_name', $user->name);
-        Session::set('user_id', $user->id);
+        Auth::login($user);
 
         // 跳转至用户主页
         $this->redirect('users.read', ['id'=>$user->id], 200, ['success'=>'欢迎，您将在这里开启一段新的旅程~']);

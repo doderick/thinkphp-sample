@@ -9,6 +9,14 @@ use app\doderick\facade\Str;
 
 class Auth
 {
+    protected $user;
+
+    /**
+     * 调用logout方法的标识
+     *
+     * @var boolean
+     */
+    protected $loggedOut = false;
     /**
      * 登录操作
      *
@@ -33,7 +41,10 @@ class Auth
             // 调用cookie的forver方法,写入rememberToken
             Cookie::forever('remember_token', $remember_token);
         }
-        return 'login';
+
+        $this->user = $user;
+        $this->loggedOut = false;
+        //return 'login';
     }
 
     /**
@@ -43,7 +54,14 @@ class Auth
      */
     public function logout()
     {
-        return 'logout';
+        //$user = $this->user();
+        Session::delete('user');
+        if (Cookie::get('remember_token')) {
+            Cookie::delete('remember_token');
+        }
+        $this->user = null;
+        $this->loggedOut = true;
+
     }
 
     /**
@@ -51,10 +69,9 @@ class Auth
      *
      * @return boolean
      */
-    public function isLogin()
+    public function isLoggedIn()
     {
-        return 'isLogin';
-
+        return !is_null($this->user());
     }
 
     /**
@@ -81,7 +98,26 @@ class Auth
      */
     public function user()
     {
-        return Session::get('user');
+        // 判断有没有调用过logout方法,即用户是否执行了登出操作
+        if ($this->loggedOut) return;
+        // 尝试获取用户信息,并返回
+        if (!is_null($this->user)) return $this->user;
+        // 尝试从session中取出用户信息并返回
+        $userFromSession = Session::get('user');
+        if (!is_null($userFromSession)) {
+            $this->user = $userFromSession;
+        }
+        // 尝试从cookie中取出用户信息
+        else {
+            $userFromCookie = Cookie::get('remember_token');
+            if (!is_null($userFromCookie)) {
+                $user = User::where('rememberToken', $userFromCookie)->find();
+                Session::set('user', $user);
+                $this->user = $user;
+            }
+        }
+
+        return $this->user;
     }
 
 }

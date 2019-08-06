@@ -6,7 +6,6 @@ use think\Request;
 use think\Validate;
 use think\Controller;
 use app\doderick\facade\Auth;
-use think\facade\Session;
 
 class SessionsController extends Controller
 {
@@ -114,7 +113,7 @@ class SessionsController extends Controller
      */
     public function delete()
     {
-        Session::clear();
+        Auth::logout();
         $message = '您已成功退出！';
         return redirect('login')->with(['success'=>$message]);
     }

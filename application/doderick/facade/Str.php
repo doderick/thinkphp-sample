@@ -1,6 +1,6 @@
 <?php
 
-// 封装facade类(auth)
+// 封装facade类(Str)
 
 namespace app\doderick\facade;
 
@@ -9,7 +9,7 @@ use think\Facade;
 /**
  * @see \app\doderick\Str
  *
- * @method bool login() 登录
+ * @method string random($length = 16) 生成随机字串
  */
 class Str extends Facade
 {
