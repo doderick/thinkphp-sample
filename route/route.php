@@ -17,8 +17,12 @@ Route::get('about', 'StaticPagesController/about')->name('about');
 
 // 用户资源相关路由
 Route::get('signup', 'UsersController/create')->name('signup');
+Route::get('user/:id/edit', 'UsersController/edit')->name('users.edit');
 Route::get('user/:id', 'UsersController/read')->name('users.read');
+
 Route::post('user', 'UsersController/save')->name('users.save');
+Route::patch('user/:id', 'UsersController/update')->name('users.update');
+
 
 // 会话相关路由
 Route::get('login', 'SessionsController/create')->name('login');

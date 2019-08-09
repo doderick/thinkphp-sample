@@ -6,6 +6,7 @@ use think\Request;
 use think\Validate;
 use think\Controller;
 use app\index\model\User;
+use think\facade\Session;
 use app\doderick\facade\Auth;
 
 class UsersController extends Controller
@@ -96,7 +97,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::get($id);
+        return view('users/edit', compact('user'));
     }
 
     /**
@@ -108,7 +110,52 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // 验证表单数据
+        $validate = Validate::make([
+            'name'     => 'require|max:50|token',
+            'password' => 'confirm|min:6'
+        ])->message([
+            'name.require'     => '名称 不能为空',
+            'name.max'         => '名称 不能超过50字符',
+            'password.confirm' => '两次密码不一致',
+            'password.min'     => '密码 长度不能低于6位',
+        ]);
+        $result= $validate->batch()->check($request->param());
+        if (!$result) {
+            $errors = $validate->getError();
+            $forms  = $request->param();
+            $this->redirect($_SERVER["HTTP_REFERER"], [], 200, ['errors'=>$errors, 'forms'=>$forms]);
+        }
+        // 更新数据
+        $data = [];
+        $data['name'] = $request->param('name');
+        if ($request->param('password')) {
+            $data['password'] = password_hash($request->param('password'), PASSWORD_BCRYPT);
+        }
+        // 静态方法更新
+        // User::update($data, ['id'=>$id]);
+
+        // 显式更新,更新后直接刷新
+        $user = User::get($id);
+        $user->isUpdate(true)->save($data);
+
+        // 输出修改成功,并重定向至主页
+        // 如果用户修改了密码,要求用户重新登录
+        if (!empty($data['password'])) {
+            Auth::logout();
+            $info = 'success';
+            $msg  = '您的密码已修改成功，请重新登录！';
+        } elseif (!empty($data['name'])) {
+            // 刷新session中的用户名
+            Session::set('user.name', $user->name);
+            $info = 'success';
+            $msg  = '您的用户名已修改成功！';
+        } else {
+            $info = 'info';
+            $msg  = '您的资料未经修改！';
+        }
+
+        return redirect($_SERVER['HTTP_REFERER'])->with([$info=>$msg]);
     }
 
     /**
