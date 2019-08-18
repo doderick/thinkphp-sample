@@ -15,4 +15,6 @@
 return [
     // 默认中间件命名空间
     'default_namespace' => 'app\\http\\middleware\\',
+    'Auth'              => 'app\http\middleware\Authenticate::class',
+    'Guest'             => 'app\http\middleware\RedirectIfAuthenticated::class',
 ];

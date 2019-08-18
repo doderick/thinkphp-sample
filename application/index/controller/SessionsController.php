@@ -9,6 +9,7 @@ use app\doderick\facade\Auth;
 
 class SessionsController extends Controller
 {
+
     /**
      * 显示资源列表
      *
@@ -67,7 +68,7 @@ class SessionsController extends Controller
             return redirect('users.read')->params(['id'=>Auth::user()->id])->with(['success'=>$message]);
         } else {
             $message = '很抱歉，您的邮箱和密码不匹配';
-            return redirect($_SERVER["HTTP_REFERER"])->with(['danger'=>$message, 'forms'=>$data]);
+            return redirect()->with(['danger'=>$message, 'forms'=>$data])->restore();
         }
         exit;
     }

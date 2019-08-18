@@ -11,6 +11,12 @@ use app\doderick\facade\Auth;
 
 class UsersController extends Controller
 {
+
+    // 使用中间件过滤请求
+    protected $middleware = [
+        'Auth'  => ['except' => ['create', 'save', 'read']],
+        'Guest' => ['only'   => ['create']]
+    ];
     /**
      * 显示资源列表
      *
@@ -59,7 +65,7 @@ class UsersController extends Controller
         if (!$result) {
             $errors = $validate->getError();
             $forms  = $request->param();
-            $this->redirect($_SERVER["HTTP_REFERER"], [], 200, ['errors'=>$errors, 'forms'=>$forms]);
+            return redirect()->with(['errors'=>$errors, 'forms'=>$forms])->restore();
         }
 
         // 验证通过
@@ -74,7 +80,7 @@ class UsersController extends Controller
         Auth::login($user);
 
         // 跳转至用户主页
-        $this->redirect('users.read', ['id'=>$user->id], 200, ['success'=>'欢迎，您将在这里开启一段新的旅程~']);
+        return redirect('users.read')->params(['id'=>$user->id])->with(['success'=>'欢迎，您将在这里开启一段新的旅程~']);
     }
 
     /**
@@ -124,7 +130,7 @@ class UsersController extends Controller
         if (!$result) {
             $errors = $validate->getError();
             $forms  = $request->param();
-            $this->redirect($_SERVER["HTTP_REFERER"], [], 200, ['errors'=>$errors, 'forms'=>$forms]);
+            return redirect()->with(['errors'=>$errors, 'forms'=>$forms])->restore();
         }
         // 更新数据
         $data = [];
@@ -155,7 +161,7 @@ class UsersController extends Controller
             $msg  = '您的资料未经修改！';
         }
 
-        return redirect($_SERVER['HTTP_REFERER'])->with([$info=>$msg]);
+        return redirect()->with([$info=>$msg])->restore();
     }
 
     /**
