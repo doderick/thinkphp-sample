@@ -2,6 +2,7 @@
 
 namespace app\http\middleware;
 
+use think\facade\Session;
 use app\doderick\facade\Auth;
 
 class Authenticate
@@ -11,6 +12,8 @@ class Authenticate
         if (!Auth::isLoggedIn()) {
 
             $msg = '请先登录后才能继续浏览';
+
+            Session::set('url.intended', $request->path());
 
             return redirect('login')->with(['info'=>$msg]);
         }

@@ -103,6 +103,9 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        if (Auth::user()->id != $id) {
+            $this->error('抱歉,您没有权限');
+        }
         $user = User::get($id);
         return view('users/edit', compact('user'));
     }
@@ -116,6 +119,9 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (Auth::user()->id != $id) {
+            $this->error('抱歉,您没有权限');
+        }
         // 验证表单数据
         $validate = Validate::make([
             'name'     => 'require|max:50|token',

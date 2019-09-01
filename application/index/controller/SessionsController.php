@@ -5,10 +5,15 @@ namespace app\index\controller;
 use think\Request;
 use think\Validate;
 use think\Controller;
+use think\facade\Session;
 use app\doderick\facade\Auth;
 
 class SessionsController extends Controller
 {
+    // 使用中间件过滤请求
+    protected $middleware = [
+        'Guest' => ['only'   => ['create']]
+    ];
 
     /**
      * 显示资源列表
@@ -60,11 +65,15 @@ class SessionsController extends Controller
         if (!$result) {
             $errors = $valiadte->getError();
             $this->redirect($_SERVER["HTTP_REFERER"], [], 200, ['errors'=>$errors, 'forms'=>$data]);
+            $this->redirect($_SERVER["HTTP_REFERER"], [], 200, ['errors'=>$errors, 'forms'=>$data]);
         }
 
         // 验证通过，登录逻辑
         if (Auth::attempt($data)) {
             $message = Auth::user()->name.'，欢迎回来！';
+            if ($url = Session::pull('url.intended')) {
+                return redirect($url)->params(['id'=>Auth::user()->id])->with(['success'=>$message]);
+            }
             return redirect('users.read')->params(['id'=>Auth::user()->id])->with(['success'=>$message]);
         } else {
             $message = '很抱歉，您的邮箱和密码不匹配';
