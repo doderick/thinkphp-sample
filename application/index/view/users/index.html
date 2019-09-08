@@ -1,0 +1,19 @@
+{extend name="../resources/views/layouts/layout.html" /}
+{block name="title"}
+    用户列表
+{/block}
+{block name="content"}
+    <div class="offset-md-2 col-md-8">
+        <h2 class="mb-4 text-center">
+            用户列表
+        </h2>
+        <div class="list-group list-group-flush">
+            {volist name='users' id='user'}
+                {include file="../application/index/view/users/_user.html"}
+            {/volist}
+        </div>
+        <div class="mt-3">
+            {$users|raw}
+        </div>
+    </div>
+{/block}

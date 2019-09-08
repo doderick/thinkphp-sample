@@ -19,7 +19,7 @@ Route::get('about', 'StaticPagesController/about')->name('about');
 Route::get('signup', 'UsersController/create')->name('signup');
 Route::get('user/:id/edit', 'UsersController/edit')->name('users.edit');
 Route::get('user/:id', 'UsersController/read')->name('users.read');
-
+Route::get('users', 'UsersController/index')->name('users.index');
 Route::post('user', 'UsersController/save')->name('users.save');
 Route::patch('user/:id', 'UsersController/update')->name('users.update');
 
