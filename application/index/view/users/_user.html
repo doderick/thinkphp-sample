@@ -3,4 +3,14 @@
     <a href="{:url('users.read', ['id'=>$user->id])}">
         {$user->name}
     </a>
+    {if condition="app\doderick\facade\Auth::authorize('delete', $user)"}
+        <form action="{:url('users.delete', ['id'=>$user->id])}" method="POST" class="float-right">
+            <input type="hidden" name="_method" value="DELETE">
+            {:token()}
+            <button type="submit" class="btn btn-sm btn-danger delete-btn"  onclick="return function(){
+                return confirm('确定删除这个用户吗？')}()">
+                删除
+            </button>
+        </form>
+    {/if}
 </div>

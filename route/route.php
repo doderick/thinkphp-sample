@@ -22,6 +22,7 @@ Route::get('user/:id', 'UsersController/read')->name('users.read');
 Route::get('users', 'UsersController/index')->name('users.index');
 Route::post('user', 'UsersController/save')->name('users.save');
 Route::patch('user/:id', 'UsersController/update')->name('users.update');
+Route::delete('user/:id', 'UsersController/delete')->name('users.delete');
 
 
 // 会话相关路由

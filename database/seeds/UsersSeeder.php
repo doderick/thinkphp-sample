@@ -2,6 +2,7 @@
 
 use Faker\Factory;
 use app\doderick\Str;
+use app\index\model\User;
 use think\migration\Seeder;
 
 class UsersSeeder extends Seeder
@@ -40,5 +41,11 @@ class UsersSeeder extends Seeder
         }
 
         $this->table('users')->insert($data)->save();
+
+        $user = User::get(1);
+        $user->name     = 'doderick';
+        $user->email    = 'doderick@outlook.com';
+        $user->is_admin = true;
+        $user->save();
     }
 }

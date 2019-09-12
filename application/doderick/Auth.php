@@ -6,6 +6,7 @@ use think\facade\Cookie;
 use app\index\model\User;
 use think\facade\Session;
 use app\doderick\facade\Str;
+use app\doderick\policies\UserPolicy;
 
 class Auth
 {
@@ -118,6 +119,19 @@ class Auth
         }
 
         return $this->user;
+    }
+
+    /**
+     * 授权验证
+     *
+     * @param array $method 需要进行验证的方法
+     * @param array $args   验证参数
+     * @return bool
+     */
+    public function authorize($method, $args = []) : bool
+    {
+        $policy = new UserPolicy();
+        return $policy->$method($this->user, $args);
     }
 
 }

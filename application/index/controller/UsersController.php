@@ -104,10 +104,20 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        if (Auth::user()->id != $id) {
-            $this->error('抱歉,您没有权限');
-        }
+        // 验证操作对象是否存在
         $user = User::get($id);
+        if ($user == null) {
+            $info = 'warning';
+            $msg  = '用户不存在或已被删除!';
+            return redirect()->with([$info=>$msg])->restore();
+        }
+        // 验证操作权限
+        $canEdit = Auth::authorize('update', $user);
+        if (!$canEdit) {
+            $info = 'danger';
+            $msg  = '抱歉,您没有权限!';
+            return redirect()->with([$info=>$msg])->restore();
+        }
         return view('users/edit', compact('user'));
     }
 
@@ -120,8 +130,19 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (Auth::user()->id != $id) {
-            $this->error('抱歉,您没有权限');
+        // 验证操作对象是否存在
+        $user = User::get($id);
+        if ($user == null) {
+            $info = 'warning';
+            $msg  = '用户不存在或已被删除!';
+            return redirect()->with(['$info=>$msg'])->restore();
+        }
+        // 验证操作权限
+        $canUpdate = Auth::authorize('update', $user);
+        if (!$canUpdate) {
+            $info = 'danger';
+            $msg  = '抱歉,您没有权限!';
+            return redirect()->with([$info=>$msg])->restore();
         }
         // 验证表单数据
         $validate = Validate::make([
@@ -149,7 +170,6 @@ class UsersController extends Controller
         // User::update($data, ['id'=>$id]);
 
         // 显式更新,更新后直接刷新
-        $user = User::get($id);
         $user->isUpdate(true)->save($data);
 
         // 输出修改成功,并重定向至主页
@@ -179,6 +199,30 @@ class UsersController extends Controller
      */
     public function delete($id)
     {
-        //
+        // 确定资源是否存在
+        $user = User::find($id);
+        if ($user == null) {
+            $info = 'warning';
+            $msg  = '用户不存在或已被删除!';
+            return redirect()->with([$info=>$msg])->restore();
+        }
+        // 二次验证删除权限
+        $canDelete = Auth::authorize('delete', $user);
+        // 没有权限
+        if (!$canDelete) {
+            // 如果是管理员自己,直接返回
+            if (Auth::user()->is_admin) {
+                return redirect()->restore();
+            }
+            // 非管理员携带信息返回
+            $info = 'danger';
+            $msg  = '抱歉,您没有权限!';
+            return redirect()->with([$info=>$msg])->restore();
+        }
+        // 执行删除
+        User::destroy($id);
+        $info = 'success';
+        $msg  = '删除用户操作执行成功！';
+        return redirect()->with([$info=>$msg])->restore();
     }
 }
