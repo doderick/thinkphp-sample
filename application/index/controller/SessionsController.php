@@ -70,11 +70,18 @@ class SessionsController extends Controller
 
         // 验证通过，登录逻辑
         if (Auth::attempt($data)) {
-            $message = Auth::user()->name.'，欢迎回来！';
-            if ($url = Session::pull('url.intended')) {
-                return redirect($url)->params(['id'=>Auth::user()->id])->with(['success'=>$message]);
+            if (Auth::user()->is_activated) {
+                $message = Auth::user()->name.'，欢迎回来！';
+                // 跳转链接,等同于redirecr()->restore()
+                if ($url = Session::pull('url.intended')) {
+                    return redirect($url)->params(['id'=>Auth::user()->id])->with(['success'=>$message]);
+                }
+                return redirect('users.read')->params(['id'=>Auth::user()->id])->with(['success'=>$message]);
+            } else{
+                Auth::logout();
+                $message = '你的账号未激活，请检查邮箱中的注册邮件进行激活';
+                return redirect(url('home'))->with(['warning'=>$message]);
             }
-            return redirect('users.read')->params(['id'=>Auth::user()->id])->with(['success'=>$message]);
         } else {
             $message = '很抱歉，您的邮箱和密码不匹配';
             return redirect()->with(['danger'=>$message, 'forms'=>$data])->restore();

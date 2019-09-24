@@ -31,21 +31,25 @@ class UsersSeeder extends Seeder
             $created_at = (array)$created_at;
 
             $data[] = [
-                'name'           => $faker->name,
-                'email'          => $faker->unique()->safeEmail,
-                'password'       => $password,
+                'name'          => $faker->name,
+                'email'         => $faker->unique()->safeEmail,
+                'password'      => $password,
                 'rememberToken' => Str::random(10),
-                'create_time'    => $created_at['date'],
-                'update_time'    => $updated_at['date'],
+                'create_time'   => $created_at['date'],
+                'update_time'   => $updated_at['date'],
+                'is_activated'  => true,
+                'is_admin'      => 0,
+
             ];
         }
 
         $this->table('users')->insert($data)->save();
 
         $user = User::get(1);
-        $user->name     = 'doderick';
-        $user->email    = 'doderick@outlook.com';
-        $user->is_admin = true;
+        $user->name         = 'doderick';
+        $user->email        = 'doderick@outlook.com';
+        $user->is_admin     = true;
+        $user->is_activated = true;
         $user->save();
     }
 }

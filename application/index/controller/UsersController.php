@@ -4,17 +4,19 @@ namespace app\index\controller;
 
 use think\Request;
 use think\Validate;
+use app\doderick\Str;
 use think\Controller;
 use app\index\model\User;
 use think\facade\Session;
 use app\doderick\facade\Auth;
+use app\doderick\facade\Mail;
 
 class UsersController extends Controller
 {
 
     // 使用中间件过滤请求
     protected $middleware = [
-        'Auth'  => ['except' => ['create', 'save', 'read']],
+        'Auth'  => ['except' => ['create', 'save', 'read', 'activate']],
         'Guest' => ['only'   => ['create']]
     ];
     /**
@@ -70,18 +72,21 @@ class UsersController extends Controller
         }
 
         // 验证通过
-        $user = new User;
-        $user->save([
-            'name'     => $request->param('name'),
-            'email'    => $request->param('email'),
-            'password' => password_hash($request->param('password'), PASSWORD_BCRYPT),
+        $user = User::create([
+            'name'             => $request->param('name'),
+            'email'            => $request->param('email'),
+            'password'         => password_hash($request->param('password'), PASSWORD_BCRYPT),
+            'activation_token' => Str::random(),
         ]);
 
-        // 注册后直接登录
-        Auth::login($user);
+        // 注册后发送激活邮件
+        $this->sendActivateEmailTo($user);
 
         // 跳转至用户主页
-        return redirect('users.read')->params(['id'=>$user->id])->with(['success'=>'欢迎，您将在这里开启一段新的旅程~']);
+        // return redirect('users.read')->params(['id'=>$user->id])->with(['success'=>'欢迎，您将在这里开启一段新的旅程~']);
+
+        // 跳转至首页
+        return redirect('home')->with(['info'=>'激活邮件已发送到您的邮箱上，请注意查收～']);
     }
 
     /**
@@ -224,5 +229,45 @@ class UsersController extends Controller
         $info = 'success';
         $msg  = '删除用户操作执行成功！';
         return redirect()->with([$info=>$msg])->restore();
+    }
+
+    /**
+     * 激活账户的方法
+     *
+     * @param integer $id 用户的id
+     * @param string $token 激活token
+     * @return void
+     */
+    public function activate($id, $token)
+    {
+        // 根据id寻找用户
+        $user = User::where(['id' => $id, 'is_activated' => false])->findOrEmpty();
+
+        // 比对token
+        if ($user->activation_token === $token) {
+            $user->is_activated     = true;
+            $user->activation_token = null;
+            $user->save();
+        }
+
+        // 验证完成后自动登录
+        Auth::login($user);
+        // 跳转至用户主页
+        return redirect('users.read')->params(['id'=>$user->id])->with(['success'=>'恭喜，您的账户已成功激活！']);
+    }
+
+    /**
+     * 发送激活邮件的方法
+     *
+     * @param $user 新注册的用户
+     * @return void
+     */
+    public function sendActivateEmailTo($user)
+    {
+        $view = 'emails/activate';
+        $data = compact('user');
+        $to = $user->email;
+        $subject = "感谢您注册Sample！请确认您的邮箱地址。";
+        Mail::send($view, $data, $to, $subject);
     }
 }
