@@ -241,7 +241,7 @@ class UsersController extends Controller
     public function activate($id, $token)
     {
         // 根据id寻找用户
-        $user = User::where(['id' => $id, 'is_activated' => false])->findOrEmpty();
+        $user = User::where(['id' => $id, 'is_activated' => false])->findOrFail();
 
         // 比对token
         if ($user->activation_token === $token) {
@@ -264,7 +264,7 @@ class UsersController extends Controller
      */
     public function sendActivateEmailTo($user)
     {
-        $view = 'emails/activate';
+        $view = 'emails/users/activate';
         $data = compact('user');
         $to = $user->email;
         $subject = "感谢您注册Sample！请确认您的邮箱地址。";

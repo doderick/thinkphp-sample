@@ -1,0 +1,50 @@
+{extend name="../resources/views/layouts/layout.html" /}
+{block name="title"}
+    设置新密码
+{/block}
+{block name="content"}
+    <div class="offset-md-1 col-md-10">
+        <div class="card">
+            <div class="card-header">
+                <h5>设置新密码</h5>
+            </div>
+            <div class="card-body">
+                <form action="{:url('password.update')}" method="POST">
+
+                    {:token()}
+
+                    <div class="form-group row">
+                        <label for="email" class="col-md-4 col-form-label text-md-right">邮箱</label>
+                        <div class="col-md-6">
+                            <input id="email" type="email" class="form-control" name="email" value="{$email ?? session('forms.email')}" required readonly>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password" class="col-md-4 col-form-label text-md-right">密码</label>
+                        <div class="col-md-6">
+                            <input type="password" name="password" id="password" class="form-control{:session('?errors') ? ' is-invalid' : ''}" value="{:session::get('forms.password')}" required>
+                            {if condition="session('?errors')"}
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>
+                                        {:session('errors')}
+                                    </strong>
+                                </span>
+                            {/if}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="password_confirm" class="col-md-4 col-form-label text-md-right">确认密码</label>
+                        <div class="col-md-6">
+                            <input type="password" id="password_confirm" name="password_confirm" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group row mb-0">
+                        <div class="col-md-6 offset-md-4">
+                            <button type="submit" class="btn btn-primary">重置密码</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}

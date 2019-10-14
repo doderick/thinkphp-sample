@@ -32,6 +32,12 @@ Route::delete('logout', 'SessionsController/delete')->name('logout');
 // 邮件激活相关路由
 Route::get('signup/:id/activate/:token', 'UsersController/activate')->name('activate_email');
 
+// 密码重置相关路由
+Route::get('password/reset$', 'PasswordController/showLinkRequestForm')->name('password.request');
+Route::post('password/email', 'PasswordController/sendResetLinkEmail')->name('password.email');
+Route::get('password/reset/:token', 'PasswordController/showResetForm')->name('password.reset');
+Route::post('password/reset', 'PasswordController/reset')->name('password.update');
+
 return [
 
 ];

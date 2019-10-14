@@ -1,0 +1,42 @@
+{extend name="../resources/views/layouts/layout.html" /}
+{block name="title"}
+    重置密码
+{/block}
+{block name="content"}
+    <div class="offset-md-2 col-md-8">
+        <div class="card">
+            <div class="card-header">
+                <h5>重置密码</h5>
+            </div>
+            <div class="card-body">
+                {if condition="session('?status')"}
+                    <div class="alert alert-success">
+                        {:session('status')}
+                    </div>
+                {/if}
+
+                <form action="{:url('password.email')}" method="POST">
+
+                    {:token()}
+
+                    <div class="form-group{:session('?error') ? ' has-error' : ''}">
+                        <label for="email">邮箱地址：</label>
+                        <input type="text" id="email" name="email" class="form-control" value="{:session('forms.email')}" required>
+                        {if condition="session('?errors')"}
+                            <span class="form-text">
+                                <strong>
+                                    {:session('errors')}
+                                </strong>
+                            </span>
+                        {/if}
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">
+                            发送密码重置邮件
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{/block}
