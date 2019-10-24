@@ -9,9 +9,8 @@ class authmiddleware
 {
     public function handle($request, \Closure $next)
     {
-        // return view('static_pages/home');
-        if (Auth::isLoggedIn()) {
 
+        if (Auth::isLoggedIn()) {
 
             return redirect()->with(['success'=>$request->path()])->restore();
         }

@@ -8,6 +8,7 @@ class RedirectIfAuthenticated
 {
     public function handle($request, \Closure $next)
     {
+
         if (Auth::isLoggedIn()) {
 
             switch ($request->path()) {
@@ -16,6 +17,9 @@ class RedirectIfAuthenticated
                     break;
                 case 'login':
                     $msg = '您已登录，无需重复操作！';
+                    break;
+                case 'password/reset':
+                    $msg = '您已登录，操作无效！';
                     break;
                 default:
                     break;

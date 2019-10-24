@@ -19,6 +19,7 @@ class PasswordController extends Controller
     {
         $this->hashKey = 'PasswordReset';
     }
+
     /**
      * 显示密码重置请求链接
      *
@@ -44,6 +45,10 @@ class PasswordController extends Controller
         }
 
         $response = $this->sendResetLink($request->only('email'));
+
+        if (Password::INVALID_USER === $response) {
+            return redirect()->with(['warning'=>'用户不存在'])->restore();
+        }
 
         if (Password::RESET_LINK_SENT === $response) {
             return redirect()->with(['info'=>'密码重置邮件已发送,请注意查收!'])->restore();
@@ -79,7 +84,7 @@ class PasswordController extends Controller
 
         $user = User::where($request->only('email'))->find();
         if (is_null($user)) {
-            return Password::INVALID_USER;
+            return redirect()->with(['warning'=>'用户不存在'])->restore();
         }
         $response = $this->resetPassword($user, $request->param('password'));
         if (Password::PASSWORD_RESET === $response) {
@@ -175,8 +180,6 @@ class PasswordController extends Controller
     public function resetPassword($user, $password)
     {
         $user->password = password_hash($password, PASSWORD_BCRYPT);
-        // $user->update_time = date('Y-m-d H:i:s');
-
         $user->save();
         return Password::PASSWORD_RESET;
     }
