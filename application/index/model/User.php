@@ -19,4 +19,10 @@ class User extends Model
         $hash = md5(strtolower(trim($this->getAttr('email'))));
         return "https://s.gravatar.com/avatar/{$hash}?s={$size}";
     }
+
+    // 一个用户关联多条微博
+    public function statuses()
+    {
+        return $this->hasMany('Status');
+    }
 }
