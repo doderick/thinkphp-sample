@@ -13,12 +13,12 @@ use app\doderick\facade\Mail;
 
 class UsersController extends Controller
 {
-
     // 使用中间件过滤请求
     protected $middleware = [
         'Auth'  => ['except' => ['create', 'save', 'read', 'activate']],
         'Guest' => ['only'   => ['create']]
     ];
+
     /**
      * 显示资源列表
      *
@@ -98,7 +98,11 @@ class UsersController extends Controller
     public function read($id)
     {
         $user = User::get($id);
-        return view('users/show', compact('user'));
+        // 取出该用户的所有微博
+        $statuses = $user->statuses()
+                         ->order('create_time', 'desc')
+                         ->paginate(10, false);
+        return view('users/show', compact('user', 'statuses'));
     }
 
     /**

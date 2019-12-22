@@ -20,7 +20,8 @@
         "topthink/framework": "5.1.*",
         "topthink/think-migration": "2.0.*",
         "fzaninotto/faker": "^1.8",
-        "phpmailer/phpmailer": "^6.0"
+        "phpmailer/phpmailer": "^6.0",
+        "nesbot/carbon": "^2.28"
     },
     "autoload": {
         "psr-4": {
