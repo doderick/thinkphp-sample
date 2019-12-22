@@ -38,6 +38,10 @@ Route::post('password/email', 'PasswordController/sendResetLinkEmail')->name('pa
 Route::get('password/reset/:token', 'PasswordController/showResetForm')->name('password.reset');
 Route::post('password/reset', 'PasswordController/reset')->name('password.update');
 
+// 注册微博相关路由
+Route::post('status', 'StatusesController/save')->name('statuses.save');
+Route::delete('status/:id', 'StatusesController/save')->name('statuses.delete');
+
 return [
 
 ];

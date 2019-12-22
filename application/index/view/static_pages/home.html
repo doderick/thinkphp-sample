@@ -3,16 +3,32 @@
     主页
 {/block}
 {block name="content"}
-    <div class="jumbotron">
-        <h1>Hello ThinkPHP</h1>
-        <p class="lead">
-            你现在看到的是 ThinkPHP 版 <a href="https://learnku.com/courses/laravel-essential-training">Laravel 入门教程</a> 的示例项目主页。
-        </p>
-        <p>
-            一切，将从这里开始。
-        </p>
-        <p>
-            <a class="btn btn-lg btn-success" href="{:url('signup')}" role="button">现在注册</a>
-        </p>
-    </div>
+    {if condition="app\doderick\facade\Auth::isLoggedIn()"}
+        <div class="row">
+            <div class="col-md-8">
+                <section class="status_form">
+                    {include file="../resources/views/shared/_status_form.html"}
+                </section>
+            </div>
+            <aside class="col-md-4">
+                <section class="user_info">
+                    {php}$user = app\doderick\facade\Auth::user();{/php}
+                    {include file="../resources/views/shared/_user_info.html"}
+                </section>
+            </aside>
+        </div>
+    {else}
+        <div class="jumbotron">
+            <h1>Hello ThinkPHP</h1>
+            <p class="lead">
+                你现在看到的是 ThinkPHP 版 <a href="https://learnku.com/courses/laravel-essential-training">Laravel 入门教程</a> 的示例项目主页。
+            </p>
+            <p>
+                一切，将从这里开始。
+            </p>
+            <p>
+                <a class="btn btn-lg btn-success" href="{:url('signup')}" role="button">现在注册</a>
+            </p>
+        </div>
+    {/if}
 {/block}

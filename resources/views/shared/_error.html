@@ -1,10 +1,10 @@
 {if condition="Session::has('errors')"}
-  <div class="alert alert-danger">
-      <ul>
-          {php}$errors = Session::get('errors');{/php}
-          {foreach($errors as $error}
-          <li>{$error}</li>
-          {/foreach}
-      </ul>
-  </div>
+    <div class="alert alert-danger">
+        <ul>
+            {php}$errors = Session::get('errors');{/php}
+            {foreach($errors as $error}
+                <li>{$error}</li>
+            {/foreach}
+        </ul>
+    </div>
 {/if}
