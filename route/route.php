@@ -40,7 +40,7 @@ Route::post('password/reset', 'PasswordController/reset')->name('password.update
 
 // 注册微博相关路由
 Route::post('status', 'StatusesController/save')->name('statuses.save');
-Route::delete('status/:id', 'StatusesController/save')->name('statuses.delete');
+Route::delete('status/:id', 'StatusesController/delete')->name('statuses.delete');
 
 return [
 

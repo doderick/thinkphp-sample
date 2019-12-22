@@ -4,6 +4,7 @@ namespace app\index\controller;
 
 use think\Request;
 use think\Controller;
+use app\index\model\Status;
 use app\doderick\facade\Auth;
 
 class StatusesController extends Controller
@@ -102,6 +103,28 @@ class StatusesController extends Controller
      */
     public function delete($id)
     {
-        //
+        // 确定资源是否存在
+        $status = Status::find($id);
+        if (null == $status) {
+            $info = 'warning';
+            $msg  = '微博不存在或已被删除！';
+            return redirect()->with([$info=>$msg])->restore();
+        }
+
+        // 二次验证删除权限
+        $canDelete = Auth::status('delete', $status);
+
+        // 没有权限
+        if (!$canDelete) {
+            $info = 'danger';
+            $msg  = '抱歉，您没有权限！';
+            return redirect()->with([$info=>$msg])->restore();
+        }
+
+        // 执行删除
+        Status::destroy($id);
+        $info = 'success';
+        $msg  = '微博已成功删除！';
+        return redirect()->with([$info=>$msg])->restore();
     }
 }

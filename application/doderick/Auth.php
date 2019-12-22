@@ -7,6 +7,7 @@ use app\index\model\User;
 use think\facade\Session;
 use app\doderick\facade\Str;
 use app\doderick\policies\UserPolicy;
+use app\doderick\policies\StatusPolicy;
 
 class Auth
 {
@@ -18,6 +19,7 @@ class Auth
      * @var boolean
      */
     protected $loggedOut = false;
+
     /**
      * 登录操作
      *
@@ -122,7 +124,7 @@ class Auth
     }
 
     /**
-     * 授权验证
+     * 用户操作授权验证
      *
      * @param array $method 需要进行验证的方法
      * @param array $args   验证参数
@@ -130,8 +132,26 @@ class Auth
      */
     public function authorize($method, $args = []) : bool
     {
+        // 先判断用户是否登录
+        if (!$this->user) return false;
+
         $policy = new UserPolicy();
         return $policy->$method($this->user, $args);
     }
 
+    /**
+     * 微博操作授权验证
+     *
+     * @param string $method    需要进行验证的方法
+     * @param array $args       验证参数
+     * @return boolean
+     */
+    public function status($method, $args = []) : bool
+    {
+        // 先判断用户是否登录
+        if (!$this->user) return false;
+
+        $policy = new StatusPolicy();
+        return $policy->$method($this->user, $args);
+    }
 }

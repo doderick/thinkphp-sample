@@ -8,4 +8,13 @@
         </h5>
         {$status->content}
     </div>
+    {if condition="app\doderick\facade\Auth::status('delete', $status)"}
+        <form action="{:url('statuses.delete', ['id'=>$status->id])}" method="POST" onsubmit="return confirm('您确定要删除这条微博吗？');">
+            <input type="hidden" name="_method" value="DELETE">
+            {:token()}
+            <button type="submit" class="btn btn-sm btn-danger">
+                删除
+            </button>
+        </form>
+    {/if}
 </li>
