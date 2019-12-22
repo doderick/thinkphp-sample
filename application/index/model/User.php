@@ -25,4 +25,11 @@ class User extends Model
     {
         return $this->hasMany('Status');
     }
+
+    // 取出用户所有的微博
+    public function feed()
+    {
+        return $this->statuses()
+                    ->order('create_time', 'desc');
+    }
 }
