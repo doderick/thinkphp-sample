@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Faker\Factory;
 use app\doderick\Str;
 use app\index\model\User;
@@ -39,15 +40,18 @@ class UsersSeeder extends Seeder
                 'update_time'   => $updated_at['date'],
                 'is_activated'  => true,
                 'is_admin'      => 0,
-
             ];
         }
 
-        $this->table('users')->insert($data)->save();
+        $user_insert = new User;
+        $user_insert->saveAll($data);
 
+        // 手动指定1号用户
         $user = User::get(1);
         $user->name         = 'doderick';
         $user->email        = 'doderick@outlook.com';
+        $user->create_time  = Carbon::now();
+        $user->update_time  = Carbon::now();
         $user->is_admin     = true;
         $user->is_activated = true;
         $user->save();
