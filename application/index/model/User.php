@@ -29,8 +29,11 @@ class User extends Model
     // 取出用户所有的微博
     public function feed()
     {
-        return $this->statuses()
-                    ->order('create_time', 'desc');
+        $user_ids = array_column(User::get($this->id)->followings->toArray(), 'id');
+        array_push($user_ids, $this->id);
+        return Status::where('user_id', 'in', $user_ids)
+                     ->with('user')
+                     ->order('create_time', 'desc');
     }
 
     // 关联粉丝

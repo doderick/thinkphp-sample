@@ -2,11 +2,11 @@
 
 namespace app\index\controller;
 
-use app\doderick\facade\Auth;
-use app\index\model\User;
 use think\Request;
-use think\Controller;
 use think\Validate;
+use think\Controller;
+use app\index\model\User;
+use app\doderick\facade\Auth;
 
 class FollowersController extends Controller
 {
