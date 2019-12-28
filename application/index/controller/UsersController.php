@@ -274,4 +274,44 @@ class UsersController extends Controller
         $subject = "感谢您注册Sample！请确认您的邮箱地址。";
         Mail::send($view, $data, $to, $subject);
     }
+
+    /**
+     * 显示关注的人列表
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function followings($id)
+    {
+        // 验证操作对象是否存在
+        $user = User::get($id);
+        if ($user == null) {
+            $info = 'warning';
+            $msg  = '用户不存在或已被删除!';
+            return redirect()->with([$info=>$msg])->restore();
+        }
+        $users = $user->followings()->paginate(25, false);
+        $title = $user->name . '关注的人';
+        return view('users/show_follow', compact('users', 'title'));
+    }
+
+    /**
+     * 显示粉丝列表
+     *
+     * @param  int $id
+     * @return void
+     */
+    public function followers($id)
+    {
+        // 验证操作对象是否存在
+        $user = User::get($id);
+        if ($user == null) {
+            $info = 'warning';
+            $msg  = '用户不存在或已被删除!';
+            return redirect()->with([$info=>$msg])->restore();
+        }
+        $users = $user->followers()->paginate(25, false);
+        $title = $user->name . '的粉丝';
+        return view('users/show_follow', compact('users', 'title'));
+    }
 }

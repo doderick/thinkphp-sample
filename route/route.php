@@ -19,7 +19,7 @@ Route::get('about', 'StaticPagesController/about')->name('about');
 Route::get('signup$', 'UsersController/create')->name('signup');
 Route::get('user/:id$', 'UsersController/read')->name('users.read');
 Route::get('user/:id/edit', 'UsersController/edit')->name('users.edit');
-Route::get('users', 'UsersController/index')->name('users.index');
+Route::get('users$', 'UsersController/index')->name('users.index');
 Route::post('user', 'UsersController/save')->name('users.save');
 Route::patch('user/:id', 'UsersController/update')->name('users.update');
 Route::delete('user/:id', 'UsersController/delete')->name('users.delete');
@@ -41,6 +41,10 @@ Route::post('password/reset', 'PasswordController/reset')->name('password.update
 // 注册微博相关路由
 Route::post('status', 'StatusesController/save')->name('statuses.save');
 Route::delete('status/:id', 'StatusesController/delete')->name('statuses.delete');
+
+// 注册关注者列表和粉丝列表路由
+Route::get('users/:id/followings', 'UsersController/followings')->name('users.followings');
+Route::get('users/:id/followers','UsersController/followers')->name('users.followers');
 
 return [
 

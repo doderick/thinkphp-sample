@@ -36,13 +36,13 @@ class User extends Model
     // 关联粉丝
     public function followers()
     {
-        return $this->belongsToMany('User', 'followers', 'user_id', 'follower_id');
+        return $this->belongsToMany('User', 'followers', 'follower_id', 'user_id');
     }
 
     // 关联关注的人
     public function followings()
     {
-        return $this->belongsToMany('User', 'followers', 'follower_id', 'user_id');
+        return $this->belongsToMany('User', 'followers', 'user_id', 'follower_id');
     }
 
     /**
