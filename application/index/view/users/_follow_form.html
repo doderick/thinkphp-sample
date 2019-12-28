@@ -1,0 +1,20 @@
+{if condition="app\doderick\facade\Auth::authorize('follow', $user)"}
+    <div class="text-center mt-2 mb-4">
+        {if condition="app\doderick\facade\Auth::user()->isFollowing($user->id)"}
+            <form action="{:url('followers.delete', ['id'=>$user->id])}" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                {:token()}
+                <button type="submit" class="btn btn-sm btn-outline-primary" onsubmit="return confirm('您确定要取消关注吗？');">
+                    取消关注
+                </button>
+            </form>
+        {else}
+            <form action="{:url('followers.save', ['id'=>$user->id])}" method="post">
+                {:token()}
+                <button type="submit" class="btn btn-sm btn-primary">
+                    关注
+                </button>
+            </form>
+        {/if}
+    </div>
+{/if}

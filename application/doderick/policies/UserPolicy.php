@@ -27,4 +27,16 @@ class UserPolicy
     {
         return $currentUser->id === $user->id;
     }
+
+    /**
+     * 验证关注权限
+     *
+     * @param object $currentUser 当前用户
+     * @param object $user        关注对象
+     * @return boolean
+     */
+    public function follow($currentUser, $user) : bool
+    {
+        return $currentUser->id !== $user->id;
+    }
 }

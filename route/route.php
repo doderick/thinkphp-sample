@@ -46,6 +46,10 @@ Route::delete('status/:id', 'StatusesController/delete')->name('statuses.delete'
 Route::get('users/:id/followings', 'UsersController/followings')->name('users.followings');
 Route::get('users/:id/followers','UsersController/followers')->name('users.followers');
 
+// 注册关注按钮相关路由
+Route::post('users/followers/:id', 'FollowersController/save')->name('followers.save');
+Route::delete('users/followers/:id', 'FollowersController/delete')->name('followers.delete');
+
 return [
 
 ];

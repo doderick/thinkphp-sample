@@ -57,7 +57,7 @@ class User extends Model
             $user_ids = compact('user_ids');
         }
 
-        $this->followings()->sync($user_ids);
+        $this->followings()->sync($user_ids, false);
     }
 
     /**

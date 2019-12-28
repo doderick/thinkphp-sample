@@ -161,7 +161,7 @@ class PasswordController extends Controller
                 $this->sendPasswordResetEmail($user);
                 break;
             case 'phone':
-                $this->sendPasswordResetSms($user);
+                // $this->sendPasswordResetSms($user);
                 break;
             default:
                 # code...
