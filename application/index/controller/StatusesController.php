@@ -4,6 +4,7 @@ namespace app\index\controller;
 
 use think\Request;
 use think\Controller;
+use think\facade\Validate;
 use app\index\model\Status;
 use app\doderick\facade\Auth;
 
@@ -97,12 +98,24 @@ class StatusesController extends Controller
 
     /**
      * 删除指定资源
+     * 删除微博
      *
-     * @param  int  $id
+     * @param  \think\Request  $request
      * @return \think\Response
      */
-    public function delete($id)
+    public function delete(Request $request)
     {
+        // 验证令牌
+        $validate = Validate::make([
+            'id' => 'token',
+        ]);
+
+        if (!$validate->batch()->check($request->param())) {
+            return redirect()->restore();
+        }
+
+        $id = $request->param('id');
+
         // 确定资源是否存在
         $status = Status::find($id);
         if (null == $status) {
@@ -111,17 +124,14 @@ class StatusesController extends Controller
             return redirect()->with([$info=>$msg])->restore();
         }
 
-        // 二次验证删除权限
-        $canDelete = Auth::status('delete', $status);
-
         // 没有权限
-        if (!$canDelete) {
+        if (false == Auth::status('delete', $status)) {
             $info = 'danger';
             $msg  = '抱歉，您没有权限！';
             return redirect()->with([$info=>$msg])->restore();
         }
 
-        // 执行删除
+        // 有权限，执行删除
         Status::destroy($id);
         $info = 'success';
         $msg  = '微博已成功删除！';

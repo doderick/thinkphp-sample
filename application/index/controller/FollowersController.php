@@ -113,7 +113,7 @@ class FollowersController extends Controller
     {
         // 验证令牌
         $validate = Validate::make([
-            'id' =>'token',
+            'id' => 'token',
         ]);
 
         if (!$validate->batch()->check($request->param())) {

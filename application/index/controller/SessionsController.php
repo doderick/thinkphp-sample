@@ -126,10 +126,20 @@ class SessionsController extends Controller
     /**
      * 删除指定资源
      *
+     * @param  \think\Request  $request
      * @return \think\Response
      */
-    public function delete()
+    public function delete(Request $request)
     {
+        // 验证令牌
+        $validate = Validate::make([
+            'delete' => 'token',
+        ]);
+
+        if (!$validate->batch()->check($request->param())) {
+            return redirect()->restore();
+        }
+
         Auth::logout();
         $message = '您已成功退出！';
         return redirect('login')->with(['success'=>$message]);

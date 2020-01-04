@@ -202,12 +202,24 @@ class UsersController extends Controller
 
     /**
      * 删除指定资源
+     * 删除用户
      *
-     * @param  int  $id
+     * @param  \think\Request  $request
      * @return \think\Response
      */
-    public function delete($id)
+    public function delete(Request $request)
     {
+        // 验证令牌
+        $validate = Validate::make([
+            'id' => 'token',
+        ]);
+
+        if (!$validate->batch()->check($request->param())) {
+            return redirect()->restore();
+        }
+
+        $id = $request->param('id');
+
         // 确定资源是否存在
         $user = User::find($id);
         if ($user == null) {
@@ -215,10 +227,9 @@ class UsersController extends Controller
             $msg  = '用户不存在或已被删除!';
             return redirect()->with([$info=>$msg])->restore();
         }
-        // 二次验证删除权限
-        $canDelete = Auth::authorize('delete', $user);
+
         // 没有权限
-        if (!$canDelete) {
+        if (false == Auth::authorize('delete', $user)) {
             // 如果是管理员自己,直接返回
             if (Auth::user()->is_admin) {
                 return redirect()->restore();
@@ -228,7 +239,7 @@ class UsersController extends Controller
             $msg  = '抱歉,您没有权限!';
             return redirect()->with([$info=>$msg])->restore();
         }
-        // 执行删除
+        // 有权限，执行删除
         User::destroy($id);
         $info = 'success';
         $msg  = '删除用户操作执行成功！';
