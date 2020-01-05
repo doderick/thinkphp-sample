@@ -21,7 +21,8 @@
         "topthink/think-migration": "2.0.*",
         "fzaninotto/faker": "^1.8",
         "phpmailer/phpmailer": "^6.0",
-        "nesbot/carbon": "^2.28"
+        "nesbot/carbon": "^2.28",
+        "topthink/think-captcha": "2.0.x-dev"
     },
     "autoload": {
         "psr-4": {

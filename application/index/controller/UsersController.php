@@ -52,7 +52,8 @@ class UsersController extends Controller
         $validate = Validate::make([
             'name'     => 'require|max:50|token',
             'email'    => 'require|email|unique:user|max:255',
-            'password' => 'require|confirm|min:6'
+            'password' => 'require|confirm|min:6',
+            'captcha'  => 'require|captcha',
         ])->message([
             'name.require'     => '名称 不能为空',
             'name.max'         => '名称 不能超过50字符',
@@ -63,6 +64,8 @@ class UsersController extends Controller
             'password.require' => '密码 不能为空',
             'password.confirm' => '两次密码不一致',
             'password.min'     => '密码 长度不能低于6位',
+            'captcha.require'  => '验证码 不能为空',
+            'captcha.captcha'  => '验证吗 不正确',
         ]);
         $result = $validate->batch()->check($request->param());
         if (!$result) {

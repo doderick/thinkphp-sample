@@ -28,6 +28,12 @@
                         <label for="password_confirm">确认密码：</label>
                         <input type="password" name="password_confirm" class="form-control" value="{:Session::get('forms.passsword_confirm')}">
                     </div>
+                    <div class="form-group">
+                      <label for="captcha">验证码：</label>
+                      <input type="text" name="captcha" class="form-control" value="{:Session::get('forms.captcha')}">
+                      </br>
+                      <img src="{:captcha_src()}" alt="captcha" onclick="this.src=this.src+'?'" />
+                    </div>
                     <button type="submit" class="btn btn-primary">注册</button>
                 </form>
             </div>

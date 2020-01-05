@@ -72,10 +72,12 @@ class SessionsController extends Controller
         if (Auth::attempt($data)) {
             if (Auth::user()->is_activated) {
                 $message = Auth::user()->name.'，欢迎回来！';
-                // 跳转链接,等同于redirecr()->restore()
+
+                // 判断是否返回登录前页面
                 if ($url = Session::pull('url.intended')) {
-                    return redirect($url)->params(['id'=>Auth::user()->id])->with(['success'=>$message]);
+                    return redirect()->with(['success'=>$message])->restore();
                 }
+                // 不需要返回登录前页面，直接进入用户主页
                 return redirect('users.read')->params(['id'=>Auth::user()->id])->with(['success'=>$message]);
             } else{
                 Auth::logout();

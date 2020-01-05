@@ -47,7 +47,6 @@ class Auth
 
         $this->user = $user;
         $this->loggedOut = false;
-        //return 'login';
     }
 
     /**
