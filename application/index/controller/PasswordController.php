@@ -7,9 +7,9 @@ use think\Request;
 use think\Validate;
 use think\Controller;
 use app\index\model\User;
-use app\doderick\facade\Str;
-use app\doderick\facade\Mail;
-use app\doderick\facade\Password;
+use app\common\facade\Str;
+use app\common\facade\Mail;
+use app\common\facade\Password;
 
 class PasswordController extends Controller
 {

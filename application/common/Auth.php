@@ -1,13 +1,13 @@
 <?php
 
-namespace app\doderick;
+namespace app\common;
 
 use think\facade\Cookie;
 use app\index\model\User;
 use think\facade\Session;
-use app\doderick\facade\Str;
-use app\doderick\policies\UserPolicy;
-use app\doderick\policies\StatusPolicy;
+use app\common\facade\Str;
+use app\common\policies\UserPolicy;
+use app\common\policies\StatusPolicy;
 
 class Auth
 {

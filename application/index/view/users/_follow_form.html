@@ -1,6 +1,6 @@
-{if condition="app\doderick\facade\Auth::authorize('follow', $user)"}
+{if condition="app\common\facade\Auth::authorize('follow', $user)"}
     <div class="text-center mt-2 mb-4">
-        {if condition="app\doderick\facade\Auth::user()->isFollowing($user->id)"}
+        {if condition="app\common\facade\Auth::user()->isFollowing($user->id)"}
             <form action="{:url('followers.delete', ['id'=>$user->id])}" method="post">
                 <input type="hidden" name="_method" value="DELETE">
                 {:token()}

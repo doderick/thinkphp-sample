@@ -2,12 +2,12 @@
 
 // 封装facade类(password)
 
-namespace app\doderick\facade;
+namespace app\common\facade;
 
 use think\Facade;
 
 /**
- * @see \app\doderick\Password
+ * @see \app\common\Password
  *
  *
  */
@@ -30,6 +30,6 @@ class Password extends Facade
      */
     protected static function getFacadeClass()
     {
-        return 'app\doderick\Password';
+        return 'app\common\Password';
     }
 }

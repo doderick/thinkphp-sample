@@ -3,7 +3,7 @@
     <a href="{:url('users.read', ['id'=>$user->id])}">
         {$user->name}
     </a>
-    {if condition="app\doderick\facade\Auth::authorize('delete', $user)"}
+    {if condition="app\common\facade\Auth::authorize('delete', $user)"}
         <form action="{:url('users.delete', ['id'=>$user->id])}" method="POST" class="float-right">
             <input type="hidden" name="_method" value="DELETE">
             {:token()}

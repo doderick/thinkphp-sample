@@ -3,7 +3,7 @@
     主页
 {/block}
 {block name="content"}
-    {if condition="app\doderick\facade\Auth::isLoggedIn()"}
+    {if condition="app\common\facade\Auth::isLoggedIn()"}
         <div class="row">
             <div class="col-md-8">
                 <section class="status_form">
@@ -15,7 +15,7 @@
             </div>
             <aside class="col-md-4">
                 <section class="user_info">
-                    {php}$user = app\doderick\facade\Auth::user();{/php}
+                    {php}$user = app\common\facade\Auth::user();{/php}
                     {include file="../resources/views/shared/_user_info.html"}
                 </section>
                 <section class="stats mt-2">

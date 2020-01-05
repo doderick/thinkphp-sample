@@ -1,6 +1,6 @@
 <?php
 
-namespace app\doderick;
+namespace app\common;
 
 use PHPMailer\PHPMailer;
 use PHPMailer\Exception;

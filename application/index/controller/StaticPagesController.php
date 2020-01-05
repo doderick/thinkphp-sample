@@ -2,7 +2,7 @@
 namespace app\index\controller;
 
 use think\Controller;
-use app\doderick\facade\Auth;
+use app\common\facade\Auth;
 
 class StaticPagesController extends Controller
 {

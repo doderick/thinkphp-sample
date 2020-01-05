@@ -1,6 +1,6 @@
 <?php
 
-namespace app\doderick\policies;
+namespace app\common\policies;
 
 class StatusPolicy
 {

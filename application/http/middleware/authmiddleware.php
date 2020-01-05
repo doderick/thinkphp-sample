@@ -2,7 +2,7 @@
 
 namespace app\http\middleware;
 
-use app\doderick\facade\Auth;
+use app\common\facade\Auth;
 use think\facade\Session;
 
 class authmiddleware

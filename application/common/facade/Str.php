@@ -2,12 +2,12 @@
 
 // 封装facade类(Str)
 
-namespace app\doderick\facade;
+namespace app\common\facade;
 
 use think\Facade;
 
 /**
- * @see \app\doderick\Str
+ * @see \app\common\Str
  *
  * @method string random($length = 16) 生成随机字串
  */
@@ -20,6 +20,6 @@ class Str extends Facade
      */
     protected static function getFacadeClass()
     {
-        return 'app\doderick\Str';
+        return 'app\common\Str';
     }
 }

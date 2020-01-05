@@ -6,7 +6,7 @@ use think\Request;
 use think\Validate;
 use think\Controller;
 use app\index\model\User;
-use app\doderick\facade\Auth;
+use app\common\facade\Auth;
 
 class FollowersController extends Controller
 {

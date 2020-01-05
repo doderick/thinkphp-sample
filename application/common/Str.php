@@ -2,7 +2,7 @@
 
 // 封装字符串操作类
 
-namespace app\doderick;
+namespace app\common;
 
 class Str
 {

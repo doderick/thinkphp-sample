@@ -5,6 +5,6 @@
 // +----------------------------------------------------------------------
 
 return [
-    'type'     => 'app\doderick\paginator\driver\Bootstrap4',
+    'type'     => 'app\common\paginator\driver\Bootstrap4',
     'var_page' => 'page',
 ];

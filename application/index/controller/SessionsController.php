@@ -6,7 +6,7 @@ use think\Request;
 use think\Validate;
 use think\Controller;
 use think\facade\Session;
-use app\doderick\facade\Auth;
+use app\common\facade\Auth;
 
 class SessionsController extends Controller
 {

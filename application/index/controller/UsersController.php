@@ -4,12 +4,12 @@ namespace app\index\controller;
 
 use think\Request;
 use think\Validate;
-use app\doderick\Str;
+use app\common\Str;
 use think\Controller;
 use app\index\model\User;
 use think\facade\Session;
-use app\doderick\facade\Auth;
-use app\doderick\facade\Mail;
+use app\common\facade\Auth;
+use app\common\facade\Mail;
 
 class UsersController extends Controller
 {

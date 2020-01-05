@@ -2,7 +2,7 @@
 // bootstrap4分页适配文件
 // @author doderick
 
-namespace app\doderick\paginator\driver;
+namespace app\common\paginator\driver;
 
 use think\Paginator;
 

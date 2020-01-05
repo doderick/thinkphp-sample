@@ -3,7 +3,7 @@
 namespace app\http\middleware;
 
 use think\facade\Session;
-use app\doderick\facade\Auth;
+use app\common\facade\Auth;
 
 class Authenticate
 {

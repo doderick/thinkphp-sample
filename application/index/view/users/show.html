@@ -9,7 +9,7 @@
             <section class="user_info">
                 {include file="../resources/views/shared/_user_info.html"}
             </section>
-            {if condition="app\doderick\facade\Auth::isLoggedIn()"}
+            {if condition="app\common\facade\Auth::isLoggedIn()"}
                 {include file="../application/index/view/users/_follow_form.html"}
             {/if}
             <section class="stats mt-2">

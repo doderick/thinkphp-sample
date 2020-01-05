@@ -2,7 +2,7 @@
 
 use Carbon\Carbon;
 use Faker\Factory;
-use app\doderick\Str;
+use app\common\Str;
 use app\index\model\User;
 use think\migration\Seeder;
 

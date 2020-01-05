@@ -6,7 +6,7 @@ use think\Request;
 use think\Controller;
 use think\facade\Validate;
 use app\index\model\Status;
-use app\doderick\facade\Auth;
+use app\common\facade\Auth;
 
 class StatusesController extends Controller
 {
