@@ -1,12 +1,12 @@
 <?php
 
-namespace app\index\controller;
+namespace app\status\controller;
 
 use think\Request;
 use think\Controller;
 use think\facade\Validate;
-use app\index\model\Status;
 use app\common\facade\Auth;
+use app\status\model\Status;
 
 class StatusesController extends Controller
 {
@@ -43,7 +43,7 @@ class StatusesController extends Controller
      */
     public function save(Request $request)
     {
-        $validate = new \app\index\validate\Status;
+        $validate = new \app\status\validate\Status;
         if (!$validate->batch()->check($request->param())) {
             $errors = $validate->getError();
             $forms  = $request->param();

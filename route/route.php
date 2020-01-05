@@ -39,8 +39,8 @@ Route::get('password/reset/:token', 'PasswordController/showResetForm')->name('p
 Route::post('password/reset', 'PasswordController/reset')->name('password.update');
 
 // 注册微博相关路由
-Route::post('status', 'StatusesController/save')->name('statuses.save');
-Route::delete('status/:id', 'StatusesController/delete')->name('statuses.delete');
+Route::post('status', 'status/StatusesController/save')->name('statuses.save');
+Route::delete('status/:id', 'status/StatusesController/delete')->name('statuses.delete');
 
 // 注册关注者列表和粉丝列表路由
 Route::get('users/:id/followings', 'UsersController/followings')->name('users.followings');

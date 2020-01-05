@@ -3,7 +3,6 @@
 namespace app\http\middleware;
 
 use app\common\facade\Auth;
-use think\facade\Session;
 
 class authmiddleware
 {

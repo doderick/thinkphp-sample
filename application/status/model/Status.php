@@ -1,8 +1,9 @@
 <?php
 
-namespace app\index\model;
+namespace app\status\model;
 
 use think\Model;
+use app\index\model\User;
 
 class Status extends Model
 {
@@ -12,6 +13,6 @@ class Status extends Model
     // 一条微博关联一个用户
     public function user()
     {
-        return $this->belongsTo('user');
+        return $this->belongsTo(User::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace app\index\model;
 
 use think\Model;
+use app\status\model\Status;
 
 class User extends Model
 {
@@ -23,7 +24,7 @@ class User extends Model
     // 一个用户关联多条微博
     public function statuses()
     {
-        return $this->hasMany('Status');
+        return $this->hasMany(Status::class);
     }
 
     // 取出用户所有的微博
@@ -39,13 +40,13 @@ class User extends Model
     // 关联粉丝
     public function followers()
     {
-        return $this->belongsToMany('User', 'followers', 'follower_id', 'user_id');
+        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
     }
 
     // 关联关注的人
     public function followings()
     {
-        return $this->belongsToMany('User', 'followers', 'user_id', 'follower_id');
+        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
     }
 
     /**
