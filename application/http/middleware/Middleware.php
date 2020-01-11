@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Author: doderick
+ * @Date: 2019-12-15 18:57:13
+ * @LastEditTime : 2020-01-12 00:24:15
+ * @LastEditors  : doderick
+ * @Description: 全局中间件
+ * @FilePath: /tp5/application/http/middleware/Middleware.php
+ */
 
 namespace app\http\middleware;
 

@@ -1,23 +1,38 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="{:config('app.default_lang')}">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{:$Request.token}">
+
     <link rel="stylesheet" href="{:mix('css/app.css')}">
+
     <title>
-        {block name="title"}{/block}
+        {block name="title"}
+            - 进阶
+        {/block}
     </title>
 </head>
+
 <body>
-    {include file="../resources/views/layouts/_header.html"}
-    <div class="container">
-        <div class="offset-md-1 col-md-10">
+
+    <div id="app" class="{:route_class()}-page">
+
+        {include file="../resources/views/layouts/_header.html"}
+
+        <div class="container">
             {include file="../resources/views/shared/_messages.html"}
             {block name="content"}{/block}
-            {include file="../resources/views/layouts/_footer.html"}
         </div>
-        <script src="{:mix('js/app.js')}"></script>
+
+        {include file="../resources/views/layouts/_footer.html"}
+
     </div>
+
+    <script src="{:mix('js/app.js')}"></script>
+
 </body>
+
 </html>

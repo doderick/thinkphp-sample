@@ -1,6 +1,6 @@
 {extend name="../resources/views/layouts/layout.html" /}
 {block name="title"}
-    {:$user->name}的主页
+    {:$user->name}的主页{__block__}
 {/block}
 {block name="content"}
     <div class="row">
@@ -20,7 +20,7 @@
                 {if condition="$statuses->count() > 0"}
                     <ul class="list-unstyled">
                         {volist name="statuses" id="status"}
-                            {include file="../application/index/view/statuses/_status.html"}
+                            {include file="../application/status/view/statuses/_status.html"}
                         {/volist}
                     </ul>
                     <div class="mt-5">

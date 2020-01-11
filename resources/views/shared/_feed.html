@@ -2,7 +2,7 @@
     <ul class="list-unstyled">
         {volist name="feed_items" id="status"}
             {php}$user = $status->user;{/php}
-            {include file="../application/index/view/statuses/_status.html"}
+            {include file="../application/status/view/statuses/_status.html"}
         {/volist}
     </ul>
     <div class="mt-5">

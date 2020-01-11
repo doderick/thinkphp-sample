@@ -1,40 +1,14 @@
+<!--
+ * @Author: doderick
+ * @Date: 2020-01-11 22:34:14
+ * @LastEditTime : 2020-01-11 22:35:02
+ * @LastEditors  : doderick
+ * @Description: BBS主页
+ -->
 {extend name="../resources/views/layouts/layout.html" /}
 {block name="title"}
-    主页
+    首页
 {/block}
 {block name="content"}
-    {if condition="app\common\facade\Auth::isLoggedIn()"}
-        <div class="row">
-            <div class="col-md-8">
-                <section class="status_form">
-                    {include file="../resources/views/shared/_status_form.html"}
-                </section>
-                <h4>微博列表</h4>
-                <hr>
-                {include file="../resources/views/shared/_feed.html"}
-            </div>
-            <aside class="col-md-4">
-                <section class="user_info">
-                    {php}$user = app\common\facade\Auth::user();{/php}
-                    {include file="../resources/views/shared/_user_info.html"}
-                </section>
-                <section class="stats mt-2">
-                    {include file="../resources/views/shared/_stats.html"}
-                </section>
-            </aside>
-        </div>
-    {else}
-        <div class="jumbotron">
-            <h1>Hello ThinkPHP</h1>
-            <p class="lead">
-                你现在看到的是 ThinkPHP 版 <a href="https://learnku.com/courses/laravel-essential-training">Laravel 入门教程</a> 的示例项目主页。
-            </p>
-            <p>
-                一切，将从这里开始。
-            </p>
-            <p>
-                <a class="btn btn-lg btn-success" href="{:url('signup')}" role="button">现在注册</a>
-            </p>
-        </div>
-    {/if}
+    这里是首页
 {/block}

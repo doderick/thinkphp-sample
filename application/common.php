@@ -1,13 +1,12 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2006-2016 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: 流年 <liu21st@gmail.com>
-// +----------------------------------------------------------------------
+/*
+ * @Author: doderick
+ * @Date: 2019-12-15 18:50:52
+ * @LastEditTime : 2020-01-11 23:52:24
+ * @LastEditors  : doderick
+ * @Description: 自定义公共函数
+ * @FilePath: /tp5/application/common.php
+ */
 
 // 应用公共文件
 
@@ -42,5 +41,29 @@ if (!function_exists('mix')) {
             $manifest[$path] = $path;
         }
         return Url::build($manifestDirectory . $manifest[$path], '', false);
+    }
+}
+
+if (!function_exists('currentRouteName')) {
+    /**
+     * 获取当前路由标识
+     *
+     * @return string
+     */
+    function currentRouteName() {
+        $route = Route::getRule(Request::routeInfo()['rule']);
+        return $route['get']->getName();
+    }
+}
+
+if (!function_exists('route_class')) {
+    /**
+     * 将当前路由标识转换为CSS类名
+     *
+     * @return string
+     */
+    function route_class()
+    {
+        return str_replace('.', '-', currentRouteName());
     }
 }

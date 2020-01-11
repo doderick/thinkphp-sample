@@ -9,11 +9,7 @@ class StaticPagesController extends Controller
     // 显示主页
     public function home()
     {
-        $feed_items = [];
-        if (Auth::isLoggedIn()) {
-            $feed_items = Auth::user()->feed()->paginate(25, false);
-        }
-        return view('static_pages/home', compact('feed_items'));
+        return view('static_pages/home');
     }
 
     // 显示帮助页
@@ -26,5 +22,15 @@ class StaticPagesController extends Controller
     public function about()
     {
         return view('static_pages/about');
+    }
+
+    // 显示动态页
+    public function status()
+    {
+        $feed_items = [];
+        if (Auth::isLoggedIn()) {
+            $feed_items = Auth::user()->feed()->paginate(25, false);
+        }
+        return view('static_pages/status', compact('feed_items'));
     }
 }

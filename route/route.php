@@ -1,4 +1,9 @@
 <?php
+/*
+ * @Author: doderick
+ * @LastEditors  : doderick
+ * @Description: 路由
+ */
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
 // +----------------------------------------------------------------------
@@ -14,6 +19,7 @@ Route::get('', 'StaticPagesController/home')->name('home');
 Route::get('home', 'StaticPagesController/home')->name('home');
 Route::get('help', 'StaticPagesController/help')->name('help');
 Route::get('about', 'StaticPagesController/about')->name('about');
+Route::get('status', 'StaticPagesController/status')->name('status');
 
 // 用户资源相关路由
 Route::get('signup$', 'UsersController/create')->name('signup');

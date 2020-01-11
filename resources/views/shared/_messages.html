@@ -1,9 +1,17 @@
+<!--
+ * @Author: doderick
+ * @Date: 2019-12-15 18:57:14
+ * @LastEditTime : 2020-01-12 00:30:53
+ * @LastEditors  : doderick
+ * @Description: 消息视图
+ * @FilePath: /tp5/resources/views/shared/_messages.html
+ -->
 {foreach (['danger', 'warning', 'success', 'info'] as $msg)}
-  {if condition="Session::has($msg)"}
-    <div class="flash-message">
-      <p class="alert alert-{$msg}">
-        {:Session($msg)}
-      </p>
-    </div>
-  {/if}
+    {if condition="Session::has($msg)"}
+        <div class="flash-message">
+            <p class="alert alert-{$msg}">
+                {:Session($msg)}
+            </p>
+        </div>
+    {/if}
 {/foreach}

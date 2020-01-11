@@ -1,6 +1,14 @@
+<!--
+ * @Author: doderick
+ * @Date: 2019-12-15 19:00:16
+ * @LastEditTime : 2020-01-12 00:26:13
+ * @LastEditors  : doderick
+ * @Description: 用户注册页
+ * @FilePath: /tp5/application/index/view/users/create.html
+ -->
 {extend name="../resources/views/layouts/layout.html" /}
 {block name="title"}
-    欢迎新用户
+    欢迎新用户{__block__}
 {/block}
 {block name="content"}
     <div class="offset-md-2 col-md-8">
@@ -29,10 +37,10 @@
                         <input type="password" name="password_confirm" class="form-control" value="{:Session::get('forms.passsword_confirm')}">
                     </div>
                     <div class="form-group">
-                      <label for="captcha">验证码：</label>
-                      <input type="text" name="captcha" class="form-control" value="{:Session::get('forms.captcha')}">
-                      </br>
-                      <img src="{:captcha_src()}" alt="captcha" onclick="this.src=this.src+'?'" />
+                        <label for="captcha">验证码：</label>
+                        <input type="text" name="captcha" class="form-control" value="{:Session::get('forms.captcha')}">
+                        </br>
+                        <img src="{:captcha_src()}" alt="captcha" onclick="this.src=this.src+'?'" />
                     </div>
                     <button type="submit" class="btn btn-primary">注册</button>
                 </form>
