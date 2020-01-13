@@ -17455,3 +17455,12 @@ section.user_info h2 a:hover {
   color: #000;
 }
 
+/* User register page */
+
+.signup-page img.captcha {
+  cursor: pointer;
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  padding: 3px;
+}
+

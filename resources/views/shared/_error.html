@@ -2,7 +2,7 @@
     <div class="alert alert-danger">
         <ul>
             {php}$errors = Session::get('errors');{/php}
-            {foreach($errors as $error}
+            {foreach $errors as $error}
                 <li>{$error}</li>
             {/foreach}
         </ul>

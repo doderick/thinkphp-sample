@@ -10,6 +10,7 @@ use app\index\model\User;
 use think\facade\Session;
 use app\common\facade\Auth;
 use app\common\facade\Mail;
+use app\index\validate\User as ValidateUser;
 
 class UsersController extends Controller
 {
@@ -49,29 +50,14 @@ class UsersController extends Controller
     public function save(Request $request)
     {
         // 验证表单数据
-        $validate = Validate::make([
-            'name'     => 'require|max:50|token',
-            'email'    => 'require|email|unique:user|max:255',
-            'password' => 'require|confirm|min:6',
-            'captcha'  => 'require|captcha',
-        ])->message([
-            'name.require'     => '名称 不能为空',
-            'name.max'         => '名称 不能超过50字符',
-            'email.require'    => '邮箱 不能为空',
-            'email.email'      => '邮箱 格式不正确',
-            'email.unique'     => '邮箱 已被注册',
-            'email.max'        => '邮箱 长度过长',
-            'password.require' => '密码 不能为空',
-            'password.confirm' => '两次密码不一致',
-            'password.min'     => '密码 长度不能低于6位',
-            'captcha.require'  => '验证码 不能为空',
-            'captcha.captcha'  => '验证吗 不正确',
-        ]);
-        $result = $validate->batch()->check($request->param());
-        if (!$result) {
+        $validate = new ValidateUser;
+        if (!$validate->batch()->check($request->param())) {
             $errors = $validate->getError();
             $forms  = $request->param();
-            return redirect()->with(['errors'=>$errors, 'forms'=>$forms])->restore();
+            return redirect()->with([
+                'errors'=>$errors,
+                'forms'=>$forms
+                ])->restore();
         }
 
         // 验证通过
