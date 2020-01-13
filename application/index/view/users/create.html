@@ -1,11 +1,3 @@
-<!--
- * @Author: doderick
- * @Date: 2019-12-15 19:00:16
- * @LastEditTime : 2020-01-12 00:26:13
- * @LastEditors  : doderick
- * @Description: 用户注册页
- * @FilePath: /tp5/application/index/view/users/create.html
- -->
 {extend name="../resources/views/layouts/layout.html" /}
 {block name="title"}
     欢迎新用户{__block__}
@@ -14,35 +6,35 @@
     <div class="offset-md-2 col-md-8">
         <div class="card">
             <div class="card-header">
-                <h5>注册</h5>
+                <h5>{:lang('Register')}</h5>
             </div>
             <div class="card-body">
                 {include file="../resources/views/shared/_error.html"}
                 <form action="{:url('users.save')}" method="POST">
                     {:token()}
                     <div class="form-group">
-                        <label for="name">用户名：</label>
+                        <label for="name">{:lang('Name')}：</label>
                         <input type="text" name="name" class="form-control" value="{:Session::get('forms.name')}">
                     </div>
                     <div class="form-group">
-                        <label for="email">邮箱：</label>
+                        <label for="email">{:lang('E-Mail Address')}：</label>
                         <input type="text" name="email" class="form-control" value="{:Session::get('forms.email')}">
                     </div>
                     <div class="form-group">
-                        <label for="password">密码：</label>
+                        <label for="password">{:lang('Password')}：</label>
                         <input type="password" name="password" class="form-control" value="{:Session::get('forms.password')}">
                     </div>
                     <div class="form-group">
-                        <label for="password_confirm">确认密码：</label>
+                        <label for="password_confirm">{:lang('Confirm Password')}：</label>
                         <input type="password" name="password_confirm" class="form-control" value="{:Session::get('forms.passsword_confirm')}">
                     </div>
                     <div class="form-group">
-                        <label for="captcha">验证码：</label>
+                        <label for="captcha">{:lang('Captcha')}：</label>
                         <input type="text" name="captcha" class="form-control" value="{:Session::get('forms.captcha')}">
                         </br>
                         <img src="{:captcha_src()}" alt="captcha" onclick="this.src=this.src+'?'" />
                     </div>
-                    <button type="submit" class="btn btn-primary">注册</button>
+                    <button type="submit" class="btn btn-primary">{:lang('Register')}</button>
                 </form>
             </div>
         </div>
