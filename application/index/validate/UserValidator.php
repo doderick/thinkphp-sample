@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-13 23:38:56
- * @LastEditTime : 2020-01-14 00:18:39
+ * @LastEditTime : 2020-01-14 20:06:16
  * @LastEditors  : doderick
  * @Description: 用户注册表单验证
  * @FilePath: /tp5/application/index/validate/User.php
@@ -12,7 +12,7 @@ namespace app\index\validate;
 
 use think\Validate;
 
-class User extends Validate
+class UserValidator extends Validate
 {
     /**
      * 定义验证规则

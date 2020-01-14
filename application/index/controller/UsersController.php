@@ -10,7 +10,7 @@ use app\index\model\User;
 use think\facade\Session;
 use app\common\facade\Auth;
 use app\common\facade\Mail;
-use app\index\validate\User as ValidateUser;
+use app\index\validate\UserValidator;
 
 class UsersController extends Controller
 {
@@ -50,7 +50,7 @@ class UsersController extends Controller
     public function save(Request $request)
     {
         // 验证表单数据
-        $validate = new ValidateUser;
+        $validate = new UserValidator;
         if (!$validate->batch()->check($request->param())) {
             $errors = $validate->getError();
             $forms  = $request->param();

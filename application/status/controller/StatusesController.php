@@ -43,7 +43,7 @@ class StatusesController extends Controller
      */
     public function save(Request $request)
     {
-        $validate = new \app\status\validate\Status;
+        $validate = new \app\status\validate\StatusValidator();
         if (!$validate->batch()->check($request->param())) {
             $errors = $validate->getError();
             $forms  = $request->param();
