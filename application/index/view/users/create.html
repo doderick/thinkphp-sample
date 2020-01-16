@@ -8,17 +8,16 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        <h5>{:lang('Register')}</h5>
+                        {:lang('Register')}
                     </div>
                     <div class="card-body">
-                        {include file="../resources/views/shared/_error.html"}
                         <form action="{:url('users.save')}" method="POST">
                             {:token()}
 
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right">{:lang('Name')}：</label>
                                 <div class="col-md-6">
-                                    <input type="text" name="name" id="name" class="form-control{php}echo Session::has('errors.name') ? ' is-invalid' : '';{/php}" value="{:Session::get('forms.name')}">
+                                    <input type="text" name="name" id="name" class="form-control{:Session::has('errors.name') ? ' is-invalid' : ''}" value="{:old('name')}">
                                     {if condition="Session::has('errors.name')"}
                                         <span class="invalid-feedback" role="alert">
                                             <strong>
@@ -32,7 +31,7 @@
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">{:lang('E-Mail Address')}：</label>
                                 <div class="col-md-6">
-                                    <input type="text" name="email" id="email" class="form-control{php}echo Session::has('errors.email') ? ' is-invalid' : '';{/php}" value="{:Session::get('forms.email')}">
+                                    <input type="text" name="email" id="email" class="form-control{:Session::has('errors.email') ? ' is-invalid' : ''}" value="{:old('email')}">
                                     {if condition="Session::has('errors.email')"}
                                         <span class="invalid-feedback" role="alert">
                                             <strong>
@@ -46,7 +45,7 @@
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right">{:lang('Password')}：</label>
                                 <div class="col-md-6">
-                                    <input type="password" name="password" id="password" class="form-control{php}echo Session::has('errors.password') ? ' is-invalid' : '';{/php}" value="{:Session::get('forms.password')}">
+                                    <input type="password" name="password" id="password" class="form-control{:Session::has('errors.password') ? ' is-invalid' : ''}" value="{:old('password')}">
                                     {if condition="Session::has('errors.password')"}
                                         <span class="invalid-feedback" role="alert">
                                             <strong>
@@ -60,14 +59,14 @@
                             <div class="form-group row">
                                 <label for="password_confirm" class="col-md-4 col-form-label text-md-right">{:lang('Confirm Password')}：</label>
                                 <div class="col-md-6">
-                                    <input type="password" name="password_confirm" id="password_confirm" class="form-control" value="{:Session::get('forms.password_confirm')}">
+                                    <input type="password" name="password_confirm" id="password_confirm" class="form-control" value="{:old('password_confirm')}">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <label for="captcha" class="col-md-4 col-form-label text-md-right">{:lang('Captcha')}：</label>
                                 <div class="col-md-6">
-                                    <input type="text" name="captcha" id="captcha" class="form-control{php}echo Session::has('errors.captcha') ? ' is-invalid' : '';{/php}">
+                                    <input type="text" name="captcha" id="captcha" class="form-control{:Session::has('errors.captcha') ? ' is-invalid' : ''}">
                                     <img class="thumbnail captcha mt-3 mb-2" src="{:captcha_src()}" title="点击图片重新获取验证码" onclick="this.src=this.src+'?'" />
                                     {if condition="Session::has('errors.captcha')"}
                                         <span class="invalid-feedback" role="alert">
@@ -79,7 +78,13 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-primary">{:lang('Register')}</button>
+                            <div class="form-group row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {:lang('Register')}
+                                    </button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>

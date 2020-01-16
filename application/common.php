@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2019-12-15 18:50:52
- * @LastEditTime : 2020-01-11 23:52:24
+ * @LastEditTime : 2020-01-15 23:35:07
  * @LastEditors  : doderick
  * @Description: 自定义公共函数
  * @FilePath: /tp5/application/common.php
@@ -65,5 +65,18 @@ if (!function_exists('route_class')) {
     function route_class()
     {
         return str_replace('.', '-', currentRouteName());
+    }
+}
+
+if (!function_exists('old')) {
+    /**
+     * 返回就表单数据
+     *
+     * @param String $name
+     * @return String|null
+     */
+    function old(String $name)
+    {
+        return Session::get('forms.'.$name) ?: '';
     }
 }

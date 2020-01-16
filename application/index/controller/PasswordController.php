@@ -131,7 +131,7 @@ class PasswordController extends Controller
             'password.confirm' => '两次密码不一致',
             'password.min'     => '密码 长度不能低于6位',
         ]);
-        $result = $validate->check($request->param());
+        $result = $validate->batch()->check($request->param());
         if (!$result) {
             $errors = $validate->getError();
             return $errors;
@@ -192,11 +192,11 @@ class PasswordController extends Controller
      */
     public function sendPasswordResetEmail(User $user)
     {
-        $id = $this->createPasswordResetRecord($user);
-        $record = DB::table('password_resets')->find($id);
-        $view = 'emails/passwords/reset';
-        $data = compact('record');
-        $to = $record['email'];
+        $id      = $this->createPasswordResetRecord($user);
+        $record  = DB::table('password_resets')->find($id);
+        $view    = 'emails/passwords/reset';
+        $data    = compact('record');
+        $to      = $record['email'];
         $subject = "密码重置";
         Mail::send($view, $data, $to, $subject);
     }

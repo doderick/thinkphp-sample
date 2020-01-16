@@ -7,6 +7,7 @@ use think\Validate;
 use think\Controller;
 use think\facade\Session;
 use app\common\facade\Auth;
+use app\index\validate\SessionValidator;
 
 class SessionsController extends Controller
 {
@@ -44,29 +45,21 @@ class SessionsController extends Controller
     public function save(Request $request)
     {
         // 验证表单数据
-        $rule = [
-            'email'    => 'require|email|max:255|token',
-            'password' => 'require'
-        ];
-        $msg  = [
-            'email.require'    => '邮箱 不能为空',
-            'email.email'      => '邮箱 格式不正确',
-            'email.max'        => '邮箱 长度过长',
-            'password.require' => '密码 不能为空',
-        ];
+        $validate = new SessionValidator;
+        if (!$validate->batch()->check($request->param())) {
+            $errors = $validate->getError();
+            $forms  = $request->param();
+            return redirect()->with([
+                'errors'=>$errors,
+                'forms'=>$forms
+                ])->restore();
+        }
+
         $data = [
             'email'     => $request->param('email'),
             'password'  => $request->param('password'),
             'remember'  => $request->param('remember'),
-            '__token__' => $request->param('__token__')
         ];
-        $valiadte = Validate::make($rule, $msg);
-        $result = $valiadte->batch()->check($data);
-        if (!$result) {
-            $errors = $valiadte->getError();
-            $this->redirect($_SERVER["HTTP_REFERER"], [], 200, ['errors'=>$errors, 'forms'=>$data]);
-            $this->redirect($_SERVER["HTTP_REFERER"], [], 200, ['errors'=>$errors, 'forms'=>$data]);
-        }
 
         // 验证通过，登录逻辑
         if (Auth::attempt($data)) {
@@ -82,7 +75,7 @@ class SessionsController extends Controller
             } else{
                 Auth::logout();
                 $message = '你的账号未激活，请检查邮箱中的注册邮件进行激活';
-                return redirect(url('home'))->with(['warning'=>$message]);
+                return redirect('home')->with(['warning'=>$message]);
             }
         } else {
             $message = '很抱歉，您的邮箱和密码不匹配';
