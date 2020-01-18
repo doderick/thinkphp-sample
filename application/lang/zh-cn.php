@@ -2,9 +2,9 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-12 15:34:01
- * @LastEditTime : 2020-01-13 20:45:06
+ * @LastEditTime : 2020-01-18 22:50:18
  * @LastEditors  : doderick
- * @Description:
+ * @Description: 简体中文语言包
  * @FilePath: /tp5/application/lang/zh-cn.php
  */
 
@@ -22,4 +22,6 @@ return [
     'Send Password Reset Link' => '发送密码重置链接',
     'Register Now!'            => '现在注册！',
     'New to doderick?'         => '还没账号？',
+    'Introduction'             => '个人简介',
+    'Save'                     => '保存',
 ];

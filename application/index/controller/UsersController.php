@@ -10,7 +10,8 @@ use app\index\model\User;
 use think\facade\Session;
 use app\common\facade\Auth;
 use app\common\facade\Mail;
-use app\index\validate\UserValidator;
+use app\index\validate\UserSaveVaildator;
+use app\index\validate\UserUpdateValidator;
 
 class UsersController extends Controller
 {
@@ -50,7 +51,7 @@ class UsersController extends Controller
     public function save(Request $request)
     {
         // 验证表单数据
-        $validate = new UserValidator;
+        $validate = new UserSaveVaildator;
         if (!$validate->batch()->check($request->param())) {
             $errors = $validate->getError();
             $forms  = $request->param();
@@ -143,24 +144,18 @@ class UsersController extends Controller
             return redirect()->with([$info=>$msg])->restore();
         }
         // 验证表单数据
-        $validate = Validate::make([
-            'name'     => 'require|max:50|token',
-            'password' => 'confirm|min:6'
-        ])->message([
-            'name.require'     => '名称 不能为空',
-            'name.max'         => '名称 不能超过50字符',
-            'password.confirm' => '两次密码不一致',
-            'password.min'     => '密码 长度不能低于6位',
-        ]);
-        $result= $validate->batch()->check($request->param());
-        if (!$result) {
+        $validate = new UserUpdateValidator();
+        if (!$validate->batch()->check($request->param())) {
             $errors = $validate->getError();
             $forms  = $request->param();
             return redirect()->with(['errors'=>$errors, 'forms'=>$forms])->restore();
         }
         // 更新数据
-        $data = [];
-        $data['name'] = $request->param('name');
+        $data = $request->param();
+        if ($user->name === $request->param('name')) {
+            unset($data['name']);
+        }
+
         if ($request->param('password')) {
             $data['password'] = password_hash($request->param('password'), PASSWORD_BCRYPT);
         }
@@ -181,6 +176,9 @@ class UsersController extends Controller
             Session::set('user.name', $user->name);
             $info = 'success';
             $msg  = '您的用户名已修改成功！';
+        } elseif (!empty($data['introduction'])) {
+            $info = 'success';
+            $msg  = '您的个人简介已修改成功！';
         } else {
             $info = 'info';
             $msg  = '您的资料未经修改！';

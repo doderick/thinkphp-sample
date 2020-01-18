@@ -2,17 +2,17 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-05 20:52:38
- * @LastEditTime : 2020-01-14 20:08:24
+ * @LastEditTime : 2020-01-18 23:07:26
  * @LastEditors  : doderick
  * @Description: 动态验证器
- * @FilePath: /tp5/application/status/validate/StatusValidator.php
+ * @FilePath: /tp5/application/status/validate/StatusSaveValidator.php
  */
 
 namespace app\status\validate;
 
 use think\Validate;
 
-class StatusValidator extends Validate
+class StatusSaveValidator extends Validate
 {
     /**
      * 定义验证规则

@@ -7,7 +7,7 @@ use think\Validate;
 use think\Controller;
 use think\facade\Session;
 use app\common\facade\Auth;
-use app\index\validate\SessionValidator;
+use app\index\validate\SessionSaveValidator;
 
 class SessionsController extends Controller
 {
@@ -45,7 +45,7 @@ class SessionsController extends Controller
     public function save(Request $request)
     {
         // 验证表单数据
-        $validate = new SessionValidator;
+        $validate = new SessionSaveValidator;
         if (!$validate->batch()->check($request->param())) {
             $errors = $validate->getError();
             $forms  = $request->param();

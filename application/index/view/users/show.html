@@ -1,35 +1,66 @@
 {extend name="../resources/views/layouts/layout.html" /}
 {block name="title"}
-    {:$user->name}的主页{__block__}
+    {:$user->name}的个人中心{__block__}
 {/block}
 {block name="content"}
     <div class="row">
-        <div class="offset-md-2 col-md-8">
-            {include file="../resources/views/shared/_error.html"}
-            <section class="user_info">
-                {include file="../resources/views/shared/_user_info.html"}
-            </section>
-            {if condition="app\common\facade\Auth::isLoggedIn()"}
-                {include file="../application/index/view/users/_follow_form.html"}
-            {/if}
-            <section class="stats mt-2">
-                {include file="../resources/views/shared/_stats.html"}
-            </section>
+        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs user-info">
+            <div class="card">
+                <img class="card-img-top" src="{:$user->gravatar()}" alt="{$user->name}">
+                <div class="card-body">
+                    <h5>
+                        <strong>
+                            个人简介
+                        </strong>
+                    </h5>
+                    <p>
+                        {:$user->introduction}
+                    </p>
+                    <hr>
+                    <h5>
+                        <strong>
+                            注册于
+                        </strong>
+                    </h5>
+                    <p>
+                        {:Carbon\\Carbon::parse($user->create_time)->locale(config('default_lang'))->diffForHumans()}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+            <div class="card ">
+                <div class="card-body">
+                    <h1 class="mb-0">
+                        {$user->name}
+                        <small>
+                            {$user->email}
+                        </small>
+                    </h1>
+                </div>
+            </div>
             <hr>
-            <section>
-                {if condition="$statuses->count() > 0"}
-                    <ul class="list-unstyled">
-                        {volist name="statuses" id="status"}
-                            {include file="../application/status/view/statuses/_status.html"}
-                        {/volist}
-                    </ul>
-                    <div class="mt-5">
-                        {$statuses|raw}
-                    </div>
-                {else}
-                    <p>没有数据！</p>
-                {/if}
-            </section>
+
+            <!-- 用户发布的内容 -->
+            <div class="card">
+                <div class="card-body">
+                    <!-- 用户动态 -->
+                    <section>
+                        {if condition="$statuses->count() > 0"}
+                            <ul class="list-unstyled">
+                                {volist name="statuses" id="status"}
+                                    {include file="../application/status/view/statuses/_status.html"}
+                                {/volist}
+                            </ul>
+                            <div class="mt-5">
+                                {$statuses|raw}
+                            </div>
+                        {else}
+                            <p>没有数据！</p>
+                        {/if}
+                    </section>
+                </div>
+            </div>
         </div>
     </div>
 {/block}

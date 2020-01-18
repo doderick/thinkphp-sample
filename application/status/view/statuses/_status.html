@@ -4,7 +4,7 @@
     </a>
     <div class="media-body">
         <h5 class="mt-0 mb-1">
-            {$user->name} <small> / {php}echo Carbon\Carbon::parse($status->create_time)->locale(config('default_lang'))->diffForHumans(){/php}</small>
+            {$user->name} <small> / {:Carbon\\Carbon::parse($status->create_time)->locale(config('default_lang'))->diffForHumans()}</small>
         </h5>
         {$status->content}
     </div>

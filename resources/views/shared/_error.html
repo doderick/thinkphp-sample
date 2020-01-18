@@ -1,9 +1,11 @@
 {if condition="Session::has('errors')"}
     <div class="alert alert-danger">
-        <ul>
-            {php}$errors = Session::get('errors');{/php}
-            {foreach $errors as $error}
-                <li>{$error}</li>
+        <div class="mt-2">
+            <b>有错误发生：</b>
+        </div>
+        <ul class="mt-2 mb-2">
+            {foreach :session('errors') as $error}
+                <li><i class="glyphicon glyphicon-remove"></i> {$error}</li>
             {/foreach}
         </ul>
     </div>
