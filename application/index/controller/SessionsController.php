@@ -49,10 +49,7 @@ class SessionsController extends Controller
         if (!$validate->batch()->check($request->param())) {
             $errors = $validate->getError();
             $forms  = $request->param();
-            return redirect()->with([
-                'errors'=>$errors,
-                'forms'=>$forms
-                ])->restore();
+            return redirect('login')->with(['errors'=>$errors, 'forms'=>$forms]);
         }
 
         $data = [
@@ -79,7 +76,7 @@ class SessionsController extends Controller
             }
         } else {
             $message = '很抱歉，您的邮箱和密码不匹配';
-            return redirect()->with(['danger'=>$message, 'forms'=>$data])->restore();
+            return redirect('login')->with(['danger'=>$message, 'forms'=>$data]);
         }
         exit;
     }

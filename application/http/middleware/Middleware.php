@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2019-12-15 18:57:13
- * @LastEditTime : 2020-01-16 22:25:59
+ * @LastEditTime : 2020-01-24 16:07:50
  * @LastEditors  : doderick
  * @Description: 全局中间件
  * @FilePath: /tp5/application/http/middleware/Middleware.php
@@ -16,7 +16,7 @@ class Middleware
 {
     // 不需要记住的url
     protected $ignoredUrl = [
-        'captcha',
+        'captcha', 'login', 'logout'
     ];
 
     public function handle($request, \Closure $next)
