@@ -3,14 +3,15 @@
 namespace app\index\controller;
 
 use think\Request;
-use think\Validate;
 use app\common\Str;
+use think\Validate;
 use think\Controller;
 use app\index\model\User;
 use think\facade\Session;
 use app\common\facade\Auth;
 use app\common\facade\Mail;
 use app\index\validate\UserSaveVaildator;
+use app\common\handlers\ImageUploadHandler;
 use app\index\validate\UserUpdateValidator;
 
 class UsersController extends Controller
@@ -127,7 +128,7 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \think\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, ImageUploadHandler $uploader, $id)
     {
         // 验证操作对象是否存在
         $user = User::get($id);
@@ -161,6 +162,14 @@ class UsersController extends Controller
         }
         // 静态方法更新
         // User::update($data, ['id'=>$id]);
+
+        // 如果上传了头像，执行更新操作
+        if (request()->file('avatar')) {
+            $result = $uploader->save(request()->file('avatar'), 'avatars', $user->id);
+            if ($result) {
+                $data['avatar'] = $result['image_path'];
+            }
+        }
 
         // 显式更新,更新后直接刷新
         $user->isUpdate(true)->save($data);

@@ -15,7 +15,7 @@
                 <div class="card-body">
                     {include file="../resources/views/shared/_error.html"}
 
-                    <form method="POST" action="{:url('users.update', ['id'=>$user->id])}" accept-charset="UTF-8">
+                    <form method="POST" action="{:url('users.update', ['id'=>$user->id])}" accept-charset="UTF-8" enctype="multipart/form-data">
                         <input type="hidden" name="_method" value="PATCH" >
                         {:token()}
 
@@ -32,6 +32,16 @@
                         <div class="form-group">
                             <label for="introduction">{:lang('Introduction')}</label>
                             <textarea name="introduction" id="introduction" class="form-control" rows="3">{:old('introduction') ?: $user->introduction}</textarea>
+                        </div>
+
+                        <div class="form-group mb-4">
+                            <label for="" class="avatar-label">{:lang('Avatar')}</label>
+                            <input type="file" name="avatar" class="form-control-file">
+
+                            {if $user->avatar}
+                                <br>
+                                <img class="thumbnail img-responsive" src="{$user->avatar}" width="200">
+                            {/if}
                         </div>
 
                         <div class="well well-sm">
