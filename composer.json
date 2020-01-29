@@ -22,7 +22,8 @@
         "fzaninotto/faker": "^1.8",
         "phpmailer/phpmailer": "^6.0",
         "nesbot/carbon": "^2.28",
-        "topthink/think-captcha": "2.0.x-dev"
+        "topthink/think-captcha": "2.0.x-dev",
+        "intervention/image": "^2.5"
     },
     "autoload": {
         "psr-4": {

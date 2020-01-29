@@ -157,6 +157,9 @@ class UsersController extends Controller
         if ($user->name === $request->param('name')) {
             unset($data['name']);
         }
+        if ($user->introduction === $request->param('introduction')) {
+            unset($data['introduction']);
+        }
 
         if ($request->param('password')) {
             $data['password'] = password_hash($request->param('password'), PASSWORD_BCRYPT);
@@ -180,7 +183,7 @@ class UsersController extends Controller
                 return redirect()->with(['errors'=>$errors, 'forms'=>$forms])->restore();
             }
 
-            $result = $uploader->save($avatar, 'avatars', $user->id);
+            $result = $uploader->save($avatar, 'avatars', $user->id, 416);
             if ($result) {
                 $data['avatar'] = $result['image_path'];
             }
@@ -203,9 +206,17 @@ class UsersController extends Controller
         } elseif (!empty($data['introduction'])) {
             $info = 'success';
             $msg  = '您的个人简介已修改成功！';
+        } elseif (!empty($data['avatar'])) {
+            $info = 'success';
+            $msg  = '您的头像已修改成功！';
         } else {
             $info = 'info';
             $msg  = '您的资料未经修改！';
+        }
+
+        if (count($data) > 1) {
+            $info = 'success';
+            $msg  = '您的资料已修改成功！';
         }
 
         return redirect()->with([$info=>$msg])->restore();
