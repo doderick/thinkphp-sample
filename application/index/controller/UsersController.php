@@ -10,6 +10,7 @@ use app\index\model\User;
 use think\facade\Session;
 use app\common\facade\Auth;
 use app\common\facade\Mail;
+use app\index\validate\UploaderValidator;
 use app\index\validate\UserSaveVaildator;
 use app\common\handlers\ImageUploadHandler;
 use app\index\validate\UserUpdateValidator;
@@ -164,8 +165,22 @@ class UsersController extends Controller
         // User::update($data, ['id'=>$id]);
 
         // 如果上传了头像，执行更新操作
-        if (request()->file('avatar')) {
-            $result = $uploader->save(request()->file('avatar'), 'avatars', $user->id);
+        if (isset($request->file()['avatar'])) {
+            $avatar = $request->file('avatar');
+            $avatarRule = [
+                'mimes'      => 'jpeg,bmp,png,gif',
+                'dimensions' => '200,200'
+            ];
+
+            // 上传验证
+            $avatarValidate = new UploaderValidator;
+            if (!$avatarValidate->image($avatar, $avatarRule)) {
+                $forms  = $request->param();
+                $errors['avatar'] = '头像' . $avatarValidate->getError();
+                return redirect()->with(['errors'=>$errors, 'forms'=>$forms])->restore();
+            }
+
+            $result = $uploader->save($avatar, 'avatars', $user->id);
             if ($result) {
                 $data['avatar'] = $result['image_path'];
             }
