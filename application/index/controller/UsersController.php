@@ -2,6 +2,7 @@
 
 namespace app\index\controller;
 
+use Carbon\Carbon;
 use think\Request;
 use app\common\Str;
 use think\Validate;
@@ -11,7 +12,7 @@ use think\facade\Session;
 use app\common\facade\Auth;
 use app\common\facade\Mail;
 use app\index\validate\UploaderValidator;
-use app\index\validate\UserSaveVaildator;
+use app\index\validate\UserSaveValidator;
 use app\common\handlers\ImageUploadHandler;
 use app\index\validate\UserUpdateValidator;
 
@@ -53,7 +54,7 @@ class UsersController extends Controller
     public function save(Request $request)
     {
         // 验证表单数据
-        $validate = new UserSaveVaildator;
+        $validate = new UserSaveValidator;
         if (!$validate->batch()->check($request->param())) {
             $errors = $validate->getError();
             $forms  = $request->param();
@@ -69,6 +70,7 @@ class UsersController extends Controller
             'email'            => $request->param('email'),
             'password'         => password_hash($request->param('password'), PASSWORD_BCRYPT),
             'activation_token' => Str::random(),
+            'avatar'           => config('app.app_host') .'/images/avatar_0.png'
         ]);
 
         // 注册后发送激活邮件
@@ -282,8 +284,9 @@ class UsersController extends Controller
 
         // 比对token
         if ($user->activation_token === $token) {
-            $user->is_activated     = true;
-            $user->activation_token = null;
+            $user->is_activated      = true;
+            $user->activation_token  = null;
+            $user->email_verified_at = Carbon::now();
             $user->save();
         }
 

@@ -8,3 +8,4 @@ thinkphp
 .editorconfig
 node_modules
 public/uploads
+public/images/avatars

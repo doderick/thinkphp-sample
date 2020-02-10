@@ -2,17 +2,17 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-13 23:38:56
- * @LastEditTime : 2020-01-18 23:59:30
+ * @LastEditTime : 2020-02-10 23:37:13
  * @LastEditors  : doderick
  * @Description: 用户注册表单验证
- * @FilePath: /tp5/application/index/validate/UserSaveVaildator.php
+ * @FilePath: /tp5/application/index/validate/UserSaveValidator.php
  */
 
 namespace app\index\validate;
 
 use think\Validate;
 
-class UserSaveVaildator extends Validate
+class UserSaveValidator extends Validate
 {
     /**
      * 定义验证规则
