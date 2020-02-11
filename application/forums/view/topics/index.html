@@ -1,0 +1,40 @@
+{extend name="../resources/views/layouts/layout.html" /}
+{block name="title"}
+    帖子列表
+{/block}
+{block name="content"}
+    <div class="row mb-5">
+        <div class="col-lg-9 col-md-9 topic-list">
+            <div class="card">
+
+                <div class="card-header bg-transparent">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                最后回复
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                最新发布
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card-body">
+                    <!-- 帖子列表 -->
+                    {include file="../application/forums/view/topics/_topic_list.html"}
+                    <div class="mt-5">
+                        {$topics|raw}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-3 sidebar">
+            {include file="../application/forums/view/topics/_sidebar.html"}
+        </div>
+    </div>
+{/block}

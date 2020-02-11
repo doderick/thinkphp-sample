@@ -56,6 +56,10 @@ Route::get('users/:id/followers','UsersController/followers')->name('users.follo
 Route::post('users/followers/:id', 'FollowersController/save')->name('followers.save');
 Route::delete('users/followers/:id', 'FollowersController/delete')->name('followers.delete');
 
+// 帖子资源相关路由
+Route::get('topics$', 'forums/TopicsController/index')->name('topics.index');
+Route::get('topic/:id$', 'forums/TopicsController/read')->name('topics.read');
+
 return [
 
 ];

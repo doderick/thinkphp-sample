@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:37:40
- * @LastEditTime : 2020-02-10 23:23:41
+ * @LastEditTime : 2020-02-12 00:12:20
  * @LastEditors  : doderick
  * @Description: 帖子控制器
  * @FilePath: /tp5/application/forums/controller/TopicsController.php
@@ -10,6 +10,7 @@
 
 namespace app\forums\controller;
 
+use app\forums\model\Topic;
 use think\Request;
 use think\Controller;
 
@@ -22,7 +23,8 @@ class TopicsController extends Controller
      */
     public function index()
     {
-        //
+        $topics = Topic::paginate(20, false);
+        return view('topics/index', compact('topics'));
     }
 
     /**
