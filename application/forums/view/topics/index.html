@@ -1,25 +1,54 @@
 {extend name="../resources/views/layouts/layout.html" /}
 {block name="title"}
-    帖子列表
+    {if isset($category)}
+        {$category->name}
+    {else}
+        帖子列表
+    {/if}
 {/block}
 {block name="content"}
     <div class="row mb-5">
         <div class="col-lg-9 col-md-9 topic-list">
+            {if isset($category)}
+                <div class="alert alert-info" role="alert">
+                    {$category->name} : {$category->description}
+                </div>
+            {/if}
+
             <div class="card">
 
                 <div class="card-header bg-transparent">
-                    <ul class="nav nav-pills">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link active">
-                                最后回复
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                最新发布
-                            </a>
-                        </li>
-                    </ul>
+                    <nav class="navbar navbar-expand navbar-light">
+                        <ul class="navbar-nav mr-auto row">
+                            <li class="nav-item">
+                                <a class="nav-link {:currentRouteName() == 'topics.index' ? 'active' : ''}" href="{:url('topics.index')}">
+                                    默认
+                                </a>
+                            </li>
+                            {if count($categories) > 0}
+                                {foreach $categories as $key => $category}
+                                    <li class="nav-item">
+                                        <a class="nav-link {:category_nav_active($category->id) ? 'active' : ''}" href="{:url('categories.read', ['id'=>$category->id])}">
+                                            {$category->name}
+                                        </a>
+                                    </li>
+                                {/foreach}
+                            {/if}
+                        </ul>
+
+                        <ul class="nav nav-pills ml-auto">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link active">
+                                    最后回复
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link">
+                                    最新发布
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
 
                 <div class="card-body">

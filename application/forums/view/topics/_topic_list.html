@@ -1,4 +1,4 @@
-{if condition="count($topics) > 0"}
+{if count($topics) > 0}
     <ul class="list-unstyled">
         {foreach $topics as $key => $topic}
             <li class="media">
@@ -21,7 +21,7 @@
 
                     <small class="media-body meta text-secondary">
 
-                        <a href="#" class="text-secondary" title="{$topic->category->name}">
+                        <a href="{:url('categories.read', ['id'=>$topic->category_id])}" class="text-secondary" title="{$topic->category->name}">
                             <i class="far fa-folder"></i>
                             {$topic->category->name}
                         </a>

@@ -60,6 +60,9 @@ Route::delete('users/followers/:id', 'FollowersController/delete')->name('follow
 Route::get('topics$', 'forums/TopicsController/index')->name('topics.index');
 Route::get('topic/:id$', 'forums/TopicsController/read')->name('topics.read');
 
+// 分类资源相关路由
+Route::get('category/:id$', 'forums/CategoriesController/read')->name('categories.read');
+
 return [
 
 ];

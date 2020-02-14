@@ -1,21 +1,21 @@
 <?php
 /*
  * @Author: doderick
- * @Date: 2020-02-09 23:37:40
- * @LastEditTime : 2020-02-14 17:07:13
+ * @Date: 2020-02-13 22:16:40
+ * @LastEditTime : 2020-02-14 00:32:49
  * @LastEditors  : doderick
- * @Description: 帖子控制器
- * @FilePath: /tp5/application/forums/controller/TopicsController.php
+ * @Description: 分类控制器
+ * @FilePath: /tp5/application/forums/controller/CategoriesController.php
  */
 
 namespace app\forums\controller;
 
+use app\forums\model\Category;
 use think\Request;
 use think\Controller;
 use app\forums\model\Topic;
-use app\forums\model\Category;
 
-class TopicsController extends Controller
+class CategoriesController extends Controller
 {
     /**
      * 显示资源列表
@@ -24,9 +24,7 @@ class TopicsController extends Controller
      */
     public function index()
     {
-        $topics = Topic::with('user', 'category')->paginate(20, false);
-        $categories = Category::all();
-        return view('topics/index', compact('topics', 'categories'));
+        //
     }
 
     /**
@@ -58,7 +56,14 @@ class TopicsController extends Controller
      */
     public function read($id)
     {
-        //
+        $categories = Category::all();
+        foreach ($categories as $value) {
+            if ($id == $value->id) $category = $value;
+        }
+        // 读取分类 id 关联的帖子，按规则分页
+        $topics = Topic::with('user')->where('category_id', $id)->paginate(20);
+
+        return view('topics/index', compact('topics', 'category', 'categories'));
     }
 
     /**

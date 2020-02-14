@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2019-12-15 18:50:52
- * @LastEditTime : 2020-01-15 23:35:07
+ * @LastEditTime : 2020-02-14 17:06:28
  * @LastEditors  : doderick
  * @Description: 自定义公共函数
  * @FilePath: /tp5/application/common.php
@@ -65,6 +65,34 @@ if (!function_exists('route_class')) {
     function route_class()
     {
         return str_replace('.', '-', currentRouteName());
+    }
+}
+
+if (!function_exists('currentRouteVars')) {
+    /**
+     * 获取当前路由的参数
+     *
+     * @param string $param 需要获取的参数名
+     * @return mixed
+     */
+    function currentRouteVars($param)
+    {
+        $route = Route::getRule(Request::routeInfo()['rule']);
+        $routeVars = $route['get']->getVars();
+        return $routeVars[$param] ?? false;
+    }
+}
+
+if (!function_exists('category_nav_active')) {
+    /**
+     * 判断分类标签是否激活
+     *
+     * @param integer $category_id 分类id
+     * @return boolean
+     */
+    function category_nav_active($category_id)
+    {
+        return 'categories.read' == currentRouteName() && $category_id == currentRouteVars('id');
     }
 }
 
