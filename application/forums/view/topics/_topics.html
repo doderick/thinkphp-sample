@@ -1,0 +1,18 @@
+{if count($topics) > 0}
+    <ul class="list-group mt-4 border-0">
+        {foreach $topics as $key => $topic}
+            <li class="list-group-item pl-2 pr-2 border-right-0 border-left-0 {if($key == 0)} border-top-0 {/if}">
+                <a href="#">
+                    {$topic->title}
+                </a>
+                <span class="meta float-right text-secondary">
+                    {$topic->reply_count} 回复
+                    <span> ⋅ </span>
+                    {:Carbon\\Carbon::parse($topic->create_time)->locale(config('default_lang'))->diffForHumans()}
+                </span>
+            </li>
+        {/foreach}
+    </ul>
+{else}
+    <div class="empty-block">暂无数据 ~_~ </div>
+{/if}

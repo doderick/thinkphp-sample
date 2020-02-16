@@ -94,9 +94,12 @@ class UsersController extends Controller
         $user = User::get($id);
         // 取出该用户的所有微博
         $statuses = $user->statuses()
-                         ->order('create_time', 'desc')
-                         ->paginate(10, false);
-        return view('users/show', compact('user', 'statuses'));
+                            ->order('create_time', 'desc')
+                            ->paginate(10, false);
+        $topics = $user->topics()
+                        ->withOrder('recent')
+                        ->paginate(5, false);
+        return view('users/show', compact('user', 'statuses', 'topics'));
     }
 
     /**

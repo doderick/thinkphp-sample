@@ -1,8 +1,17 @@
 <?php
+/*
+ * @Author: doderick
+ * @Date: 2020-01-04 22:09:05
+ * @LastEditTime : 2020-02-17 00:15:06
+ * @LastEditors  : doderick
+ * @Description: 用户模型
+ * @FilePath: /tp5/application/index/model/User.php
+ */
 
 namespace app\index\model;
 
 use think\Model;
+use app\forums\model\Topic;
 use app\status\model\Status;
 
 class User extends Model
@@ -33,8 +42,8 @@ class User extends Model
         $user_ids = array_column(User::get($this->id)->followings->toArray(), 'id');
         array_push($user_ids, $this->id);
         return Status::where('user_id', 'in', $user_ids)
-                     ->with('user')
-                     ->order('create_time', 'desc');
+                        ->with('user')
+                        ->order('create_time', 'desc');
     }
 
     // 关联粉丝
@@ -88,5 +97,11 @@ class User extends Model
     public function isFollowing($user_id)
     {
         return $this->followings()->attached($user_id);
+    }
+
+    // 关联帖子tiezi
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
     }
 }
