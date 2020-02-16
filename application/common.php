@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2019-12-15 18:50:52
- * @LastEditTime : 2020-02-14 17:06:28
+ * @LastEditTime : 2020-02-16 23:15:22
  * @LastEditors  : doderick
  * @Description: 自定义公共函数
  * @FilePath: /tp5/application/common.php
@@ -93,6 +93,24 @@ if (!function_exists('category_nav_active')) {
     function category_nav_active($category_id)
     {
         return 'categories.read' == currentRouteName() && $category_id == currentRouteVars('id');
+    }
+}
+
+if (!function_exists('query_active')) {
+    /**
+     * 判断排序按钮是否激活
+     *
+     * @param string $query 排序key
+     * @param string $order 排序value
+     * @return void
+     */
+    function query_active($query, $order)
+    {
+        $queryArr = explode('&', Request::query());
+        foreach ($queryArr as $key => $value) {
+            if ("{$query}={$order}" == $value) return true;
+        }
+        return false;
     }
 }
 

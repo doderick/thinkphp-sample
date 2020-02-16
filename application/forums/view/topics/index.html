@@ -38,12 +38,12 @@
 
                         <ul class="nav nav-pills ml-auto">
                             <li class="nav-item">
-                                <a href="#" class="nav-link active">
+                                <a href="{:Request::baseUrl() . '?order=recentReplied'}" class="nav-link {:query_active('order', 'recent') == false ? 'active' : ''}">
                                     最后回复
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="#" class="nav-link">
+                                <a href="{:Request::baseUrl() . '?order=recent'}" class="nav-link {:query_active('order', 'recent') ? 'active' : ''}"">
                                     最新发布
                                 </a>
                             </li>
