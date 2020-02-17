@@ -35,6 +35,11 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{:url('users.index')}">用户列表</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{:url('topics.create')}" class="nav-link mt-2 mr-2 font-weight-blod">
+                            <i class="fa fa-plus"></i>
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="{:app\\common\\facade\\Auth::user()->avatar}" class="img-responsive img-circle" width="30px" height="30px">

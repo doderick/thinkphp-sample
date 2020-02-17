@@ -1,0 +1,63 @@
+{extend name="../resources/views/layouts/layout.html" /}
+{block name="title"}
+    {if isset($topic->id)}
+        编辑帖子
+    {else}
+        发布帖子
+    {/if}
+{/block}
+{block name="content"}
+    <div class="container">
+        <div class="col-md-10 offset-md-1">
+            <div class="card">
+
+                <div class="card-body">
+                    <h2>
+                        <i class="far fa-edit"></i>
+                        {if isset($topic->id)}
+                            编辑帖子
+                        {else}
+                            新帖子
+                        {/if}
+                    </h2>
+
+                    <hr>
+
+                {if isset($topic->id)}
+                    <form action="{:url('topics.update', ['id'=>$topic->id])}" method="POST" accept-charset="UTF-8">
+                        <input type="hidden" name="_method" value="PATCH">
+                {else}
+                    <form action="{:url('topics.save')}" method="POST" accept-charset="UTF-8">
+                {/if}
+
+                        {:token()}
+                        {include file="../resources/views/shared/_error.html"}
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="title" value="{:old('title') ?: isset($topic->title) ?? $topic->title}" placeholder="请填写帖子标题"/>
+                        </div>
+
+                        <div class="form-group">
+                            <select name="category_id" id="category_id" class="form-control">
+                                <option value="" hidden disabled selected>请选择帖子分类</option>
+                                {foreach $categories as $key => $category}
+                                    <option value="{$category->id}">{$category->name}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <textarea name="body" id="editor" rows="6" placeholder="请输入至少三个字符的内容。" class="form-control">{:old('body') ?: isset($topic->body) ?? $topic->body}</textarea>
+                        </div>
+
+                        <div class="well well-sm">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="far fa-save mr-2" aria-hidden="true"></i> 保存
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

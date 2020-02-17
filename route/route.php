@@ -59,6 +59,10 @@ Route::delete('users/followers/:id', 'FollowersController/delete')->name('follow
 // 帖子资源相关路由
 Route::get('topics$', 'forums/TopicsController/index')->name('topics.index');
 Route::get('topic/:id$', 'forums/TopicsController/read')->name('topics.read');
+Route::get('topics/create$', 'forums/TopicsController/create')->name('topics.create');
+Route::get('topic/:id/edit', 'forums/TopicsController/edit')->name('topics.edit');
+Route::post('topic', 'forums/TopicsController/save')->name('topics.save');
+Route::patch('topic/:id', 'forums/TopicsController/update')->name('topics.update');
 
 // 分类资源相关路由
 Route::get('category/:id$', 'forums/CategoriesController/read')->name('categories.read');

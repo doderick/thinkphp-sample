@@ -17509,3 +17509,10 @@ section.user_info h2 a:hover {
   margin-bottom: 100px;
 }
 
+.topics-create-page h2 {
+  text-align: left;
+  font-size: 30px;
+  font-weight: bold;
+  color: #000;
+}
+

@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2019-12-15 18:50:52
- * @LastEditTime : 2020-02-16 23:15:22
+ * @LastEditTime : 2020-02-17 22:40:33
  * @LastEditors  : doderick
  * @Description: 自定义公共函数
  * @FilePath: /tp5/application/common.php
@@ -116,7 +116,7 @@ if (!function_exists('query_active')) {
 
 if (!function_exists('old')) {
     /**
-     * 返回就表单数据
+     * 返回旧表单数据
      *
      * @param String $name
      * @return String|null
@@ -124,5 +124,20 @@ if (!function_exists('old')) {
     function old(String $name)
     {
         return Session::get('forms.'.$name) ?: '';
+    }
+}
+
+if (!function_exists('make_excerpt')) {
+    /**
+     * 创建摘录
+     *
+     * @param string $value 需要创建摘录的文本
+     * @param int $length 摘录的长度
+     * @return string
+     */
+    function make_excerpt($value, $length = 200)
+    {
+        $excerpt = trim(preg_replace('/\r\n|\r|\n+/', ' ', strip_tags($value)));
+        return app\common\Str::limit($excerpt, $length);
     }
 }

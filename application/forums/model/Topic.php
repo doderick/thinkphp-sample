@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:25:36
- * @LastEditTime : 2020-02-16 23:30:35
+ * @LastEditTime : 2020-02-18 00:02:54
  * @LastEditors  : doderick
  * @Description: 帖子模型
  * @FilePath: /tp5/application/forums/model/Topic.php
@@ -10,8 +10,9 @@
 
 namespace app\forums\model;
 
-use app\index\model\User;
 use think\Model;
+use app\index\model\User;
+use app\forums\observer\TopicObserver;
 
 class Topic extends Model
 {
@@ -20,6 +21,9 @@ class Topic extends Model
 
     // 自动写入时间
     protected $autoWriteTimestamp = 'datetime';
+
+    // 设置事件观察者
+    protected $observerClass = TopicObserver::class;
 
     // 设置用户关联
     public function user()
