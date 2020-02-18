@@ -1,7 +1,7 @@
 <?php
 /*
  * @Author: doderick
- * @LastEditors  : doderick
+ * @LastEditors: doderick
  * @Description: 路由
  */
 // +----------------------------------------------------------------------
@@ -63,6 +63,7 @@ Route::get('topics/create$', 'forums/TopicsController/create')->name('topics.cre
 Route::get('topic/:id/edit', 'forums/TopicsController/edit')->name('topics.edit');
 Route::post('topic', 'forums/TopicsController/save')->name('topics.save');
 Route::patch('topic/:id', 'forums/TopicsController/update')->name('topics.update');
+Route::post('upload_image', 'forums/TopicsController/uploadImage')->name('topics.upload_image');
 
 // 分类资源相关路由
 Route::get('category/:id$', 'forums/CategoriesController/read')->name('categories.read');

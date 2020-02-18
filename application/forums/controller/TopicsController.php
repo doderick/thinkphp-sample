@@ -3,7 +3,7 @@
  * @Author: doderick
  * @Date: 2020-02-09 23:37:40
  * @LastEditTime : 2020-02-18 00:06:08
- * @LastEditors  : doderick
+ * @LastEditors: doderick
  * @Description: 帖子控制器
  * @FilePath: /tp5/application/forums/controller/TopicsController.php
  */
@@ -15,6 +15,7 @@ use think\Controller;
 use app\common\facade\Auth;
 use app\forums\model\Topic;
 use app\forums\model\Category;
+use app\common\handlers\ImageUploadHandler;
 use app\forums\validate\TopicCreateValidator;
 
 class TopicsController extends Controller
@@ -120,5 +121,35 @@ class TopicsController extends Controller
     public function delete($id)
     {
         //
+    }
+
+    /**
+     * 上传图片
+     *
+     * @param Request $request
+     * @param ImageUploadHandler $uploader
+     * @return json
+     */
+    public function uploadImage(Request $request, ImageUploadHandler $uploader)
+    {
+        // 初始化返回数据，默认失败
+        $return = [
+            'success'   => false,
+            'msg'       => '上传失败！',
+            'file_path' => '',
+        ];
+        // 获取上传文件
+        if ($file = $request->file()['upload_file']) {
+            // 保存图片
+            $result = $uploader->save($file, 'topics', Auth::user()->id, 1024);
+            if ($result) {
+                $return = [
+                    'success'   => true,
+                    'msg'       => '上传成功！',
+                    'file_path' => $result['image_path'],
+                ];
+            }
+        }
+        return $return;
     }
 }

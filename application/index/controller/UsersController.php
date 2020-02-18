@@ -118,8 +118,7 @@ class UsersController extends Controller
             return redirect()->with([$info=>$msg])->restore();
         }
         // 验证操作权限
-        $canEdit = Auth::authorize('update', $user);
-        if (!$canEdit) {
+        if (false == Auth::authorize('update', $user)) {
             $info = 'danger';
             $msg  = '抱歉,您没有权限!';
             return redirect()->with([$info=>$msg])->restore();
@@ -144,8 +143,7 @@ class UsersController extends Controller
             return redirect()->with(['$info=>$msg'])->restore();
         }
         // 验证操作权限
-        $canUpdate = Auth::authorize('update', $user);
-        if (!$canUpdate) {
+        if (false == Auth::authorize('update', $user)) {
             $info = 'danger';
             $msg  = '抱歉,您没有权限!';
             return redirect()->with([$info=>$msg])->restore();
