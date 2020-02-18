@@ -5,6 +5,7 @@
     {else}
         帖子列表
     {/if}
+    {__block__}
 {/block}
 {block name="content"}
     <div class="row mb-5">
@@ -43,7 +44,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{:Request::baseUrl() . '?order=recent'}" class="nav-link {:query_active('order', 'recent') ? 'active' : ''}"">
+                                <a href="{:Request::baseUrl() . '?order=recent'}" class="nav-link {:query_active('order', 'recent') ? 'active' : ''}">
                                     最新发布
                                 </a>
                             </li>
