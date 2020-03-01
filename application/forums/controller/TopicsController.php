@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:37:40
- * @LastEditTime : 2020-02-18 00:06:08
+ * @LastEditTime: 2020-03-01 23:05:18
  * @LastEditors: doderick
  * @Description: 帖子控制器
  * @FilePath: /tp5/application/forums/controller/TopicsController.php
@@ -69,6 +69,16 @@ class TopicsController extends Controller
                 ])->restore();
         }
         $data = $request->param();
+
+        // 预防 XSS 攻击
+        $body = clean($data['body'], 'user_topic_body');
+        // 如果过滤后的内容为空。不予保存到数据库
+        if (empty($body)) {
+            return redirect()->with([
+                'danger' => '帖子内容无法识别！'
+                ])->restore();
+        }
+
         $data['user_id'] = Auth::user()->id;
         $topic->allowField(true)->save($data);
 
