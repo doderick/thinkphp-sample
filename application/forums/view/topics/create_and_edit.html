@@ -12,7 +12,7 @@
             var editor = new Simditor({
                 textarea: $('#editor'),
                 upload: {
-                    url: '{:url('topics.upload_image')}',
+                    url: '{:url("topics.upload_image")}',
                     params: {
                         _token: '{:token()}'
                     },
@@ -61,20 +61,22 @@
                         {include file="../resources/views/shared/_error.html"}
 
                         <div class="form-group">
-                            <input type="text" class="form-control" name="title" value="{:old('title') ?: isset($topic->title) ?? $topic->title}" placeholder="请填写帖子标题"/>
+                            <input type="text" class="form-control" name="title" value="{:old('title') ?: $topic->title ?? ''}" placeholder="请填写帖子标题"/>
                         </div>
 
                         <div class="form-group">
                             <select name="category_id" id="category_id" class="form-control">
-                                <option value="" hidden disabled selected>请选择帖子分类</option>
+                                <option value="" hidden disabled {:isset($topic) && $topic->id ? '' : 'selected'}>请选择帖子分类</option>
                                 {foreach $categories as $key => $category}
-                                    <option value="{$category->id}">{$category->name}</option>
+                                    <option value="{$category->id}" {:isset($topic) && $topic->category_id == $category->id ? 'selected' : ''}>
+                                        {$category->name}
+                                    </option>
                                 {/foreach}
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <textarea name="body" id="editor" rows="6" placeholder="请输入至少三个字符的内容。" class="form-control">{:old('body') ?: isset($topic->body) ?? $topic->body}</textarea>
+                            <textarea name="body" id="editor" rows="6" placeholder="请输入至少三个字符的内容。" class="form-control">{:old('body') ?: $topic->body ?? ''}</textarea>
                         </div>
 
                         <div class="well well-sm">

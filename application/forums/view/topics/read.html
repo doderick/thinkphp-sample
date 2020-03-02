@@ -39,12 +39,20 @@
                     </div>
                     <div class="operate">
                         <hr>
-                        <a href="{:url('topics.edit', ['id'=>$topic->id])}" class="btn btn-outline-secondary btn-sm" role="button">
-                            <i class="far fa-edit"></i> 编辑
-                        </a>
-                        <a href="{:url('topics.delete', ['id'=>$topic->id])}" class="btn btn-outline-secondary btn-sm" role="button">
-                            <i class="far fa-trash-alt"></i> 删除
-                        </a>
+                        {if app\common\facade\Auth::authorize('update', $topic, 'Topic')}
+                            <a href="{:url('topics.edit', ['id'=>$topic->id])}" class="btn btn-outline-secondary btn-sm" role="button">
+                                <i class="far fa-edit"></i> 编辑
+                            </a>
+                        {/if}
+                        {if app\common\facade\Auth::authorize('delete', $topic, 'Topic')}
+                            <form action="{:url('topics.delete', ['id'=>$topic->id])}" method="post" style="display: inline-block;" onsubmit="return confirm('确定要删除这个帖子吗？');">
+                                {:token()}
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                    <i class="far fa-trash-alt"></i> 删除
+                                </button>
+                            </form>
+                        {/if}
                     </div>
                 </div>
             </div>

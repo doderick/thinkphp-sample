@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:37:40
- * @LastEditTime: 2020-03-02 11:00:42
+ * @LastEditTime: 2020-03-02 23:44:52
  * @LastEditors: doderick
  * @Description: 帖子控制器
  * @FilePath: /application/forums/controller/TopicsController.php
@@ -11,6 +11,7 @@
 namespace app\forums\controller;
 
 use think\Request;
+use think\Validate;
 use think\Controller;
 use app\common\facade\Auth;
 use app\forums\model\Topic;
@@ -54,7 +55,7 @@ class TopicsController extends Controller
      * 保存新建的资源
      *
      * @param  \think\Request  $request
-     * @param  app\forums\model\Topic $topic
+     * @param  \app\forums\model\Topic $topic
      * @return \think\Response
      */
     public function save(Request $request, Topic $topic)
@@ -102,35 +103,90 @@ class TopicsController extends Controller
     /**
      * 显示编辑资源表单页.
      *
-     * @param  int  $id
+     * @param  \app\forums\model\Topic  $topic
      * @return \think\Response
      */
-    public function edit($id)
+    public function edit(Topic $topic)
     {
-        //
+        if (false == Auth::authorize('update', $topic, 'Topic')) {
+            $info = 'danger';
+            $msg  = '抱歉,您没有权限!';
+            return redirect()->with([$info=>$msg])->restore();
+        }
+        $categories = Category::all();
+        return view('topics/create_and_edit', compact('topic', 'categories'));
     }
 
     /**
      * 保存更新的资源
      *
      * @param  \think\Request  $request
-     * @param  int  $id
+     * @param  app\forums\model\Topic  $topic
      * @return \think\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Topic $topic)
     {
-        //
+        // 验证权限
+        if (false == Auth::authorize('update', $topic, 'Topic')) {
+            $info = 'danger';
+            $msg  = '抱歉,您没有权限!';
+            return redirect()->with([$info=>$msg])->restore();
+        }
+
+        // 内容验证
+        $validate = new TopicCreateValidator();
+        if (!$validate->batch()->check($request->param())) {
+            $errors = $validate->getError();
+            $forms  = $request->param();
+            return redirect()->with([
+                'errors' => $errors,
+                'forms'  => $forms,
+                ])->restore();
+        }
+        $data = $request->param();
+
+        // 预防 XSS 攻击
+        $body = clean($data['body'], 'user_topic_body');
+        // 如果过滤后的内容为空。不予保存到数据库
+        if (empty($body)) {
+            return redirect()->with([
+                'danger' => '帖子内容无法识别！'
+                ])->restore();
+        }
+
+        $topic->update($data);
+
+        // 帖子更新成功后的跳转
+        return redirect('topics.read')->params(['id' => $topic->id])
+                                        ->with(['success' => '帖子更新成功！']);
     }
 
     /**
      * 删除指定资源
      *
-     * @param  int  $id
+     * @param  \think\Request  $request
+     * @param  \app\forums\model\Topic  $topic
      * @return \think\Response
      */
-    public function delete($id)
+    public function delete(Request $request, Topic $topic)
     {
-        //
+        // 验证令牌
+        $validate = Validate::make([
+            'id' => 'token',
+        ]);
+        if (false == $validate->batch()->check($request->param())) {
+            return redirect()->restore();
+        }
+
+        if (false == Auth::authorize('delete', $topic, 'Topic')) {
+            $info = 'danger';
+            $msg  = '抱歉,您没有权限!';
+            return redirect()->with([$info=>$msg])->restore();
+        }
+        $topic->delete();
+        $info = 'success';
+        $msg  = '帖子删除成功！';
+        return redirect('topics.index')->with([$info => $msg]);
     }
 
     /**

@@ -125,7 +125,7 @@ class StatusesController extends Controller
         }
 
         // 没有权限
-        if (false == Auth::status('delete', $status)) {
+        if (false == Auth::authorize('delete', $status, 'Status')) {
             $info = 'danger';
             $msg  = '抱歉，您没有权限！';
             return redirect()->with([$info=>$msg])->restore();

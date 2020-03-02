@@ -3,6 +3,7 @@
  * @Author: doderick
  * @LastEditors: doderick
  * @Description: 路由
+ * @FilePath: /route/route.php
  */
 // +----------------------------------------------------------------------
 // | ThinkPHP [ WE CAN DO IT JUST THINK ]
@@ -60,9 +61,19 @@ Route::delete('users/followers/:id', 'FollowersController/delete')->name('follow
 Route::get('topics$', 'forums/TopicsController/index')->name('topics.index');
 Route::get('topic/:id$', 'forums/TopicsController/read')->name('topics.read');
 Route::get('topics/create$', 'forums/TopicsController/create')->name('topics.create');
-Route::get('topic/:id/edit', 'forums/TopicsController/edit')->name('topics.edit');
+Route::get('topic/:id/edit', 'forums/TopicsController/edit')
+        ->model('\app\forums\model\Topic')
+        ->name('topics.edit');
+
 Route::post('topic', 'forums/TopicsController/save')->name('topics.save');
-Route::patch('topic/:id', 'forums/TopicsController/update')->name('topics.update');
+Route::patch('topic/:id', 'forums/TopicsController/update')
+        ->model('\app\forums\model\Topic')
+        ->name('topics.update');
+
+Route::delete('topic/:id', 'forums/TopicsController/delete')
+        ->model('\app\forums\model\Topic')
+        ->name('topics.delete');
+
 Route::post('upload_image', 'forums/TopicsController/uploadImage')->name('topics.upload_image');
 
 // 分类资源相关路由

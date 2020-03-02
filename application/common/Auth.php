@@ -3,11 +3,9 @@
 namespace app\common;
 
 use think\facade\Cookie;
-use app\index\model\User;
 use think\facade\Session;
+use app\index\model\User;
 use app\common\facade\Str;
-use app\common\policies\UserPolicy;
-use app\common\policies\StatusPolicy;
 
 class Auth
 {
@@ -127,14 +125,16 @@ class Auth
      *
      * @param array $method 需要进行验证的方法
      * @param array $args   验证参数
+     * @param string $model 需要进行验证的模型策略
      * @return bool
      */
-    public function authorize($method, $args = []) : bool
+    public function authorize($method, $args = [], $model = 'User') : bool
     {
         // 先判断用户是否登录
         if (!$this->user) return false;
 
-        $policy = new UserPolicy();
+        $modelPolicy = '\app\common\policies\\' . ucfirst($model) . 'Policy';
+        $policy = new $modelPolicy;
         return $policy->$method($this->user, $args);
     }
 
@@ -150,7 +150,7 @@ class Auth
         // 先判断用户是否登录
         if (!$this->user) return false;
 
-        $policy = new StatusPolicy();
+        $policy = new \app\common\policies\StatusPolicy;
         return $policy->$method($this->user, $args);
     }
 }

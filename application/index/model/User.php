@@ -2,8 +2,8 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-04 22:09:05
- * @LastEditTime : 2020-02-17 00:15:06
- * @LastEditors  : doderick
+ * @LastEditTime: 2020-03-02 22:46:02
+ * @LastEditors: doderick
  * @Description: 用户模型
  * @FilePath: /application/index/model/User.php
  */
@@ -99,9 +99,20 @@ class User extends Model
         return $this->followings()->attached($user_id);
     }
 
-    // 关联帖子tiezi
+    // 关联帖子
     public function topics()
     {
         return $this->hasMany(Topic::class);
+    }
+
+    /**
+     * 判断当前用户是否为模型的所有者
+     *
+     * @param \think\model $model
+     * @return boolean
+     */
+    public function isOwnerOf($model) : bool
+    {
+        return $this->id == $model->user_id;
     }
 }

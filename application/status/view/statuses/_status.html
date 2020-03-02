@@ -8,7 +8,7 @@
         </h5>
         {$status->content}
     </div>
-    {if condition="app\common\facade\Auth::status('delete', $status)"}
+    {if condition="app\common\facade\Auth::authorize('delete', $status, 'Status')"}
         <form action="{:url('statuses.delete', ['id'=>$status->id])}" method="POST" onsubmit="return confirm('您确定要删除这条微博吗？');">
             <input type="hidden" name="_method" value="DELETE">
             {:token()}
