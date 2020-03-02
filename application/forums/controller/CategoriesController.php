@@ -5,7 +5,7 @@
  * @LastEditTime : 2020-02-17 00:15:32
  * @LastEditors  : doderick
  * @Description: 分类控制器
- * @FilePath: /tp5/application/forums/controller/CategoriesController.php
+ * @FilePath: /application/forums/controller/CategoriesController.php
  */
 
 namespace app\forums\controller;

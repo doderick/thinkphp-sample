@@ -2,10 +2,10 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:25:36
- * @LastEditTime : 2020-02-18 00:02:54
- * @LastEditors  : doderick
+ * @LastEditTime: 2020-03-02 10:07:49
+ * @LastEditors: doderick
  * @Description: 帖子模型
- * @FilePath: /tp5/application/forums/model/Topic.php
+ * @FilePath: /application/forums/model/Topic.php
  */
 
 namespace app\forums\model;

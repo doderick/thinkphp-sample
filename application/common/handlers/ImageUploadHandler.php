@@ -2,10 +2,10 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-23 22:36:46
- * @LastEditTime : 2020-01-29 21:35:05
- * @LastEditors  : doderick
+ * @LastEditTime: 2020-03-02 10:07:16
+ * @LastEditors: doderick
  * @Description: 图片上传工具
- * @FilePath: /tp5/application/common/handlers/ImageUploadHandler.php
+ * @FilePath: /application/common/handlers/ImageUploadHandler.php
  */
 
 namespace app\common\handlers;

@@ -2,10 +2,10 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:37:40
- * @LastEditTime: 2020-03-01 23:05:18
+ * @LastEditTime: 2020-03-02 11:00:42
  * @LastEditors: doderick
  * @Description: 帖子控制器
- * @FilePath: /tp5/application/forums/controller/TopicsController.php
+ * @FilePath: /application/forums/controller/TopicsController.php
  */
 
 namespace app\forums\controller;

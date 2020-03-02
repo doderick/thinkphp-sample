@@ -2,10 +2,10 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-17 15:55:57
- * @LastEditTime : 2020-02-18 00:08:40
- * @LastEditors  : doderick
+ * @LastEditTime: 2020-03-02 10:08:01
+ * @LastEditors: doderick
  * @Description: 创建帖子验证器
- * @FilePath: /tp5/application/forums/validate/TopicCreateValidator.php
+ * @FilePath: /application/forums/validate/TopicCreateValidator.php
  */
 
 namespace app\forums\validate;

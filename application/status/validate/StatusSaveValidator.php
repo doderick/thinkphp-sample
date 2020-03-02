@@ -2,10 +2,10 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-05 20:52:38
- * @LastEditTime : 2020-01-18 23:07:26
- * @LastEditors  : doderick
+ * @LastEditTime: 2020-03-02 10:08:53
+ * @LastEditors: doderick
  * @Description: 动态验证器
- * @FilePath: /tp5/application/status/validate/StatusSaveValidator.php
+ * @FilePath: /application/status/validate/StatusSaveValidator.php
  */
 
 namespace app\status\validate;

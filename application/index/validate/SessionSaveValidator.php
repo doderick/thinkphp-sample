@@ -2,10 +2,10 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-16 21:59:53
- * @LastEditTime : 2020-01-18 23:42:28
- * @LastEditors  : doderick
+ * @LastEditTime: 2020-03-02 10:08:23
+ * @LastEditors: doderick
  * @Description: 用户登录表单验证
- * @FilePath: /tp5/application/index/validate/SessionSaveValidator.php
+ * @FilePath: /application/index/validate/SessionSaveValidator.php
  */
 
 namespace app\index\validate;

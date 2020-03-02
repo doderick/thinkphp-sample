@@ -2,10 +2,10 @@
 /*
  * @Author: doderick
  * @Date: 2019-12-15 18:57:13
- * @LastEditTime : 2020-01-24 16:07:50
- * @LastEditors  : doderick
+ * @LastEditTime: 2020-03-02 10:08:11
+ * @LastEditors: doderick
  * @Description: 全局中间件
- * @FilePath: /tp5/application/http/middleware/Middleware.php
+ * @FilePath: /application/http/middleware/Middleware.php
  */
 
 namespace app\http\middleware;

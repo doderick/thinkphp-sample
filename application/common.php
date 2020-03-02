@@ -2,10 +2,10 @@
 /*
  * @Author: doderick
  * @Date: 2019-12-15 18:50:52
- * @LastEditTime : 2020-02-17 22:40:33
- * @LastEditors  : doderick
+ * @LastEditTime: 2020-03-02 10:06:52
+ * @LastEditors: doderick
  * @Description: 自定义公共函数
- * @FilePath: /tp5/application/common.php
+ * @FilePath: /application/common.php
  */
 
 // 应用公共文件

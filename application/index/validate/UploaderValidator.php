@@ -2,10 +2,10 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-29 14:56:20
- * @LastEditTime : 2020-01-29 18:08:33
- * @LastEditors  : doderick
+ * @LastEditTime: 2020-03-02 10:08:31
+ * @LastEditors: doderick
  * @Description: 上传验证器
- * @FilePath: /tp5/application/index/validate/UploaderValidator.php
+ * @FilePath: /application/index/validate/UploaderValidator.php
  */
 
 namespace app\index\validate;

@@ -2,10 +2,10 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-18 23:12:10
- * @LastEditTime : 2020-01-19 00:02:38
- * @LastEditors  : doderick
+ * @LastEditTime: 2020-03-02 10:08:43
+ * @LastEditors: doderick
  * @Description:用户编辑信息表单验证
- * @FilePath: /tp5/application/index/validate/UserUpdateValidator.php
+ * @FilePath: /application/index/validate/UserUpdateValidator.php
  */
 
 namespace app\index\validate;

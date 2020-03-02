@@ -5,7 +5,7 @@
  * @LastEditTime : 2020-02-10 23:23:51
  * @LastEditors  : doderick
  * @Description: 分类控制器
- * @FilePath: /tp5/application/forums/model/Category.php
+ * @FilePath: /application/forums/model/Category.php
  */
 
 namespace app\forums\model;

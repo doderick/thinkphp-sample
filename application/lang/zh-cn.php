@@ -5,7 +5,7 @@
  * @LastEditTime : 2020-01-23 18:29:57
  * @LastEditors  : doderick
  * @Description: 简体中文语言包
- * @FilePath: /tp5/application/lang/zh-cn.php
+ * @FilePath: /application/lang/zh-cn.php
  */
 
 return [

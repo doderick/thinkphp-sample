@@ -5,7 +5,7 @@
  * @LastEditTime : 2020-02-17 00:15:06
  * @LastEditors  : doderick
  * @Description: 用户模型
- * @FilePath: /tp5/application/index/model/User.php
+ * @FilePath: /application/index/model/User.php
  */
 
 namespace app\index\model;

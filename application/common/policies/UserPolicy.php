@@ -1,6 +1,16 @@
 <?php
+/*
+ * @Author: doderick
+ * @Date: 2020-01-05 20:29:01
+ * @LastEditTime: 2020-03-02 10:07:23
+ * @LastEditors: doderick
+ * @Description: 用户操作权限策略
+ * @FilePath: /application/common/policies/UserPolicy.php
+ */
 
 namespace app\common\policies;
+
+use app\index\model\User;
 
 class UserPolicy
 {

@@ -5,7 +5,7 @@
  * @LastEditTime : 2020-02-10 23:37:13
  * @LastEditors  : doderick
  * @Description: 用户注册表单验证
- * @FilePath: /tp5/application/index/validate/UserSaveValidator.php
+ * @FilePath: /application/index/validate/UserSaveValidator.php
  */
 
 namespace app\index\validate;

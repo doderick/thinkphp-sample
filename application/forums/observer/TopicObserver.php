@@ -5,7 +5,7 @@
  * @LastEditTime: 2020-03-01 22:54:28
  * @LastEditors: doderick
  * @Description: 帖子模型事件观察器
- * @FilePath: /tp5/application/forums/observer/TopicObserver.php
+ * @FilePath: /application/forums/observer/TopicObserver.php
  */
 
 namespace app\forums\observer;
