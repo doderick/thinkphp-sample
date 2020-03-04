@@ -58,18 +58,18 @@ Route::post('users/followers/:id', 'FollowersController/save')->name('followers.
 Route::delete('users/followers/:id', 'FollowersController/delete')->name('followers.delete');
 
 // 帖子资源相关路由
-Route::get('topics$', 'forums/TopicsController/index')->name('topics.index');
-Route::get('topic/:id$', 'forums/TopicsController/read')->name('topics.read');
-Route::get('topics/create$', 'forums/TopicsController/create')->name('topics.create');
-Route::get('topic/:id/edit', 'forums/TopicsController/edit')
+Route::get('topic/:id/edit$', 'forums/TopicsController/edit')
         ->model('\app\forums\model\Topic')
         ->name('topics.edit');
-
+Route::get('topics$', 'forums/TopicsController/index')->name('topics.index');
+Route::get('topic/:id/[:slug]', 'forums/TopicsController/read')
+        ->model('\app\forums\model\Topic')
+        ->name('topics.read');
+Route::get('topics/create$', 'forums/TopicsController/create')->name('topics.create');
 Route::post('topic', 'forums/TopicsController/save')->name('topics.save');
 Route::patch('topic/:id', 'forums/TopicsController/update')
         ->model('\app\forums\model\Topic')
         ->name('topics.update');
-
 Route::delete('topic/:id', 'forums/TopicsController/delete')
         ->model('\app\forums\model\Topic')
         ->name('topics.delete');

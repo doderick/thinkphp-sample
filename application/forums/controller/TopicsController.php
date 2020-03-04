@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:37:40
- * @LastEditTime: 2020-03-02 23:44:52
+ * @LastEditTime: 2020-03-05 00:45:35
  * @LastEditors: doderick
  * @Description: 帖子控制器
  * @FilePath: /application/forums/controller/TopicsController.php
@@ -84,19 +84,23 @@ class TopicsController extends Controller
         $topic->allowField(true)->save($data);
 
         // 帖子发布成功后的跳转
-        return redirect('topics.read')->params(['id'=>$topic->id])
-                                        ->with(['success'=>'帖子发布成功！']);
+        return redirect($topic->link(), '', 301)->with(['success'=>'帖子发布成功！']);
     }
 
     /**
      * 显示指定的资源
      *
-     * @param  int  $id
+     * @param \think\Request $request
+     * @param \app\forums\model\Topic  $topic
      * @return \think\Response
      */
-    public function read($id)
+    public function read(Request $request, Topic $topic)
     {
-        $topic = Topic::get($id);
+        // URL矫正
+        if (!empty($topic->slug) && $request->slug != $topic->slug) {
+            return redirect($topic->link(), '', 301);
+        }
+
         return view('topics/read', compact('topic'));
     }
 
@@ -154,11 +158,10 @@ class TopicsController extends Controller
                 ])->restore();
         }
 
-        $topic->update($data);
+        $topic->isUpdate(true)->save($data);
 
         // 帖子更新成功后的跳转
-        return redirect('topics.read')->params(['id' => $topic->id])
-                                        ->with(['success' => '帖子更新成功！']);
+        return redirect($topic->link())->with(['success' => '帖子更新成功！']);
     }
 
     /**

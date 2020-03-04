@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:25:36
- * @LastEditTime: 2020-03-02 10:07:49
+ * @LastEditTime: 2020-03-04 23:39:41
  * @LastEditors: doderick
  * @Description: 帖子模型
  * @FilePath: /application/forums/model/Topic.php
@@ -81,5 +81,16 @@ class Topic extends Model
     public function scopeRecentReplied($query)
     {
         return $query->order('update_time', 'desc');
+    }
+
+    /**
+     * 生成带有 slug 的 url
+     *
+     * @param array $params 路由参数
+     * @return void
+     */
+    public function link(array $params = [])
+    {
+        return url('topics.read', array_merge(['id' => $this->id, 'slug' => $this->slug], $params));
     }
 }

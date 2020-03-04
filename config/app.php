@@ -15,7 +15,7 @@
 
 return [
     // 应用名称
-    'app_name'               => '',
+    'app_name'               => Env::get('app.app_name', ''),
     // 应用地址
     'app_host'               => Env::get('app.app_host', ''),
     // 应用调试模式
@@ -128,6 +128,9 @@ return [
     'route_check_cache_key'  => '',
     // 路由缓存类型及参数
     'route_cache_option'     => [],
+    // 默认的变量规则
+    'default_route_pattern'	=>	'[\w\-]+',
+
 
     // 默认跳转页面对应的模板文件
     'dispatch_success_tmpl'  => Env::get('think_path') . 'tpl/dispatch_jump.tpl',
