@@ -37,7 +37,7 @@ class SessionsController extends Controller
     }
 
     /**
-     * 保存新建的资源
+     * 用户登录操作
      *
      * @param  \think\Request  $request
      * @return \think\Response
@@ -116,7 +116,7 @@ class SessionsController extends Controller
     }
 
     /**
-     * 删除指定资源
+     * 用户登出操作
      *
      * @param  \think\Request  $request
      * @return \think\Response

@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:37:40
- * @LastEditTime: 2020-03-05 00:45:35
+ * @LastEditTime: 2020-03-07 01:28:52
  * @LastEditors: doderick
  * @Description: 帖子控制器
  * @FilePath: /application/forums/controller/TopicsController.php
@@ -27,7 +27,7 @@ class TopicsController extends Controller
     ];
 
     /**
-     * 显示资源列表
+     * 显示帖子列表
      *
      * @param \think\Request
      * @return \think\Response
@@ -41,7 +41,7 @@ class TopicsController extends Controller
     }
 
     /**
-     * 显示创建资源表单页.
+     * 显示新建帖子表单页
      *
      * @return \think\Response
      */
@@ -52,7 +52,7 @@ class TopicsController extends Controller
     }
 
     /**
-     * 保存新建的资源
+     * 保存新建的帖子
      *
      * @param  \think\Request  $request
      * @param  \app\forums\model\Topic $topic
@@ -88,7 +88,7 @@ class TopicsController extends Controller
     }
 
     /**
-     * 显示指定的资源
+     * 显示指定的帖子
      *
      * @param \think\Request $request
      * @param \app\forums\model\Topic  $topic
@@ -105,7 +105,7 @@ class TopicsController extends Controller
     }
 
     /**
-     * 显示编辑资源表单页.
+     * 显示编辑帖子表单页
      *
      * @param  \app\forums\model\Topic  $topic
      * @return \think\Response
@@ -122,7 +122,7 @@ class TopicsController extends Controller
     }
 
     /**
-     * 保存更新的资源
+     * 保存更新的帖子
      *
      * @param  \think\Request  $request
      * @param  app\forums\model\Topic  $topic
@@ -165,7 +165,7 @@ class TopicsController extends Controller
     }
 
     /**
-     * 删除指定资源
+     * 删除指定帖子
      *
      * @param  \think\Request  $request
      * @param  \app\forums\model\Topic  $topic

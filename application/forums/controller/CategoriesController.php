@@ -2,8 +2,8 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-13 22:16:40
- * @LastEditTime : 2020-02-17 00:15:32
- * @LastEditors  : doderick
+ * @LastEditTime: 2020-03-07 01:13:47
+ * @LastEditors: doderick
  * @Description: 分类控制器
  * @FilePath: /application/forums/controller/CategoriesController.php
  */
@@ -49,22 +49,22 @@ class CategoriesController extends Controller
     }
 
     /**
-     * 显示指定的资源
+     * 显示指定的分类下的帖子
      *
-     * @param  int  $id
      * @param \think\Request
+     * @param  int  $id
      * @return \think\Response
      */
-    public function read($id, Request $request)
+    public function read(Request $request, int $id)
     {
         $categories = Category::all();
         foreach ($categories as $value) {
             if ($id == $value->id) $category = $value;
         }
         // 读取分类 id 关联的帖子，按规则分页
-        $topics = Topic::withOrder($request->order)
-                        ->where('category_id', $id)
-                        ->paginate(20);
+        $topics = $category->topics()
+                            ->withOrder($request->order)
+                            ->paginate(20);
 
         return view('topics/index', compact('topics', 'category', 'categories'));
     }

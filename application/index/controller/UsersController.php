@@ -25,7 +25,7 @@ class UsersController extends Controller
     ];
 
     /**
-     * 显示资源列表
+     * 显示用户列表
      *
      * @return \think\Response
      */
@@ -36,7 +36,7 @@ class UsersController extends Controller
     }
 
     /**
-     * 显示创建资源表单页.
+     * 显示用户注册页面
      *
      * @return \think\Response
      */
@@ -46,7 +46,7 @@ class UsersController extends Controller
     }
 
     /**
-     * 保存新建的资源
+     * 保存注册的用户
      *
      * @param  \think\Request  $request
      * @return \think\Response
@@ -84,14 +84,13 @@ class UsersController extends Controller
     }
 
     /**
-     * 显示指定的资源
+     * 显示用户主页
      *
-     * @param  int  $id
+     * @param  \app\index\model\User $user
      * @return \think\Response
      */
-    public function read($id)
+    public function read(User $user)
     {
-        $user = User::get($id);
         // 取出该用户的所有微博
         $statuses = $user->statuses()
                             ->order('create_time', 'desc')
@@ -103,20 +102,13 @@ class UsersController extends Controller
     }
 
     /**
-     * 显示编辑资源表单页.
+     * 显示用户编辑个人资料页面
      *
-     * @param  int  $id
+     * @param  \app\index\model\User $user
      * @return \think\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        // 验证操作对象是否存在
-        $user = User::get($id);
-        if ($user == null) {
-            $info = 'warning';
-            $msg  = '用户不存在或已被删除!';
-            return redirect()->with([$info=>$msg])->restore();
-        }
         // 验证操作权限
         if (false == Auth::authorize('update', $user)) {
             $info = 'danger';
@@ -127,21 +119,15 @@ class UsersController extends Controller
     }
 
     /**
-     * 保存更新的资源
+     * 用户更新个人资料
      *
      * @param  \think\Request  $request
-     * @param  int  $id
+     * @param  \app\common\handlers\ImageUploadHandler $uploader
+     * @param  \app\index\model\User $user
      * @return \think\Response
      */
-    public function update(Request $request, ImageUploadHandler $uploader, $id)
+    public function update(Request $request, ImageUploadHandler $uploader, User $user)
     {
-        // 验证操作对象是否存在
-        $user = User::get($id);
-        if ($user == null) {
-            $info = 'warning';
-            $msg  = '用户不存在或已被删除!';
-            return redirect()->with(['$info=>$msg'])->restore();
-        }
         // 验证操作权限
         if (false == Auth::authorize('update', $user)) {
             $info = 'danger';
@@ -226,13 +212,13 @@ class UsersController extends Controller
     }
 
     /**
-     * 删除指定资源
-     * 删除用户
+     * 删除用户操作
      *
      * @param  \think\Request  $request
+     * @param  \app\index\model\User $user
      * @return \think\Response
      */
-    public function delete(Request $request)
+    public function delete(Request $request, User $user)
     {
         // 验证令牌
         $validate = Validate::make([
@@ -241,16 +227,6 @@ class UsersController extends Controller
 
         if (!$validate->batch()->check($request->param())) {
             return redirect()->restore();
-        }
-
-        $id = $request->param('id');
-
-        // 确定资源是否存在
-        $user = User::find($id);
-        if ($user == null) {
-            $info = 'warning';
-            $msg  = '用户不存在或已被删除!';
-            return redirect()->with([$info=>$msg])->restore();
         }
 
         // 没有权限
@@ -265,7 +241,7 @@ class UsersController extends Controller
             return redirect()->with([$info=>$msg])->restore();
         }
         // 有权限，执行删除
-        User::destroy($id);
+        $user->delete();
         $info = 'success';
         $msg  = '删除用户操作执行成功！';
         return redirect()->with([$info=>$msg])->restore();
@@ -315,18 +291,11 @@ class UsersController extends Controller
     /**
      * 显示关注的人列表
      *
-     * @param  int $id
+     * @param  \app\index\model\User $user
      * @return void
      */
-    public function followings($id)
+    public function followings(User $user)
     {
-        // 验证操作对象是否存在
-        $user = User::get($id);
-        if ($user == null) {
-            $info = 'warning';
-            $msg  = '用户不存在或已被删除!';
-            return redirect()->with([$info=>$msg])->restore();
-        }
         $users = $user->followings()->paginate(25, false);
         $title = $user->name . '关注的人';
         return view('users/show_follow', compact('users', 'title'));
@@ -335,18 +304,11 @@ class UsersController extends Controller
     /**
      * 显示粉丝列表
      *
-     * @param  int $id
+     * @param  \app\index\model\User $user
      * @return void
      */
-    public function followers($id)
+    public function followers(User $user)
     {
-        // 验证操作对象是否存在
-        $user = User::get($id);
-        if ($user == null) {
-            $info = 'warning';
-            $msg  = '用户不存在或已被删除!';
-            return redirect()->with([$info=>$msg])->restore();
-        }
         $users = $user->followers()->paginate(25, false);
         $title = $user->name . '的粉丝';
         return view('users/show_follow', compact('users', 'title'));

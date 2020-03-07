@@ -36,7 +36,7 @@ class StatusesController extends Controller
     }
 
     /**
-     * 保存新建的资源
+     * 保存新发布的动态
      *
      * @param  \think\Request  $request
      * @return \think\Response
@@ -97,13 +97,13 @@ class StatusesController extends Controller
     }
 
     /**
-     * 删除指定资源
-     * 删除微博
+     * 删除动态
      *
      * @param  \think\Request  $request
+     * @param  \app\status\model\Status $status
      * @return \think\Response
      */
-    public function delete(Request $request)
+    public function delete(Request $request, Status $status)
     {
         // 验证令牌
         $validate = Validate::make([
@@ -114,16 +114,6 @@ class StatusesController extends Controller
             return redirect()->restore();
         }
 
-        $id = $request->param('id');
-
-        // 确定资源是否存在
-        $status = Status::find($id);
-        if (null == $status) {
-            $info = 'warning';
-            $msg  = '微博不存在或已被删除！';
-            return redirect()->with([$info=>$msg])->restore();
-        }
-
         // 没有权限
         if (false == Auth::authorize('delete', $status, 'Status')) {
             $info = 'danger';
@@ -132,7 +122,7 @@ class StatusesController extends Controller
         }
 
         // 有权限，执行删除
-        Status::destroy($id);
+        $status->delete();
         $info = 'success';
         $msg  = '微博已成功删除！';
         return redirect()->with([$info=>$msg])->restore();

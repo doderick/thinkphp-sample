@@ -37,13 +37,13 @@ class FollowersController extends Controller
     }
 
     /**
-     * 保存新建的资源
      * 关注操作
      *
      * @param  \think\Request  $request
+     * @param  \app\index\model\User $user
      * @return \think\Response
      */
-    public function save(Request $request)
+    public function save(Request $request, User $user)
     {
         // 验证令牌
         $validate = Validate::make([
@@ -54,8 +54,6 @@ class FollowersController extends Controller
             return redirect()->restore();
         }
 
-        // 二次验证是否可以关注
-        $user = User::get($request->param('id'));
         // 没有权限
         if (false == Auth::authorize('follow', $user)) {
             return redirect()->restore();
@@ -103,13 +101,13 @@ class FollowersController extends Controller
     }
 
     /**
-     * 删除指定资源
      * 取消关注操作
      *
      * @param  \think\Request  $request
+     * @param  \app\index\model\User $user
      * @return \think\Response
      */
-    public function delete(Request $request)
+    public function delete(Request $request, User $user)
     {
         // 验证令牌
         $validate = Validate::make([
@@ -120,8 +118,6 @@ class FollowersController extends Controller
             return redirect()->restore();
         }
 
-        // 二次验证是否可以关注
-        $user = User::get($request->param('id'));
         // 没有权限
         if (false == Auth::authorize('follow', $user)) {
             return redirect()->restore();

@@ -23,13 +23,19 @@ Route::get('about', 'StaticPagesController/about')->name('about');
 Route::get('status', 'StaticPagesController/status')->name('status');
 
 // 用户资源相关路由
+Route::group('users', function() {
+    Route::get('<id>$', 'UsersController/read')->name('users.read');
+    Route::get('<id>/edit', 'UsersController/edit')->name('users.edit');
+    Route::patch('<id>', 'UsersController/update')->name('users.update');
+    Route::delete('<id>', 'UsersController/delete')->name('users.delete');
+    Route::get('<id>/followings', 'UsersController/followings')->name('users.followings');
+    Route::get('<id>/followers','UsersController/followers')->name('users.followers');
+    Route::post('followers/<id>', 'FollowersController/save')->name('followers.save');
+    Route::delete('followers/<id>', 'FollowersController/delete')->name('followers.delete');
+})->model('app\index\model\User');
 Route::get('signup$', 'UsersController/create')->name('signup');
-Route::get('user/:id$', 'UsersController/read')->name('users.read');
-Route::get('user/:id/edit', 'UsersController/edit')->name('users.edit');
 Route::get('users$', 'UsersController/index')->name('users.index');
-Route::post('user', 'UsersController/save')->name('users.save');
-Route::patch('user/:id', 'UsersController/update')->name('users.update');
-Route::delete('user/:id', 'UsersController/delete')->name('users.delete');
+Route::post('users/save', 'UsersController/save')->name('users.save');
 
 // 会话相关路由
 Route::get('login', 'SessionsController/create')->name('login');
@@ -37,47 +43,36 @@ Route::post('login', 'SessionsController/save')->name('login');
 Route::delete('logout', 'SessionsController/delete')->name('logout');
 
 // 邮件激活相关路由
-Route::get('signup/:id/activate/:token', 'UsersController/activate')->name('activate_email');
+Route::get('signup/<id>/activate/<token>', 'UsersController/activate')->name('activate_email');
 
 // 密码重置相关路由
 Route::get('password/reset$', 'PasswordController/showLinkRequestForm')->name('password.request');
 Route::post('password/email', 'PasswordController/sendResetLinkEmail')->name('password.email');
-Route::get('password/reset/:token', 'PasswordController/showResetForm')->name('password.reset');
+Route::get('password/reset/<token>', 'PasswordController/showResetForm')->name('password.reset');
 Route::post('password/reset', 'PasswordController/reset')->name('password.update');
 
-// 注册微博相关路由
-Route::post('status', 'status/StatusesController/save')->name('statuses.save');
-Route::delete('status/:id', 'status/StatusesController/delete')->name('statuses.delete');
-
-// 注册关注者列表和粉丝列表路由
-Route::get('users/:id/followings', 'UsersController/followings')->name('users.followings');
-Route::get('users/:id/followers','UsersController/followers')->name('users.followers');
-
-// 注册关注按钮相关路由
-Route::post('users/followers/:id', 'FollowersController/save')->name('followers.save');
-Route::delete('users/followers/:id', 'FollowersController/delete')->name('followers.delete');
+// 动态相关路由
+Route::post('status/save', 'status/StatusesController/save')->name('statuses.save');
+Route::group('status', function() {
+    Route::delete('<id>', 'status/StatusesController/delete')->name('statuses.delete');
+})->model('app\status\model\Status');
 
 // 帖子资源相关路由
-Route::get('topic/:id/edit$', 'forums/TopicsController/edit')
-        ->model('\app\forums\model\Topic')
-        ->name('topics.edit');
+
+Route::group('topics', function() {
+    Route::get('<id>/edit$', 'forums/TopicsController/edit')->name('topics.edit');
+    Route::get('<id>/<slug?>', 'forums/TopicsController/read')->name('topics.read');
+    Route::patch('<id>', 'forums/TopicsController/update')->name('topics.update');
+    Route::delete('<id>', 'forums/TopicsController/delete')->name('topics.delete');
+})->model('app\forums\model\Topic');
 Route::get('topics$', 'forums/TopicsController/index')->name('topics.index');
-Route::get('topic/:id/[:slug]', 'forums/TopicsController/read')
-        ->model('\app\forums\model\Topic')
-        ->name('topics.read');
 Route::get('topics/create$', 'forums/TopicsController/create')->name('topics.create');
-Route::post('topic', 'forums/TopicsController/save')->name('topics.save');
-Route::patch('topic/:id', 'forums/TopicsController/update')
-        ->model('\app\forums\model\Topic')
-        ->name('topics.update');
-Route::delete('topic/:id', 'forums/TopicsController/delete')
-        ->model('\app\forums\model\Topic')
-        ->name('topics.delete');
+Route::post('topics/save', 'forums/TopicsController/save')->name('topics.save');
 
 Route::post('upload_image', 'forums/TopicsController/uploadImage')->name('topics.upload_image');
 
 // 分类资源相关路由
-Route::get('category/:id$', 'forums/CategoriesController/read')->name('categories.read');
+Route::get('categories/<id>$', 'forums/CategoriesController/read')->name('categories.read');
 
 return [
 
