@@ -144,7 +144,7 @@ return [
     // 显示错误信息
     'show_error_msg'         => false,
     // 异常处理handle类 留空使用 \think\exception\Handle
-    'exception_handle'       => '',
+    'exception_handle'       => '\app\exception\ExceptionHandle',
 
     // 数据填充语言设置
     'faker_locale'           => Env::get('app.faker_locale', 'zh_cn'),

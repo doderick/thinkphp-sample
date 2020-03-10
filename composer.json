@@ -27,7 +27,9 @@
         "topthink/think-image": "^1.0",
         "doderick/purifier": "^1.0",
         "guzzlehttp/guzzle": "~6.5",
-        "overtrue/pinyin": "~4.0"
+        "overtrue/pinyin": "~4.0",
+        "topthink/think-queue": "2.0.4",
+        "filp/whoops": "^2.7"
     },
     "autoload": {
         "psr-4": {

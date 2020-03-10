@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:25:36
- * @LastEditTime: 2020-03-04 23:39:41
+ * @LastEditTime: 2020-03-09 23:27:42
  * @LastEditors: doderick
  * @Description: 帖子模型
  * @FilePath: /application/forums/model/Topic.php
@@ -91,6 +91,6 @@ class Topic extends Model
      */
     public function link(array $params = [])
     {
-        return url('topics.read', array_merge(['id' => $this->id, 'slug' => $this->slug], $params));
+        return url('topics.read', array_merge(['id' => $this->id, 'slug' => $this->slug ?? ''], $params));
     }
 }

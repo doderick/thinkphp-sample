@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Author: doderick
+ * @Date: 2019-07-07 11:03:36
+ * @LastEditTime: 2020-03-10 09:50:43
+ * @LastEditors: doderick
+ * @Description: 静态页面控制器
+ * @FilePath: /application/index/controller/StaticPagesController.php
+ */
 namespace app\index\controller;
 
 use think\Controller;
