@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-04 22:09:05
- * @LastEditTime: 2020-03-02 22:46:02
+ * @LastEditTime: 2020-03-10 13:38:15
  * @LastEditors: doderick
  * @Description: 用户模型
  * @FilePath: /application/index/model/User.php
@@ -12,6 +12,7 @@ namespace app\index\model;
 
 use think\Model;
 use app\forums\model\Topic;
+use app\forums\model\Reply;
 use app\status\model\Status;
 
 class User extends Model
@@ -56,6 +57,12 @@ class User extends Model
     public function followings()
     {
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+    }
+
+    // 设置回帖关联
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
     /**

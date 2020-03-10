@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:25:36
- * @LastEditTime: 2020-03-09 23:27:42
+ * @LastEditTime: 2020-03-10 13:35:45
  * @LastEditors: doderick
  * @Description: 帖子模型
  * @FilePath: /application/forums/model/Topic.php
@@ -35,6 +35,12 @@ class Topic extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    // 设置回帖关联
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
     }
 
     /**
