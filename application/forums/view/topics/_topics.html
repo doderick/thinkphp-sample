@@ -2,7 +2,7 @@
     <ul class="list-group mt-4 border-0">
         {foreach $topics as $key => $topic}
             <li class="list-group-item pl-2 pr-2 border-right-0 border-left-0 {if($key == 0)} border-top-0 {/if}">
-                <a href="#">
+                <a href="{:url('topics.read', ['id'=>$topic->id])}">
                     {$topic->title}
                 </a>
                 <span class="meta float-right text-secondary">

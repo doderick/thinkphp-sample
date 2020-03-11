@@ -47,18 +47,23 @@
                     <!-- 用户的帖子，回帖 -->
                     <ul class="nav nav-tabs">
                         <li class="nav-item">
-                            <a class="nav-link active bg-transparent" href="#">
+                            <a class="nav-link {:query_active('tab', null) ? 'active' : ''} bg-transparent" href="{:url('users.read', ['id'=>$user->id])}">
                                 Ta 的帖子
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link {:query_active('tab', 'replies') ? 'active' : ''} bg-transparent" href="{:url('users.read', ['id'=>$user->id]) . '?tab=replies'}">
                                 Ta 的回复
                             </a>
                         </li>
                     </ul>
-                    {include file="../application/forums/view/topics/_topics.html"}
-
+                    {if query_active('tab', 'replies')}
+                        {php}$replies = $user->replies()->with('topic')->recent()->paginate(10);{/php}
+                        {include file="../application/forums/view/replies/_replies.html"}
+                    {else}
+                        {php}$topics = $user->topics()->recent()->paginate(5);{/php}
+                        {include file="../application/forums/view/topics/_topics.html"}
+                    {/if}
                     <!-- 用户动态 -->
                     <section>
                         {if condition="$statuses->count() > 0"}

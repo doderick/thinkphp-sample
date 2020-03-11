@@ -1,6 +1,8 @@
 <?php
 /*
  * @Author: doderick
+ * @Date: 2019-07-04 12:03:43
+ * @LastEditTime: 2020-03-11 21:08:12
  * @LastEditors: doderick
  * @Description: 路由
  * @FilePath: /route/route.php
@@ -24,8 +26,8 @@ Route::get('status', 'StaticPagesController/status')->name('status');
 
 // 用户资源相关路由
 Route::group('users', function() {
-    Route::get('<id>$', 'UsersController/read')->name('users.read');
     Route::get('<id>/edit', 'UsersController/edit')->name('users.edit');
+    Route::get('<id>', 'UsersController/read')->name('users.read');
     Route::patch('<id>', 'UsersController/update')->name('users.update');
     Route::delete('<id>', 'UsersController/delete')->name('users.delete');
     Route::get('<id>/followings', 'UsersController/followings')->name('users.followings');

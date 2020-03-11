@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:37:40
- * @LastEditTime: 2020-03-07 01:28:52
+ * @LastEditTime: 2020-03-10 22:31:10
  * @LastEditors: doderick
  * @Description: 帖子控制器
  * @FilePath: /application/forums/controller/TopicsController.php
@@ -101,7 +101,11 @@ class TopicsController extends Controller
             return redirect($topic->link(), '', 301);
         }
 
-        return view('topics/read', compact('topic'));
+        $replies = $topic->replies()
+                            ->with('user')
+                            ->all();
+
+        return view('topics/read', compact('topic', 'replies'));
     }
 
     /**

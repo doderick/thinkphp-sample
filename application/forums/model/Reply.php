@@ -10,7 +10,6 @@
 
 namespace app\forums\model;
 
-use think\Model;
 use app\index\model\User;
 
 class Reply extends Model

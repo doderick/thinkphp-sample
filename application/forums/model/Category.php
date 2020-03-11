@@ -10,8 +10,6 @@
 
 namespace app\forums\model;
 
-use think\Model;
-
 class Category extends Model
 {
     // 设置数据表名

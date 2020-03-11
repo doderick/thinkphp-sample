@@ -241,3 +241,14 @@ section.user_info {
         }
     }
 }
+
+/* Reply List */
+.topic-reply {
+    a {
+        color: inherit;
+    }
+    .meta {
+        font-size: 0.9em;
+        color: #b3b3b3;
+    }
+}

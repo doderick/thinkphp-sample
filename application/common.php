@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2019-12-15 18:50:52
- * @LastEditTime: 2020-03-02 10:06:52
+ * @LastEditTime: 2020-03-11 20:39:34
  * @LastEditors: doderick
  * @Description: 自定义公共函数
  * @FilePath: /application/common.php
@@ -101,11 +101,14 @@ if (!function_exists('query_active')) {
      * 判断排序按钮是否激活
      *
      * @param string $query 排序key
-     * @param string $order 排序value
-     * @return void
+     * @param string|mixed $order 排序value
+     * @return boolean
      */
-    function query_active($query, $order)
+    function query_active($query, $order) : bool
     {
+        // 用于默认情况
+        if (!$order && !strpos(Request::query(), '&')) return true;
+        // 用于定义了规则
         $queryArr = explode('&', Request::query());
         foreach ($queryArr as $key => $value) {
             if ("{$query}={$order}" == $value) return true;

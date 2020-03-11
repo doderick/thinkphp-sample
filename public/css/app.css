@@ -17986,3 +17986,14 @@ section.user_info h2 a:hover {
   line-height: 38px;
 }
 
+/* Reply List */
+
+.topic-reply a {
+  color: inherit;
+}
+
+.topic-reply .meta {
+  font-size: 0.9em;
+  color: #b3b3b3;
+}
+

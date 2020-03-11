@@ -1,0 +1,26 @@
+{if count($replies) > 0}
+    <ul class="list-group mt-4 border-0">
+        {foreach $replies as $key => $reply}
+            <li class="list-group-item pl-2 pr-2 border-right-0 border-left-0 {if $key == 0}border-top-0{/if}">
+                <a href="{:url($reply->topic->link(['#reply' . $reply->id]))}">
+                    {$reply->topic->title}
+                </a>
+
+                <div class="reply-conntent text-secondary mt-2 mb-2">
+                    {$reply->content|raw}
+                </div>
+
+                <div class="text-secondary" style="font-size: 0.9em;">
+                    <i class="far fa-clock"></i> 回复于 {:Carbon\\Carbon::parse($reply->create_time)->locale(config('default_lang'))->diffForHumans()}
+                </div>
+            </li>
+        {/foreach}
+    </ul>
+{else}
+    <div class="empty-block">暂无数据 ~_~ </div>
+{/if}
+
+<!-- 分页 -->
+<div class="mt-4 pt-1">
+    {$replies|raw}
+</div>
