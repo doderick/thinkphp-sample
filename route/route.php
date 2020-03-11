@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2019-07-04 12:03:43
- * @LastEditTime: 2020-03-11 21:08:12
+ * @LastEditTime: 2020-03-11 22:05:58
  * @LastEditors: doderick
  * @Description: 路由
  * @FilePath: /route/route.php
@@ -60,7 +60,6 @@ Route::group('status', function() {
 })->model('app\status\model\Status');
 
 // 帖子资源相关路由
-
 Route::group('topics', function() {
     Route::get('<id>/edit$', 'forums/TopicsController/edit')->name('topics.edit');
     Route::get('<id>/<slug?>', 'forums/TopicsController/read')->name('topics.read');
@@ -75,6 +74,13 @@ Route::post('upload_image', 'forums/TopicsController/uploadImage')->name('topics
 
 // 分类资源相关路由
 Route::get('categories/<id>$', 'forums/CategoriesController/read')->name('categories.read');
+
+// 回帖相关资源路由
+Route::group('replies', function() {
+    Route::delete('<id>', 'forums/RepliesController/delete')->name('replies.delete');
+});
+Route::post('replies/save', 'forums/RepliesController/save')->name('replies.save');
+
 
 return [
 

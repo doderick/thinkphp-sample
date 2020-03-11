@@ -60,7 +60,9 @@
             <!-- 用户回帖列表 -->
             <div class="card topic-reply mt-4">
                 <div class="card-body">
-                    {include file="../application/forums/view/replies/_box.html"}
+                    {if app\common\facade\Auth::isLoggedIn()}
+                        {include file="../application/forums/view/replies/_box.html"}
+                    {/if}
                     {include file="../application/forums/view/replies/_list.html"}
                 </div>
             </div>
