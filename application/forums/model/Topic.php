@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:25:36
- * @LastEditTime: 2020-03-10 13:35:45
+ * @LastEditTime: 2020-03-11 23:53:08
  * @LastEditors: doderick
  * @Description: 帖子模型
  * @FilePath: /application/forums/model/Topic.php
@@ -97,5 +97,16 @@ class Topic extends Model
     public function link(array $params = [])
     {
         return url('topics.read', array_merge(['id' => $this->id, 'slug' => $this->slug ?? ''], $params));
+    }
+
+    /**
+     * 更新回帖计数
+     *
+     * @return void
+     */
+    public function updateReplyCount()
+    {
+        $this->reply_count = $this->replies()->count();
+        $this->save();
     }
 }

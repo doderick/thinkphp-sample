@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-03-10 21:36:30
- * @LastEditTime: 2020-03-11 22:11:14
+ * @LastEditTime: 2020-03-11 23:28:03
  * @LastEditors: doderick
  * @Description: 回帖控制器
  * @FilePath: /application/forums/controller/RepliesController.php
@@ -12,6 +12,7 @@ namespace app\forums\controller;
 
 use think\Request;
 use think\Controller;
+use think\facade\Validate;
 use app\common\facade\Auth;
 use app\forums\model\Reply;
 use app\forums\validate\ReplySaveValidator;
@@ -117,13 +118,31 @@ class RepliesController extends Controller
     }
 
     /**
-     * 删除指定资源
+     * 删除指定回帖
      *
-     * @param  int  $id
+     * @param  \think\Request  $request
+     * @param  \app\forums\model\Reply $reply
      * @return \think\Response
      */
-    public function delete($id)
+    public function delete(Request $request, Reply $reply)
     {
-        //
+        // 验证令牌
+        $validator = Validate::make([
+            'id' => 'token'
+        ]);
+        if (false == $validator->batch()->check($request->param())) {
+            return redirect()->restore();
+        }
+
+        // 验证权限
+        if (false == Auth::authorize('delete', $reply, 'Reply')) {
+            $info = 'danger';
+            $msg  = '抱歉,您没有权限!';
+            return redirect()->with([$info=>$msg])->restore();
+        }
+        $reply->delete();
+        $info = 'success';
+        $msg  = '回帖已删除！';
+        return redirect($reply->topic->link())->with([$info => $msg]);
     }
 }

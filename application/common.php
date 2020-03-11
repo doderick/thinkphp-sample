@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2019-12-15 18:50:52
- * @LastEditTime: 2020-03-11 20:39:34
+ * @LastEditTime: 2020-03-11 23:09:24
  * @LastEditors: doderick
  * @Description: 自定义公共函数
  * @FilePath: /application/common.php
@@ -124,7 +124,7 @@ if (!function_exists('old')) {
      * @param String $name
      * @return String|null
      */
-    function old(String $name)
+    function old(String $name) : string
     {
         return Session::get('forms.'.$name) ?: '';
     }
@@ -138,9 +138,22 @@ if (!function_exists('make_excerpt')) {
      * @param int $length 摘录的长度
      * @return string
      */
-    function make_excerpt($value, $length = 200)
+    function make_excerpt($value, $length = 200) : string
     {
         $excerpt = trim(preg_replace('/\r\n|\r|\n+/', ' ', strip_tags($value)));
         return app\common\Str::limit($excerpt, $length);
+    }
+}
+
+if (!function_exists('method_field')) {
+    /**
+     * 创建隐藏域，设置 http 请求的类型
+     *
+     * @param string $method
+     * @return string
+     */
+    function method_field($method) : string
+    {
+        return '<input type="hidden" name="' . config('var_method') . '" value="'. $method . '">';
     }
 }

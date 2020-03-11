@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-17 19:49:53
- * @LastEditTime: 2020-03-10 09:52:21
+ * @LastEditTime: 2020-03-11 23:58:24
  * @LastEditors: doderick
  * @Description: 帖子模型事件观察器
  * @FilePath: /application/forums/observer/TopicObserver.php
@@ -65,5 +65,17 @@ class TopicObserver
     {
         // 推送至队列执行
         Queue::push('forums/SlugTranslate', $topic);
+    }
+
+    /**
+     * 删除帖子后
+     *
+     * @param \app\forums\model\Topic $topic
+     * @return void
+     */
+    public function afterDelete(Topic $topic)
+    {
+        // 删除帖子后同时删除帖子下的回帖
+        \think\Db::table('replies')->where('topic_id', $topic->id)->delete();
     }
 }

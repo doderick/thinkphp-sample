@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Author: doderick
+ * @Date: 2020-03-11 20:38:54
+ * @LastEditTime: 2020-03-11 23:35:12
+ * @LastEditors: doderick
+ * @Description: 动态操作权限策略
+ * @FilePath: /application/common/policies/StatusPolicy.php
+ */
 
 namespace app\common\policies;
 
