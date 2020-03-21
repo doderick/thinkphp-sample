@@ -5,7 +5,7 @@
  * @LastEditTime : 2020-02-09 17:54:18
  * @LastEditors  : doderick
  * @Description: 帖子分类填充文件
- * @FilePath: /tp5/database/seeds/CategoriesSeeder.php
+ * @FilePath: /database/seeds/CategoriesSeeder.php
  */
 
 use think\migration\Seeder;

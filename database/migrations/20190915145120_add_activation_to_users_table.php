@@ -31,8 +31,8 @@ class AddActivationToUsersTable extends Migrator
         // add column activation_token, is_activated
         $table = $this->table('users');
         $table->addColumn('activation_token', 'string', ['null'=>true, 'comment'=>'激活令牌'])
-              ->addColumn('is_activated', 'boolean', ['default'=>false, 'comment'=>'用户激活标识'])
-              ->update();
+                ->addColumn('is_activated', 'boolean', ['default'=>false, 'comment'=>'用户激活标识'])
+                ->update();
     }
 
     public function down()
@@ -40,7 +40,7 @@ class AddActivationToUsersTable extends Migrator
         // remove column activation_token, is_activated
         $table = $this->table('users');
         $table->removeColumn('activation_token')
-              ->removeColumn('is_activated')
-              ->save();
+                ->removeColumn('is_activated')
+                ->save();
     }
 }

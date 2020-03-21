@@ -30,9 +30,9 @@ class CreateStatuesTable extends Migrator
     {
         $table = $this->table('statuses', ['engine'=>'InnoDB', 'signed'=>false]);
         $table->addColumn('content',    'text',         ['comment'=>'微博内容'])
-              ->addColumn('user_id',    'integer',      ['comment'=>'微博作者'])
-              ->addTimestamps()
-              ->addIndex('create_time')
-              ->create();
+                ->addColumn('user_id',    'integer',      ['comment'=>'微博作者'])
+                ->addTimestamps()
+                ->addIndex('create_time')
+                ->create();
     }
 }

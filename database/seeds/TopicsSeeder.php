@@ -5,7 +5,7 @@
  * @LastEditTime : 2020-02-10 23:18:52
  * @LastEditors  : doderick
  * @Description: 帖子数据填充文件
- * @FilePath: /tp5/database/seeds/TopicsSeeder.php
+ * @FilePath: /database/seeds/TopicsSeeder.php
  */
 
 use Faker\Factory;

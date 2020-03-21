@@ -5,7 +5,7 @@
  * @LastEditTime : 2020-02-10 23:09:01
  * @LastEditors  : doderick
  * @Description: 用户数据填充文件
- * @FilePath: /tp5/database/seeds/UsersSeeder.php
+ * @FilePath: /database/seeds/UsersSeeder.php
  */
 
 use Carbon\Carbon;

@@ -31,6 +31,6 @@ class AddIsAdminToUsersTable extends Migrator
         // add column is_admin
         $table = $this->table('users');
         $table->addColumn('is_admin', 'boolean', ['default'=>false, 'comment'=>'管理员标识'])
-              ->update();
+                ->update();
     }
 }

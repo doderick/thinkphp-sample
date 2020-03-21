@@ -5,7 +5,7 @@
  * @LastEditTime : 2020-02-09 17:23:16
  * @LastEditors  : doderick
  * @Description: 帖子分类建表文件
- * @FilePath: /tp5/database/migrations/20200209142628_create_category_table.php
+ * @FilePath: /database/migrations/20200209142628_create_category_table.php
  */
 
 use think\migration\Migrator;
@@ -38,10 +38,10 @@ class CreateCategoryTable extends Migrator
     {
         $table = $this->table('categories', ['engine'=>'innoDB', 'signed'=>false]);
         $table->addColumn('name',           'string',   ['comment'=>'分类名称'])
-              ->addColumn('description',    'text',     ['comment'=>'分类描述'])
-              ->addColumn('topic_count',    'integer',  ['comment'=>'分类下帖子数', 'null'=>true, 'default'=>0])
-              ->addTimestamps()
-              ->addIndex('name')
-              ->create();
+                ->addColumn('description',    'text',     ['comment'=>'分类描述'])
+                ->addColumn('topic_count',    'integer',  ['comment'=>'分类下帖子数', 'null'=>true, 'default'=>0])
+                ->addTimestamps()
+                ->addIndex('name')
+                ->create();
     }
 }

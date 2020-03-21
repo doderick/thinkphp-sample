@@ -5,7 +5,7 @@
  * @LastEditTime : 2020-01-18 22:29:34
  * @LastEditors  : doderick
  * @Description:数据库迁移文件，向users表添加avatar（头像）和introduction（简介）字段
- * @FilePath: /tp5/database/migrations/20200118183704_add_avatar_and_introduction_to_users_table.php
+ * @FilePath: /database/migrations/20200118183704_add_avatar_and_introduction_to_users_table.php
  */
 
 use think\migration\Migrator;
@@ -39,7 +39,7 @@ class AddAvatarAndIntroductionToUsersTable extends Migrator
         // add column avatar and introduction
         $table = $this->table('users');
         $table->addColumn('avatar', 'string', ['comment'=>'用户头像路径', 'null'=>true])
-              ->addColumn('introduction', 'string', ['comment'=>'用户简介', 'null'=>true])
-              ->update();
+                ->addColumn('introduction', 'string', ['comment'=>'用户简介', 'null'=>true])
+                ->update();
     }
 }

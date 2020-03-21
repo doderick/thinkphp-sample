@@ -31,11 +31,11 @@ class CreatePasswordResetsTable extends Migrator
         // create the table
         $table = $this->table('password_resets');
         $table->addColumn('email',      'string',    ['comment'=>'用户邮箱'])
-              ->addColumn('token',      'string',    ['comment'=>'密码重置令牌'])
-              ->addColumn('created_at', 'timestamp', ['comment'=>'密码重置令牌的创建时间'])
-              ->addIndex('email')
-              ->addIndex('token')
-              ->create();
+                ->addColumn('token',      'string',    ['comment'=>'密码重置令牌'])
+                ->addColumn('created_at', 'timestamp', ['comment'=>'密码重置令牌的创建时间'])
+                ->addIndex('email')
+                ->addIndex('token')
+                ->create();
 
     }
 }

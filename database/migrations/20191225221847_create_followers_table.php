@@ -30,10 +30,10 @@ class CreateFollowersTable extends Migrator
     {
         $table = $this->table('followers', ['engine'=>'InnoDB', 'signed'=>false]);
         $table->addColumn('user_id',     'integer', ['comment' => '用户id'])
-              ->addColumn('follower_id', 'integer', ['comment' => '粉丝id'])
-              ->addTimestamps()
-              ->addIndex('user_id')
-              ->addIndex('follower_id')
-              ->create();
+                ->addColumn('follower_id', 'integer', ['comment' => '粉丝id'])
+                ->addTimestamps()
+                ->addIndex('user_id')
+                ->addIndex('follower_id')
+                ->create();
     }
 }

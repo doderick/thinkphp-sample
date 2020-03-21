@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Author: doderick
+ * @Date: 2020-02-09 23:50:59
+ * @LastEditTime : 2020-02-10 23:18:52
+ * @LastEditors  : doderick
+ * @Description: 帖子数据填充文件
+ * @FilePath: /database/seeds/StatusesSeeder.php
+ */
 
 use Faker\Factory;
 use think\migration\Seeder;

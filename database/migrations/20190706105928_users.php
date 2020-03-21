@@ -31,12 +31,12 @@ class Users extends Migrator
         // create the table
         $table = $this->table('users', ['engine'=>'InnoDB', 'signed'=>false]);
         $table->addColumn('name',              'string',    ['comment'=>'用户名'])
-              ->addColumn('email',             'string',    ['comment'=>'用户邮箱'])
-              ->addColumn('email_verified_at', 'timestamp', ['null'=>true, 'comment'=>'用户邮箱验证时间'])
-              ->addColumn('password',          'string',    ['limit'=>60, 'comment'=>'用户登录密码'])
-              ->addColumn('rememberToken',     'string',    ['null'=>true, 'comment'=>'记住我'])
-              ->addTimestamps()
-              ->addIndex(['email'], ['unique'=>true])
-              ->create();
+                ->addColumn('email',             'string',    ['comment'=>'用户邮箱'])
+                ->addColumn('email_verified_at', 'timestamp', ['null'=>true, 'comment'=>'用户邮箱验证时间'])
+                ->addColumn('password',          'string',    ['limit'=>60, 'comment'=>'用户登录密码'])
+                ->addColumn('rememberToken',     'string',    ['null'=>true, 'comment'=>'记住我'])
+                ->addTimestamps()
+                ->addIndex(['email'], ['unique'=>true])
+                ->create();
     }
 }
