@@ -2,9 +2,9 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 16:59:56
- * @LastEditTime : 2020-02-09 17:54:18
- * @LastEditors  : doderick
- * @Description: 帖子分类填充文件
+ * @LastEditTime: 2020-03-24 23:33:40
+ * @LastEditors: doderick
+ * @Description: 关注数据填充文件
  * @FilePath: /database/seeds/FollowersSeeder.php
  */
 
@@ -13,13 +13,6 @@ use think\migration\Seeder;
 
 class FollowersSeeder extends Seeder
 {
-    public function getDependencies()
-    {
-        return [
-            'UsersSeeder',
-        ];
-    }
-
     /**
      * Run Method.
      *

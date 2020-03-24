@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-05 00:02:03
- * @LastEditTime: 2020-03-21 22:31:17
+ * @LastEditTime: 2020-01-14 23:41:54
  * @LastEditors: doderick
  * @Description: 验证码配置文件
  * @FilePath: /config/captcha.php

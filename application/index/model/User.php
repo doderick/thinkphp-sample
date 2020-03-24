@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-04 22:09:05
- * @LastEditTime: 2020-03-10 13:38:15
+ * @LastEditTime: 2020-03-24 23:50:54
  * @LastEditors: doderick
  * @Description: 用户模型
  * @FilePath: /application/index/model/User.php
@@ -11,6 +11,7 @@
 namespace app\index\model;
 
 use think\Model;
+use app\common\facade\Auth;
 use app\forums\model\Topic;
 use app\forums\model\Reply;
 use app\status\model\Status;
@@ -121,5 +122,31 @@ class User extends Model
     public function isOwnerOf($model) : bool
     {
         return $this->id == $model->user_id;
+    }
+
+    /**
+     * 发送通知
+     *
+     * @param object $instance 通知实例
+     * @return void
+     */
+    public function notify($instance)
+    {
+        // 如果回帖给自己则不进行通知
+        if ($this->id == Auth::user()->id) {
+            return;
+        }
+
+        // 通知类型为数据库时，通知计数器进行累加操作
+        if ('database' == config('notification.channel')) {
+            $this->notification_count = ['inc', 1];
+            $this->save();
+        }
+
+        // 将数据转换为数据库写入的格式
+        $message = $instance->toDatabase();
+
+        // 调用通知
+        $instance->notify(get_class($this), $this->id, $message);
     }
 }
