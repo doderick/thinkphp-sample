@@ -1,6 +1,12 @@
 <?php
-
-// 封装facade类(password)
+/*
+ * @Author: doderick
+ * @Date: 2020-03-02 14:09:12
+ * @LastEditTime: 2020-03-24 21:32:03
+ * @LastEditors: doderick
+ * @Description: 封装facade类(password)
+ * @FilePath: /application/common/facade/Password.php
+ */
 
 namespace app\common\facade;
 

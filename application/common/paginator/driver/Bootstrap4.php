@@ -1,6 +1,12 @@
 <?php
-// bootstrap4分页适配文件
-// @author doderick
+/*
+ * @Author: doderick
+ * @Date: 2020-03-02 14:09:12
+ * @LastEditTime: 2020-03-24 21:32:20
+ * @LastEditors: doderick
+ * @Description: bootstrap4分页适配文件
+ * @FilePath: /application/common/paginator/driver/Bootstrap4.php
+ */
 
 namespace app\common\paginator\driver;
 

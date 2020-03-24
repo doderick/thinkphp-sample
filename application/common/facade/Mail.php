@@ -1,6 +1,12 @@
 <?php
-
-// 封装facade类(auth)
+/*
+ * @Author: doderick
+ * @Date: 2020-03-02 14:09:12
+ * @LastEditTime: 2020-03-24 21:31:57
+ * @LastEditors: doderick
+ * @Description: 封装facade类(mail)
+ * @FilePath: /application/common/facade/Mail.php
+ */
 
 namespace app\common\facade;
 

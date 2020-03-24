@@ -1,6 +1,12 @@
 <?php
-
-// 封装facade类(Str)
+/*
+ * @Author: doderick
+ * @Date: 2020-03-02 14:09:12
+ * @LastEditTime: 2020-03-24 21:32:12
+ * @LastEditors: doderick
+ * @Description: 封装facade类(Str)
+ * @FilePath: /application/common/facade/Str.php
+ */
 
 namespace app\common\facade;
 

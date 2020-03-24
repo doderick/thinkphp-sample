@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Author: doderick
+ * @Date: 2020-03-02 14:09:12
+ * @LastEditTime: 2020-03-24 21:31:38
+ * @LastEditors: doderick
+ * @Description: 邮件类
+ * @FilePath: /application/common/Mail.php
+ */
 
 namespace app\common;
 

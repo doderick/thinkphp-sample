@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Author: doderick
+ * @Date: 2020-03-02 14:09:12
+ * @LastEditTime: 2020-03-24 21:31:16
+ * @LastEditors: doderick
+ * @Description: 用户认证类
+ * @FilePath: /application/common/Auth.php
+ */
 
 namespace app\common;
 
@@ -99,13 +107,18 @@ class Auth
     public function user()
     {
         // 判断有没有调用过logout方法,即用户是否执行了登出操作
-        if ($this->loggedOut) return;
+        if ($this->loggedOut) {
+            return false;
+        }
         // 尝试获取用户信息,并返回
-        if (!is_null($this->user)) return $this->user;
+        if (!is_null($this->user)) {
+            return $this->user;
+        }
         // 尝试从session中取出用户信息并返回
         $userFromSession = Session::get('user');
         if (!is_null($userFromSession)) {
-            $this->user = $userFromSession;
+            $user = User::where('id', $userFromSession->id)->find();
+            $this->user = $user;
         }
         // 尝试从cookie中取出用户信息
         else {
