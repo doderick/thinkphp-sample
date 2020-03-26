@@ -252,3 +252,19 @@ section.user_info {
         color: #b3b3b3;
     }
 }
+
+/* Notifications */
+.notification-badge {
+    .badge {
+        font-size: 12px;
+        margin-top: 14px;
+    }
+
+    .badge-hint {
+        background-color: #d15b47 !important;
+    }
+
+    .badge-secondary {
+        background-color: #ebe8e8;
+    }
+}

@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2019-07-04 12:03:43
- * @LastEditTime: 2020-03-11 23:44:24
+ * @LastEditTime: 2020-03-25 11:06:07
  * @LastEditors: doderick
  * @Description: 路由
  * @FilePath: /route/route.php
@@ -80,6 +80,9 @@ Route::group('replies', function() {
     Route::delete('<id>', 'forums/RepliesController/delete')->name('replies.delete');
 })->model('app\forums\model\Reply');
 Route::post('replies/save', 'forums/RepliesController/save')->name('replies.save');
+
+// 通知相关路由
+Route::get('notifications', 'NotificationsController/index')->name('notifications.index');
 
 
 return [

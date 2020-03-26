@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-04 22:09:05
- * @LastEditTime: 2020-03-24 23:50:54
+ * @LastEditTime: 2020-03-26 21:06:05
  * @LastEditors: doderick
  * @Description: 用户模型
  * @FilePath: /application/index/model/User.php
@@ -60,10 +60,28 @@ class User extends Model
         return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
     }
 
+    // 关联帖子
+    public function topics()
+    {
+        return $this->hasMany(Topic::class);
+    }
+
     // 设置回帖关联
     public function replies()
     {
         return $this->hasMany(Reply::class);
+    }
+
+    // 设置通知关联
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class, 'notifications', 'notifiable_id');
+    }
+
+    // 未读通知
+    public function unreadNotifications()
+    {
+        return $this->notifications()->whereNull('read_time')->fetchCollection(false);
     }
 
     /**
@@ -107,12 +125,6 @@ class User extends Model
         return $this->followings()->attached($user_id);
     }
 
-    // 关联帖子
-    public function topics()
-    {
-        return $this->hasMany(Topic::class);
-    }
-
     /**
      * 判断当前用户是否为模型的所有者
      *
@@ -148,5 +160,33 @@ class User extends Model
 
         // 调用通知
         $instance->notify(get_class($this), $this->id, $message);
+    }
+
+    /**
+     * 将通知标记为已读
+     *
+     * @return void
+     */
+    public function markAsRead()
+    {
+        $this->unreadNotifications()->all()->each(function($notification) {
+            $notification->markAsRead();
+        });
+        $this->notification_count = 0;
+        $this->save();
+    }
+
+    /**
+     * 将通知标记为未读
+     *
+     * @return void
+     */
+    public function markAsUnread()
+    {
+        $this->Notifications()->whereNotNull('read_time')->all()->each(function($notification) {
+            $notification->markAsUnread();
+        });
+        $this->notification_count = $this->unreadNotifications()->all()->count();
+        $this->save();
     }
 }

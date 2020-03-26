@@ -1,0 +1,32 @@
+{extend name="../resources/views/layouts/layout.html" /}
+{block name="title"}
+    我的通知
+{/block}
+{block name="content"}
+    <div class="container">
+        <div class="col-md-10 offset-md-1">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="text-xs-center">
+                        <i class="far fa-bell" aria-hidden="true"></i> 我的通知
+                    </h3>
+                    <hr>
+
+                    {if count($notifications) >0}
+                        <div class="list-unstyled notification-list">
+                            {foreach $notifications as $key => $notification}
+                                {php}$notification->data = json_decode($notification->data, true);{/php}
+                                {include file="../application/index/view/notifications/types/_topic_replied.html"}
+                            {/foreach}
+                            {$notifications|raw}
+                        </div>
+                    {else}
+                        <div class="empty-block">
+                            暂无消息！
+                        </div>
+                    {/if}
+                </div>
+            </div>
+        </div>
+    </div>
+{/block}

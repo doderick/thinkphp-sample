@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-03-13 16:00:26
- * @LastEditTime: 2020-03-24 23:58:44
+ * @LastEditTime: 2020-03-26 21:05:36
  * @LastEditors: doderick
  * @Description: 通知类
  * @FilePath: /application/common/Notification.php
@@ -70,7 +70,7 @@ class Notification
             'type'            => get_class($this),
             'notifiable_type' => $type,
             'notifiable_id'   => $id,
-            'data'            => serialize($message),
+            'data'            => json_encode($message),
             'read_time'       => null,
         ];
 

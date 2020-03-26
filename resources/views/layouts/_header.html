@@ -33,11 +33,16 @@
                     </li>
                 {else /}
                     <li class="nav-item">
-                        <a class="nav-link" href="{:url('users.index')}">用户列表</a>
+                        <a class="nav-link mt-2" href="{:url('users.index')}">用户列表</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{:url('topics.create')}" class="nav-link mt-2 mr-2 font-weight-blod">
+                        <a href="{:url('topics.create')}" class="nav-link mt-2 mr-2 font-weight-bold">
                             <i class="fa fa-plus"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item notification-badge">
+                        <a href="{:url('notifications.index')}" class="nav-link mr-3 badge badge-pill badge-{:app\\common\\facade\\Auth::user()->notification_count > 0 ? 'hint' : 'secondary' } text-white">
+                            {:app\\common\\facade\\Auth::user()->notification_count}
                         </a>
                     </li>
                     <li class="nav-item dropdown">

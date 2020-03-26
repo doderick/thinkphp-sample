@@ -1,0 +1,24 @@
+<li class="media mt-2 {if $key != count($notifications) - 1}border-bottom{/if}">
+    <div class="media-left">
+        <a href="{:url('users.read', ['id'=>$notification->data['user_id']])}">
+            <img src="{$notification->data['user_avatar']}" alt="{$notification->data['user_name']}" class="media-object img-thumbnail mr-3" style="width: 48px;height: 48px;" />
+        </a>
+    </div>
+
+    <div class="media-body">
+        <div class="media-heading mt-0 mb-1 text-secondary">
+            <a href="{:url('users.read', ['id'=>$notification->data['user_id']])}">
+                {$notification->data['user_name']}
+            </a>
+            评论了
+            <a href="{$notification->data['topic_link']}">{$notification->data['topic_title']}</a>
+            <span class="meta float-right" title="{$notification->create_time}">
+                <i class="far fa-clock"></i>
+                {:Carbon\\Carbon::parse($notification->create_time)->locale(config('default_lang'))->diffForHumans()}
+            </span>
+        </div>
+        <div class="reply-content">
+            {$notification->data['reply_content']|raw}
+        </div>
+    </div>
+</li>

@@ -17654,3 +17654,18 @@ section.user_info h2 a:hover {
   color: #b3b3b3;
 }
 
+/* Notifications */
+
+.notification-badge .badge {
+  font-size: 12px;
+  margin-top: 14px;
+}
+
+.notification-badge .badge-hint {
+  background-color: #d15b47 !important;
+}
+
+.notification-badge .badge-secondary {
+  background-color: #ebe8e8;
+}
+
