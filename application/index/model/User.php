@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-04 22:09:05
- * @LastEditTime: 2020-03-26 21:06:05
+ * @LastEditTime: 2020-03-26 22:17:40
  * @LastEditors: doderick
  * @Description: 用户模型
  * @FilePath: /application/index/model/User.php
@@ -75,13 +75,13 @@ class User extends Model
     // 设置通知关联
     public function notifications()
     {
-        return $this->hasMany(Notification::class, 'notifications', 'notifiable_id');
+        return $this->morphMany('Notification', 'notifiable');
     }
 
     // 未读通知
     public function unreadNotifications()
     {
-        return $this->notifications()->whereNull('read_time')->fetchCollection(false);
+        return $this->notifications()->whereNull('read_time');
     }
 
     /**
@@ -169,7 +169,7 @@ class User extends Model
      */
     public function markAsRead()
     {
-        $this->unreadNotifications()->all()->each(function($notification) {
+        $this->unreadNotifications->each(function($notification) {
             $notification->markAsRead();
         });
         $this->notification_count = 0;
@@ -183,10 +183,10 @@ class User extends Model
      */
     public function markAsUnread()
     {
-        $this->Notifications()->whereNotNull('read_time')->all()->each(function($notification) {
+        $this->notifications->each(function($notification) {
             $notification->markAsUnread();
         });
-        $this->notification_count = $this->unreadNotifications()->all()->count();
+        $this->notification_count = $this->unreadNotifications->count();
         $this->save();
     }
 }

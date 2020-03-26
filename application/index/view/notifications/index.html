@@ -18,7 +18,6 @@
                                 {php}$notification->data = json_decode($notification->data, true);{/php}
                                 {include file="../application/index/view/notifications/types/_topic_replied.html"}
                             {/foreach}
-                            {$notifications|raw}
                         </div>
                     {else}
                         <div class="empty-block">

@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-03-24 15:42:37
- * @LastEditTime: 2020-03-26 09:42:21
+ * @LastEditTime: 2020-03-26 22:18:29
  * @LastEditors: doderick
  * @Description: 通知控制器
  * @FilePath: /application/index/controller/NotificationsController.php
@@ -28,7 +28,7 @@ class NotificationsController extends Controller
      */
     public function index()
     {
-        $notifications = Auth::user()->unreadNotifications()->paginate(20);
+        $notifications = Auth::user()->unreadNotifications;
         Auth::user()->markAsRead();
         return view('notifications/index', compact('notifications'));
     }
