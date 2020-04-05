@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-01-04 22:09:05
- * @LastEditTime: 2020-03-26 22:17:40
+ * @LastEditTime: 2020-04-05 19:40:25
  * @LastEditors: doderick
  * @Description: 用户模型
  * @FilePath: /application/index/model/User.php
@@ -81,7 +81,7 @@ class User extends Model
     // 未读通知
     public function unreadNotifications()
     {
-        return $this->notifications()->whereNull('read_time');
+        return $this->notifications()->whereNull('read_time')->order('create_time', 'desc');
     }
 
     /**
@@ -149,14 +149,21 @@ class User extends Model
             return;
         }
 
-        // 通知类型为数据库时，通知计数器进行累加操作
-        if ('database' == config('notification.channel')) {
+        // 获取通知方式
+        $channels = explode(',', $instance->getChannel());
+
+        if (in_array('database', $channels)) {
+            // 通知类型为数据库时，通知计数器进行累加操作
             $this->notification_count = ['inc', 1];
             $this->save();
+            // 将数据转换为数据库写入格式
+            $message['database'] = $instance->toDatabase();
         }
 
-        // 将数据转换为数据库写入的格式
-        $message = $instance->toDatabase();
+        if (in_array('mail', $channels)) {
+            // 通知类型为邮件类型时，将数据转换为邮件格式
+            $message['mail'] = $instance->toMail();
+        }
 
         // 调用通知
         $instance->notify(get_class($this), $this->id, $message);

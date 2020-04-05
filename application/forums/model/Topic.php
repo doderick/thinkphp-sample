@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-02-09 23:25:36
- * @LastEditTime: 2020-03-11 23:53:08
+ * @LastEditTime: 2020-04-05 19:33:26
  * @LastEditors: doderick
  * @Description: 帖子模型
  * @FilePath: /application/forums/model/Topic.php
@@ -92,11 +92,16 @@ class Topic extends Model
      * 生成带有 slug 的 url
      *
      * @param array $params 路由参数
-     * @return void
+     * @param string $anchor 锚点
+     * @return string
      */
-    public function link(array $params = [])
+    public function link(array $params = [], string $anchor = '') : string
     {
-        return url('topics.read', array_merge(['id' => $this->id, 'slug' => $this->slug ?? ''], $params));
+        $url = 'topics.read';
+        if ($anchor) {
+            $url .= "?#{$anchor}";
+        }
+        return url($url, array_merge(['id' => $this->id, 'slug' => $this->slug ?? ''], $params), false, true);
     }
 
     /**

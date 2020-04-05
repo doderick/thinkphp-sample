@@ -196,9 +196,10 @@ class PasswordController extends Controller
         $record  = DB::table('password_resets')->find($id);
         $view    = 'emails/passwords/reset';
         $data    = compact('record');
+        $body    = Mail::getMailBody($view, $data);
         $to      = $record['email'];
         $subject = "密码重置";
-        Mail::send($view, $data, $to, $subject);
+        Mail::send($to, $subject, $body);
     }
 
     /**

@@ -2,7 +2,7 @@
 /*
  * @Author: doderick
  * @Date: 2020-03-02 14:09:12
- * @LastEditTime: 2020-03-24 21:31:38
+ * @LastEditTime: 2020-04-05 18:39:54
  * @LastEditors: doderick
  * @Description: 邮件类
  * @FilePath: /application/common/Mail.php
@@ -10,14 +10,22 @@
 
 namespace app\common;
 
-use PHPMailer\PHPMailer;
-use PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 class mail
 {
-    public function send($view = '', $data = '', $to = '', $subject = '')
+    /**
+     * 发送邮件
+     *
+     * @param string $to 收件人邮箱地址
+     * @param string $subject 邮件主题
+     * @param string $body 邮件正文
+     * @return void
+     */
+    public function send(string $to = '', string $subject = '', string $body = '')
     {
-        $mailSender = new PHPMailer\PHPMailer();
+        $mailSender = new PHPMailer();
 
         // Debug mode
         $mailSender->SMTPDebug  = config('mail.debug');
@@ -39,8 +47,24 @@ class mail
         // Content
         $mailSender->isHTML(true);
         $mailSender->Subject = $subject;
-        $mailSender->Body    = view($view, $data)->getContent();
+        $mailSender->Body    = $body;
 
-        $mailSender->send();
+        try {
+            $mailSender->send();
+        } catch (Exception $e) {
+            throw $mailSender->ErrorInfo;
+        }
+    }
+
+    /**
+     * 获取邮件内容
+     *
+     * @param string $view 邮件正文模板
+     * @param array $data 邮件正文填充数据
+     * @return string
+     */
+    public function getMailBody(string $view, array $data) : string
+    {
+        return view($view, $data)->getContent();
     }
 }

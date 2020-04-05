@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>帖子收到新回复</title>
+</head>
+<body>
+    <p>
+        <a href="{:url('users.read', ['id'=>$body['replier_id']], false, true)}">
+            {$body['replier_name']}
+        </a>
+        <span> 回复了你的帖子 </span>
+        <a href="{$body['topic_link']}">
+            {$body['topic_title']}
+        </a>
+    </p>
+    <br/><br/>
+    <p>
+        内容如下:
+        <br/>
+    </p>
+    <p>
+        {$body['reply_content']|raw}
+    </p>
+    <p>&nbsp;</p>
+    <p>--</p>
+    <p>© 2020 ThinkPHP Sample. All rights reserved.</p>
+
+</body>
+</html>

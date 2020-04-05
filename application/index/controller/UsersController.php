@@ -1,4 +1,12 @@
 <?php
+/*
+ * @Author: doderick
+ * @Date: 2019-07-07 12:05:03
+ * @LastEditTime: 2020-04-05 19:36:47
+ * @LastEditors: doderick
+ * @Description: 用户控制器
+ * @FilePath: /application/index/controller/UsersController.php
+ */
 
 namespace app\index\controller;
 
@@ -281,11 +289,12 @@ class UsersController extends Controller
      */
     public function sendActivateEmailTo($user)
     {
-        $view = 'emails/users/activate';
-        $data = compact('user');
-        $to = $user->email;
+        $view    = 'emails/users/activate';
+        $data    = compact('user');
+        $body    = Mail::getMailBody($view, $data);
+        $to      = $user->email;
         $subject = "感谢您注册Sample！请确认您的邮箱地址。";
-        Mail::send($view, $data, $to, $subject);
+        Mail::send($to, $subject, $body);
     }
 
     /**
